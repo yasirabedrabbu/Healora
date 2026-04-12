@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+:root {
+  --ink: #0d1117;
+  --ink-2: #1e2530;
+  --mist: #f4f5f7;
+  --mist-2: #eaecf0;
+  --steel: #6b7685;
+  --steel-2: #9aa3b0;
+  --accent: #1a4fc4;
+  --accent-light: #e8eefb;
+  --accent-mid: #4a73d4;
+  --teal: #0d9e82;
+  --teal-light: #e0f5f0;
+  --gold: #c49a38;
+  --gold-light: #fdf3dc;
+  --danger-light: #fde8e8;
+  --danger: #c93c3c;
+  --white: #ffffff;
+  --border: rgba(0,0,0,0.07);
+  --border-strong: rgba(0,0,0,0.13);
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'Outfit', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  background: var(--white);
+  color: var(--ink);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 56px;
+  height: 68px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  animation: fadeDown 0.6s ease both;
+}
+
+@keyframes fadeDown {
+  from { opacity:0; transform:translateY(-12px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.logo-mark {
+  width: 34px; height: 34px;
+  background: var(--ink);
+  border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.logo-mark svg { width: 18px; height: 18px; }
+
+.logo-name {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--ink);
+  letter-spacing: -0.2px;
+}
+
+.logo-name b { font-weight: 500; color: var(--accent); }
+
+.nav-links {
+  display: flex;
+  gap: 36px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 13.5px;
+  font-weight: 400;
+  color: var(--steel);
+  text-decoration: none;
+  letter-spacing: 0.1px;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--ink); }
+
+.nav-right { display: flex; align-items: center; gap: 12px; }
+
+.btn-ghost {
+  font-size: 13.5px;
+  color: var(--steel);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--sans);
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn-ghost:hover { background: var(--mist); color: var(--ink); }
+
+.btn-dark {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--white);
+  background: var(--ink);
+  border: none;
+  cursor: pointer;
+  font-family: var(--sans);
+  padding: 9px 22px;
+  border-radius: 9px;
+  transition: background 0.2s, transform 0.15s;
+  letter-spacing: 0.1px;
+}
+
+.btn-dark:hover { background: var(--ink-2); transform: translateY(-1px); }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 68px 56px 0;
+  position: relative;
+  overflow: hidden;
+  background: var(--white);
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-bg-circle {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.hbc1 {
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(26,79,196,0.06) 0%, transparent 70%);
+  top: -100px; right: -80px;
+  animation: floatA 8s ease-in-out infinite;
+}
+
+.hbc2 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(13,158,130,0.05) 0%, transparent 70%);
+  bottom: 80px; left: 5%;
+  animation: floatB 10s ease-in-out infinite;
+}
+
+.hbc3 {
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(196,154,56,0.07) 0%, transparent 70%);
+  top: 30%; left: 40%;
+  animation: floatA 12s ease-in-out infinite reverse;
+}
+
+@keyframes floatA {
+  0%,100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-20px) scale(1.03); }
+}
+
+@keyframes floatB {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(15px); }
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  padding-top: 60px;
+  padding-bottom: 80px;
+}
+
+.hero-content { animation: riseIn 0.8s 0.2s ease both; }
+.hero-visual  { animation: riseIn 0.8s 0.4s ease both; }
+
+@keyframes riseIn {
+  from { opacity:0; transform:translateY(24px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-light);
+  padding: 5px 13px;
+  border-radius: 100px;
+  margin-bottom: 28px;
+  border: 1px solid rgba(26,79,196,0.15);
+}
+
+.hero-tag-dot {
+  width: 5px; height: 5px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.7); }
+}
+
+.hero-h1 {
+  font-family: var(--serif);
+  font-size: 62px;
+  font-weight: 300;
+  line-height: 1.08;
+  letter-spacing: -1.5px;
+  color: var(--ink);
+  margin-bottom: 22px;
+}
+
+.hero-h1 em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent);
+}
+
+.hero-h1 span {
+  display: block;
+  font-size: 56px;
+}
+
+.hero-lead {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--steel);
+  line-height: 1.75;
+  max-width: 420px;
+  margin-bottom: 40px;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 48px;
+}
+
+.btn-primary-lg {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--ink);
+  color: var(--white);
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 500;
+  padding: 14px 30px;
+  border-radius: 11px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+  letter-spacing: 0.1px;
+}
+
+.btn-primary-lg:hover { background: var(--ink-2); transform: translateY(-2px); }
+
+.btn-text-lg {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--sans);
+  font-size: 14.5px;
+  font-weight: 400;
+  color: var(--steel);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.btn-text-lg:hover { color: var(--ink); }
+
+.btn-arrow {
+  width: 20px; height: 20px;
+  background: var(--mist);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.btn-text-lg:hover .btn-arrow { background: var(--mist-2); transform: translateX(3px); }
+
+.hero-social-proof {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.avatar-stack {
+  display: flex;
+}
+
+.avatar-stack-item {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  border: 2px solid var(--white);
+  font-size: 10px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: -8px;
+}
+
+.avatar-stack-item:first-child { margin-left: 0; }
+
+.avi-1 { background: var(--accent-light); color: var(--accent); }
+.avi-2 { background: var(--teal-light); color: var(--teal); }
+.avi-3 { background: var(--gold-light); color: var(--gold); }
+.avi-4 { background: var(--mist-2); color: var(--steel); }
+
+.sp-text {
+  font-size: 13px;
+  color: var(--steel);
+  font-weight: 300;
+}
+
+.sp-text b {
+  font-weight: 500;
+  color: var(--ink);
+}
+
+/* ── HERO CARD ── */
+.hero-card-wrap {
+  position: relative;
+}
+
+.h-card {
+  background: var(--white);
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  padding: 22px;
+  box-shadow: 0 2px 24px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.02);
+  position: relative;
+  z-index: 2;
+}
+
+.hc-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.hc-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.hc-meta {
+  font-size: 12px;
+  color: var(--steel-2);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.hc-dot-green {
+  width: 6px; height: 6px;
+  background: var(--teal);
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Vitals row */
+.vitals-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.vital-box {
+  background: var(--mist);
+  border-radius: 12px;
+  padding: 13px 14px;
+}
+
+.vb-label {
+  font-size: 10.5px;
+  color: var(--steel-2);
+  font-weight: 400;
+  margin-bottom: 5px;
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+}
+
+.vb-value {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.vb-unit {
+  font-size: 10px;
+  color: var(--steel-2);
+  font-weight: 400;
+  margin-top: 3px;
+}
+
+.vb-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 100px;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+.vs-normal { background: #e0f5f0; color: var(--teal); }
+.vs-high   { background: var(--danger-light); color: var(--danger); }
+.vs-low    { background: var(--gold-light); color: var(--gold); }
+
+/* Mini chart */
+.mini-chart {
+  height: 52px;
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  margin-bottom: 20px;
+  padding: 0 2px;
+}
+
+.mc-bar {
+  flex: 1;
+  border-radius: 4px 4px 0 0;
+  transition: opacity 0.2s;
+}
+
+.mc-bar:hover { opacity: 0.7; }
+
+/* Appointments */
+.appt-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.appt-title { font-size: 12px; font-weight: 500; color: var(--ink); }
+
+.appt-link {
+  font-size: 11px;
+  color: var(--accent);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.appt-list { display: flex; flex-direction: column; gap: 8px; }
+
+.appt-row {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.appt-row:hover { border-color: var(--border-strong); background: var(--mist); }
+
+.appt-time {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--accent);
+  width: 42px;
+  flex-shrink: 0;
+}
+
+.appt-av {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  font-size: 9.5px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.aa-1 { background: var(--accent-light); color: var(--accent); }
+.aa-2 { background: var(--teal-light); color: var(--teal); }
+.aa-3 { background: var(--gold-light); color: var(--gold); }
+
+.appt-info { flex: 1; min-width: 0; }
+.appt-name { font-size: 12.5px; font-weight: 500; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.appt-dept { font-size: 11px; color: var(--steel-2); }
+
+.appt-tag {
+  font-size: 10px;
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: 100px;
+  flex-shrink: 0;
+}
+
+.at-in  { background: var(--teal-light); color: var(--teal); }
+.at-wt  { background: var(--gold-light); color: var(--gold); }
+.at-up  { background: var(--accent-light); color: var(--accent); }
+
+/* Floating cards */
+.float-stat {
+  position: absolute;
+  background: var(--white);
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  padding: 14px 18px;
+  z-index: 3;
+  animation: floatB 6s ease-in-out infinite;
+}
+
+.fs-1 {
+  bottom: -28px;
+  left: -44px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 180px;
+}
+
+.fs-icon {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.fsi-green { background: var(--teal-light); }
+.fsi-blue  { background: var(--accent-light); }
+
+.fs-label { font-size: 11px; color: var(--steel); margin-bottom: 3px; }
+.fs-val   { font-size: 17px; font-weight: 500; color: var(--ink); }
+
+.fs-2 {
+  top: 32px;
+  right: -36px;
+  min-width: 140px;
+  animation-delay: -3s;
+}
+
+.fs-2-inner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.fs-rating { font-size: 22px; font-weight: 500; color: var(--ink); }
+.fs-stars { display: flex; gap: 2px; margin-bottom: 3px; }
+.star { font-size: 12px; color: var(--gold); }
+.fs-sub { font-size: 10px; color: var(--steel-2); margin-top: 2px; }
+
+/* ── TRUST BAR ── */
+.trust-bar {
+  background: var(--mist);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 22px 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 13px;
+  color: var(--steel);
+  font-weight: 300;
+  white-space: nowrap;
+}
+
+.trust-icon {
+  width: 28px; height: 28px;
+  border-radius: 7px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ── STATS ── */
+.stats {
+  padding: 80px 56px;
+  max-width: 1212px;
+  margin: 0 auto;
+}
+
+.stats-inner {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.stat-cell {
+  padding: 36px 32px;
+  border-right: 1px solid var(--border);
+  transition: background 0.2s;
+}
+
+.stat-cell:last-child { border-right: none; }
+.stat-cell:hover { background: var(--mist); }
+
+.stat-num {
+  font-family: var(--serif);
+  font-size: 48px;
+  font-weight: 300;
+  color: var(--ink);
+  line-height: 1;
+  margin-bottom: 6px;
+  letter-spacing: -1px;
+}
+
+.stat-num sup {
+  font-size: 24px;
+  color: var(--accent);
+  vertical-align: super;
+  font-family: var(--serif);
+}
+
+.stat-label { font-size: 13px; color: var(--steel); font-weight: 300; }
+.stat-change { font-size: 11px; color: var(--teal); font-weight: 500; margin-top: 6px; }
+
+/* ── FEATURES ── */
+.features {
+  padding: 0 56px 96px;
+  max-width: 1212px;
+  margin: 0 auto;
+}
+
+.section-header { margin-bottom: 56px; }
+.section-eyebrow {
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+
+.section-h2 {
+  font-family: var(--serif);
+  font-size: 44px;
+  font-weight: 300;
+  line-height: 1.12;
+  letter-spacing: -0.8px;
+  color: var(--ink);
+  max-width: 540px;
+}
+
+.section-h2 em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 16px;
+}
+
+.feat-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 28px;
+  transition: border-color 0.25s, transform 0.25s;
+  cursor: default;
+}
+
+.feat-card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-3px);
+}
+
+.feat-card.large {
+  grid-row: span 2;
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
+.feat-card.large:hover { border-color: var(--ink-2); background: var(--ink-2); }
+
+.feat-icon-wrap {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.fiw-blue  { background: var(--accent-light); }
+.fiw-teal  { background: var(--teal-light); }
+.fiw-gold  { background: var(--gold-light); }
+.fiw-white { background: rgba(255,255,255,0.12); }
+.fiw-mist  { background: var(--mist); }
+
+.feat-h3 {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 9px;
+}
+
+.feat-card.large .feat-h3 { color: var(--white); }
+
+.feat-desc {
+  font-size: 13.5px;
+  color: var(--steel);
+  line-height: 1.65;
+  font-weight: 300;
+}
+
+.feat-card.large .feat-desc { color: rgba(255,255,255,0.55); }
+
+.feat-preview {
+  margin-top: 24px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 16px;
+}
+
+.fp-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.fp-row:last-child { border-bottom: none; }
+
+.fp-av {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  font-size: 8px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.fpa-1 { background: rgba(74,115,212,0.3); color: #93b4f7; }
+.fpa-2 { background: rgba(13,158,130,0.3); color: #5dd4b8; }
+.fpa-3 { background: rgba(196,154,56,0.3); color: #e8c36a; }
+
+.fp-name { font-size: 12px; color: rgba(255,255,255,0.7); flex: 1; }
+.fp-badge { font-size: 10px; padding: 2px 7px; border-radius: 100px; }
+.fpb-g { background: rgba(13,158,130,0.2); color: #5dd4b8; }
+.fpb-y { background: rgba(196,154,56,0.2); color: #e8c36a; }
+.fpb-b { background: rgba(74,115,212,0.2); color: #93b4f7; }
+
+/* ── CTA ── */
+.cta {
+  margin: 0 56px 80px;
+  border-radius: 24px;
+  background: var(--ink);
+  padding: 72px 80px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-bg-shape {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.cbs1 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(26,79,196,0.25) 0%, transparent 70%);
+  top: -100px; right: 200px;
+}
+
+.cbs2 {
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(13,158,130,0.15) 0%, transparent 70%);
+  bottom: -80px; right: -40px;
+}
+
+.cta-content { position: relative; z-index: 1; }
+
+.cta-eyebrow {
+  font-size: 11px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 16px;
+  font-weight: 400;
+}
+
+.cta-h2 {
+  font-family: var(--serif);
+  font-size: 42px;
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1.15;
+  letter-spacing: -0.8px;
+  margin-bottom: 12px;
+}
+
+.cta-h2 em { font-style: italic; color: rgba(147,180,247,0.9); }
+
+.cta-sub {
+  font-size: 14px;
+  color: rgba(255,255,255,0.45);
+  font-weight: 300;
+}
+
+.cta-right { position: relative; z-index: 1; }
+
+.btn-white-lg {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: var(--white);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 500;
+  padding: 14px 30px;
+  border-radius: 11px;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.btn-white-lg:hover { transform: translateY(-2px); opacity: 0.95; }
+
+.cta-note {
+  font-size: 12px;
+  color: rgba(255,255,255,0.3);
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-left { display: flex; align-items: center; gap: 20px; }
+.footer-copy { font-size: 12.5px; color: var(--steel-2); font-weight: 300; }
+
+.footer-links { display: flex; gap: 20px; }
+.footer-links a { font-size: 12.5px; color: var(--steel-2); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--steel); }
+
+.footer-badge {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  color: var(--steel-2);
+  background: var(--mist);
+  padding: 6px 14px;
+  border-radius: 100px;
+  border: 1px solid var(--border);
+}
+
+.fb-dot { width: 6px; height: 6px; background: var(--teal); border-radius: 50%; animation: pulse 2s ease-in-out infinite; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">
+    <div class="logo-mark">
+      <svg viewBox="0 0 18 18" fill="none">
+        <path d="M9 3v12M3 9h12" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="9" cy="9" r="3.5" stroke="white" stroke-width="1.5" stroke-dasharray="2 2"/>
+      </svg>
+    </div>
+    <span class="logo-name">Medi<b>Flow</b></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#">Platform</a></li>
+    <li><a href="#">For Clinics</a></li>
+    <li><a href="#">Integrations</a></li>
+    <li><a href="#">Pricing</a></li>
+    <li><a href="#">Security</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="btn-ghost">Sign in</button>
+    <button class="btn-dark">Get started free →</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="hero-bg-circle hbc1"></div>
+    <div class="hero-bg-circle hbc2"></div>
+    <div class="hero-bg-circle hbc3"></div>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-tag">
+        <div class="hero-tag-dot"></div>
+        HIPAA-certified · SOC 2 Type II
+      </div>
+      <h1 class="hero-h1">
+        Modern care<br>
+        <em>starts with</em>
+        <span>better data.</span>
+      </h1>
+      <p class="hero-lead">MediFlow unifies patient records, scheduling, and clinical insights into one elegant platform built for the way modern healthcare works.</p>
+      <div class="hero-actions">
+        <button class="btn-primary-lg">
+          Start free — no card needed
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M8 4l3 3-3 3" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="btn-text-lg">
+          Watch demo
+          <span class="btn-arrow">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5h6M5 2.5l2.5 2.5L5 7.5" stroke="#6b7685" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </button>
+      </div>
+      <div class="hero-social-proof">
+        <div class="avatar-stack">
+          <div class="avatar-stack-item avi-1">DR</div>
+          <div class="avatar-stack-item avi-2">SK</div>
+          <div class="avatar-stack-item avi-3">MH</div>
+          <div class="avatar-stack-item avi-4">+</div>
+        </div>
+        <p class="sp-text">Trusted by <b>2,000+</b> clinics worldwide</p>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-card-wrap">
+        <div class="h-card">
+          <div class="hc-topbar">
+            <span class="hc-title">Patient overview — Dr. Tanvir</span>
+            <span class="hc-meta"><div class="hc-dot-green"></div> Live</span>
+          </div>
+          <div class="vitals-row">
+            <div class="vital-box">
+              <div class="vb-label">Heart rate</div>
+              <div class="vb-value">78</div>
+              <div class="vb-unit">bpm</div>
+              <div class="vb-status vs-normal">Normal</div>
+            </div>
+            <div class="vital-box">
+              <div class="vb-label">Blood pressure</div>
+              <div class="vb-value">138</div>
+              <div class="vb-unit">mmHg systolic</div>
+              <div class="vb-status vs-high">Elevated</div>
+            </div>
+            <div class="vital-box">
+              <div class="vb-label">SpO₂</div>
+              <div class="vb-value">97</div>
+              <div class="vb-unit">%</div>
+              <div class="vb-status vs-normal">Normal</div>
+            </div>
+          </div>
+          <div class="mini-chart">
+            <div class="mc-bar" style="height:38%;background:#e8eefb;"></div>
+            <div class="mc-bar" style="height:55%;background:#c4d4f5;"></div>
+            <div class="mc-bar" style="height:44%;background:#e8eefb;"></div>
+            <div class="mc-bar" style="height:70%;background:#4a73d4;"></div>
+            <div class="mc-bar" style="height:52%;background:#c4d4f5;"></div>
+            <div class="mc-bar" style="height:62%;background:#378ADD;"></div>
+            <div class="mc-bar" style="height:48%;background:#c4d4f5;"></div>
+            <div class="mc-bar" style="height:78%;background:#1a4fc4;"></div>
+            <div class="mc-bar" style="height:58%;background:#c4d4f5;"></div>
+            <div class="mc-bar" style="height:42%;background:#e8eefb;"></div>
+            <div class="mc-bar" style="height:65%;background:#4a73d4;"></div>
+            <div class="mc-bar" style="height:53%;background:#c4d4f5;"></div>
+          </div>
+          <div class="appt-header">
+            <span class="appt-title">Upcoming appointments</span>
+            <a class="appt-link" href="#">View all</a>
+          </div>
+          <div class="appt-list">
+            <div class="appt-row">
+              <span class="appt-time">10:00</span>
+              <div class="appt-av aa-1">AR</div>
+              <div class="appt-info">
+                <div class="appt-name">Ahmed Rahman</div>
+                <div class="appt-dept">General · Rm 204</div>
+              </div>
+              <span class="appt-tag at-in">Checked in</span>
+            </div>
+            <div class="appt-row">
+              <span class="appt-time">10:45</span>
+              <div class="appt-av aa-2">SK</div>
+              <div class="appt-info">
+                <div class="appt-name">Sumaiya Khan</div>
+                <div class="appt-dept">Cardiology · Rm 312</div>
+              </div>
+              <span class="appt-tag at-wt">Waiting</span>
+            </div>
+            <div class="appt-row">
+              <span class="appt-time">11:30</span>
+              <div class="appt-av aa-3">TH</div>
+              <div class="appt-info">
+                <div class="appt-name">Tanvir Hossain</div>
+                <div class="appt-dept">Pediatrics · Rm 108</div>
+              </div>
+              <span class="appt-tag at-up">Upcoming</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="float-stat fs-1">
+          <div class="fs-icon fsi-green">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 12l4-4 3 3 5-6" stroke="#0d9e82" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <div class="fs-label">Avg wait time</div>
+            <div class="fs-val">8 min</div>
+          </div>
+        </div>
+
+        <div class="float-stat fs-2">
+          <div class="fs-label" style="font-size:11px;color:var(--steel-2);margin-bottom:4px;">Patient rating</div>
+          <div class="fs-2-inner">
+            <span class="fs-rating">4.9</span>
+            <div>
+              <div class="fs-stars">
+                <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+              </div>
+              <div class="fs-sub">from 3,241 reviews</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-item">
+    <div class="trust-icon">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1l1.2 2.5 2.8.4-2 2 .5 2.8L7 7.4l-2.5 1.3.5-2.8-2-2 2.8-.4L7 1z" fill="#c49a38"/></svg>
+    </div>
+    HIPAA Compliant
+  </div>
+  <div class="trust-item">
+    <div class="trust-icon">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1.5L2.5 4v3c0 3.1 2 5.9 4.5 6.5C9.5 12.9 11.5 10.1 11.5 7V4L7 1.5z" stroke="#1a4fc4" stroke-width="1.2" stroke-linejoin="round"/></svg>
+    </div>
+    SOC 2 Type II
+  </div>
+  <div class="trust-item">
+    <div class="trust-icon">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5" stroke="#0d9e82" stroke-width="1.2"/><path d="M5 7l1.5 1.5L9 5" stroke="#0d9e82" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    99.9% Uptime SLA
+  </div>
+  <div class="trust-item">
+    <div class="trust-icon">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="5" width="10" height="7" rx="1.5" stroke="#6b7685" stroke-width="1.2"/><path d="M4.5 5V3.5a2.5 2.5 0 015 0V5" stroke="#6b7685" stroke-width="1.2" stroke-linecap="round"/></svg>
+    </div>
+    End-to-end Encrypted
+  </div>
+  <div class="trust-item">
+    <div class="trust-icon">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5" stroke="#6b7685" stroke-width="1.2"/><path d="M7 4v3l2 1" stroke="#6b7685" stroke-width="1.2" stroke-linecap="round"/></svg>
+    </div>
+    24/7 Support
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stats-inner">
+    <div class="stat-cell">
+      <div class="stat-num">2<sup>k+</sup></div>
+      <div class="stat-label">Clinics onboarded</div>
+      <div class="stat-change">↑ 34% this quarter</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">1<sup>M+</sup></div>
+      <div class="stat-label">Patients managed</div>
+      <div class="stat-change">↑ 120% YoY</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">40<sup>%</sup></div>
+      <div class="stat-label">Faster appointments</div>
+      <div class="stat-change">Avg across all clients</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">4.9<sup>★</sup></div>
+      <div class="stat-label">Average clinic rating</div>
+      <div class="stat-change">from 3,241 reviews</div>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<div class="features">
+  <div class="section-header">
+    <div class="section-eyebrow">Platform capabilities</div>
+    <h2 class="section-h2">Built for clinics that refuse to <em>compromise.</em></h2>
+  </div>
+  <div class="features-grid">
+    <div class="feat-card large">
+      <div class="feat-icon-wrap fiw-white">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="9" r="5" stroke="white" stroke-width="1.5"/><path d="M4 19c0-3.9 3.1-7 7-7s7 3.1 7 7" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+      <h3 class="feat-h3">Unified patient records</h3>
+      <p class="feat-desc">Every consultation, prescription, lab result, and imaging scan — one complete, searchable patient timeline accessible from any device.</p>
+      <div class="feat-preview">
+        <div class="fp-row">
+          <div class="fp-av fpa-1">AR</div>
+          <span class="fp-name">Ahmed Rahman · ID #0042</span>
+          <span class="fp-badge fpb-g">Active</span>
+        </div>
+        <div class="fp-row">
+          <div class="fp-av fpa-2">SK</div>
+          <span class="fp-name">Sumaiya Khan · ID #0087</span>
+          <span class="fp-badge fpb-y">Follow-up</span>
+        </div>
+        <div class="fp-row">
+          <div class="fp-av fpa-3">TH</div>
+          <span class="fp-name">Tanvir Hossain · ID #0134</span>
+          <span class="fp-badge fpb-b">New</span>
+        </div>
+      </div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon-wrap fiw-blue">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="3" y="3" width="16" height="16" rx="3" stroke="#1a4fc4" stroke-width="1.5"/><path d="M8 11h6M11 8v6" stroke="#1a4fc4" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+      <h3 class="feat-h3">Smart scheduling</h3>
+      <p class="feat-desc">AI fills cancellations in real time and sends automated reminders — cutting no-shows by up to 40%.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon-wrap fiw-teal">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M5 16l4-4 3 3 5-7" stroke="#0d9e82" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="3" width="16" height="16" rx="3" stroke="#0d9e82" stroke-width="1.5"/></svg>
+      </div>
+      <h3 class="feat-h3">Clinical analytics</h3>
+      <p class="feat-desc">Real-time dashboards for revenue cycles, patient outcomes, and department KPIs — all exportable in one click.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon-wrap fiw-gold">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 3L4 7v5c0 4.4 3 8.5 7 9 4-.5 7-4.6 7-9V7L11 3z" stroke="#c49a38" stroke-width="1.5" stroke-linejoin="round"/></svg>
+      </div>
+      <h3 class="feat-h3">HIPAA compliance</h3>
+      <p class="feat-desc">Role-based access, full audit trails, and end-to-end encryption — compliance built in, not bolted on.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon-wrap fiw-mist">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="3" y="3" width="7" height="7" rx="2" stroke="#1a4fc4" stroke-width="1.5"/><rect x="12" y="3" width="7" height="7" rx="2" stroke="#1a4fc4" stroke-width="1.5"/><rect x="3" y="12" width="7" height="7" rx="2" stroke="#1a4fc4" stroke-width="1.5"/><rect x="12" y="12" width="7" height="7" rx="2" stroke="#1a4fc4" stroke-width="1.5"/></svg>
+      </div>
+      <h3 class="feat-h3">Multi-branch management</h3>
+      <p class="feat-desc">Manage every location, staff roster, and resource from a single admin — with live sync across branches.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon-wrap fiw-teal">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8" stroke="#0d9e82" stroke-width="1.5"/><path d="M8 11h6M11 8v6" stroke="#0d9e82" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+      <h3 class="feat-h3">Telemedicine built-in</h3>
+      <p class="feat-desc">HD video consultations with screen sharing, e-prescriptions, and post-visit care plans — all in one flow.</p>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta">
+  <div class="cta-bg-shape cbs1"></div>
+  <div class="cta-bg-shape cbs2"></div>
+  <div class="cta-content">
+    <div class="cta-eyebrow">Get started today</div>
+    <h2 class="cta-h2">The future of your clinic<br>starts <em>right now.</em></h2>
+    <p class="cta-sub">30-day free trial. No credit card. Setup in under 10 minutes.</p>
+  </div>
+  <div class="cta-right">
+    <button class="btn-white-lg">
+      Start free trial
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M8 4l3 3-3 3" stroke="#0d1117" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="cta-note">Trusted by 2,000+ clinics worldwide</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">
+    <a href="#" class="logo">
+      <div class="logo-mark" style="width:26px;height:26px;border-radius:7px;">
+        <svg viewBox="0 0 18 18" fill="none" style="width:13px;height:13px;"><path d="M9 3v12M3 9h12" stroke="white" stroke-width="2.2" stroke-linecap="round"/></svg>
+      </div>
+      <span class="logo-name" style="font-size:16px;">Medi<b>Flow</b></span>
+    </a>
+    <span class="footer-copy">© 2025 MediFlow, Inc.</span>
+  </div>
+  <div class="footer-links">
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="#">Security</a>
+    <a href="#">Contact</a>
+  </div>
+  <div class="footer-badge">
+    <div class="fb-dot"></div>
+    All systems operational
+  </div>
+</footer>
+
+</body>
+</html>
