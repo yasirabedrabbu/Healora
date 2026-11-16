@@ -93,6 +93,7 @@ export {
   DashboardCircleIcon,
   Home01Icon,
   Layout01Icon,
+  Search01Icon,
   Settings02Icon,
   Task01Icon,
   Analytics01Icon,
