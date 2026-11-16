@@ -1,0 +1,333 @@
+// Healora — Prisma schema mirroring Handoff.md §13 (data model draft).
+// PostgreSQL + PostGIS (coords via Decimal pair until PostGIS extension) + pgvector-ready.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ── Users & identity ──────────────────────────────────────────────
+model User {
+  id        String   @id @default(cuid())
+  phone     String   @unique
+  email     String?  @unique
+  role      Role     @default(PATIENT)
+  name      String?
+  bloodGroup String?
+  area      String?
+  createdAt DateTime @default(now())
+
+  doctor           Doctor?
+  patientRecords   MedicalRecord[]
+  recordSharesGiven RecordShare[]
+  accessLogs       AccessLog[]
+  appointments     Appointment[]       @relation("PatientAppointments")
+  appointmentsDoctor Appointment[]     @relation("DoctorAppointments")
+  prescriptionsIssued   Prescription[] @relation("IssuedPrescriptions")
+  prescriptionsReceived Prescription[] @relation("ReceivedPrescriptions")
+  bloodDonor       BloodDonor?
+  bloodRequests    BloodRequest[]
+  reviews          Review[]
+  reportsMade      Report[]
+  aiSessions       AiSession[]
+  aiMessages       AiMessage[]
+}
+
+enum Role {
+  PATIENT
+  DOCTOR
+  HOSPITAL
+  LAB
+  PHARMACY
+  ADMIN
+}
+
+// ── Doctors & verification ────────────────────────────────────────
+model Doctor {
+  id             String        @id @default(cuid())
+  userId         String        @unique
+  user           User          @relation(fields: [userId], references: [id])
+  bmdcNo         String        @unique
+  specialty      String
+  degrees        String
+  fee            Int
+  languages      String[]
+  modes          String[]
+  verifiedStatus VerifiedStatus @default(PENDING)
+  rating         Float         @default(0)
+  nextSlot       String?
+  verifiedAt     DateTime?
+
+  documents   DoctorDocument[]
+  appointments Appointment[]   @relation("DoctorAppointments")
+  prescriptions Prescription[]
+  schedules   Schedule[]
+}
+
+enum VerifiedStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model DoctorDocument {
+  id       String @id @default(cuid())
+  doctorId String
+  doctor   Doctor @relation(fields: [doctorId], references: [id])
+  type     String // bmdc | nid | selfie | certificate
+  fileUrl  String
+  status   VerifiedStatus @default(PENDING)
+}
+
+// ── Facilities ────────────────────────────────────────────────────
+model Hospital {
+  id             String         @id @default(cuid())
+  name           String
+  address        String
+  lat            Decimal        @db.Decimal(9, 6)
+  lng            Decimal        @db.Decimal(9, 6)
+  licenseNo      String         @unique
+  verifiedStatus VerifiedStatus @default(PENDING)
+
+  beds HospitalBed[]
+}
+
+model HospitalBed {
+  id         String   @id @default(cuid())
+  hospitalId String
+  hospital   Hospital @relation(fields: [hospitalId], references: [id])
+  type       String // general | icu | oxygen
+  total      Int
+  available  Int
+  updatedAt  DateTime @updatedAt
+}
+
+model Lab {
+  id             String         @id @default(cuid())
+  name           String
+  lat            Decimal        @db.Decimal(9, 6)
+  lng            Decimal        @db.Decimal(9, 6)
+  licenseNo      String         @unique
+  verifiedStatus VerifiedStatus @default(PENDING)
+}
+
+model Pharmacy {
+  id             String         @id @default(cuid())
+  name           String
+  lat            Decimal        @db.Decimal(9, 6)
+  lng            Decimal        @db.Decimal(9, 6)
+  dgdaNo         String         @unique
+  verifiedStatus VerifiedStatus @default(PENDING)
+}
+
+// ── Appointments & consultations ─────────────────────────────────
+model Appointment {
+  id        String  @id @default(cuid())
+  patientId String
+  doctorId  String
+  patient   User    @relation("PatientAppointments", fields: [patientId], references: [id])
+  doctor    Doctor  @relation("DoctorAppointments", fields: [doctorId], references: [id])
+  slot      DateTime
+  mode      String // video | audio | chat | chamber
+  status    AppointmentStatus @default(BOOKED)
+  paymentId String?
+
+  createdAt DateTime @default(now())
+  consultation Consultation?
+  payment      Payment?
+  review       Review?
+}
+
+enum AppointmentStatus {
+  BOOKED
+  COMPLETED
+  NO_SHOW
+  CANCELLED
+}
+
+model Consultation {
+  id            String      @id @default(cuid())
+  appointmentId String      @unique
+  appointment   Appointment @relation(fields: [appointmentId], references: [id])
+  startedAt     DateTime?
+  endedAt       DateTime?
+  notes         String?     @db.Text
+}
+
+// ── Prescriptions ─────────────────────────────────────────────────
+model Prescription {
+  id             String   @id @default(cuid())
+  consultationId String?
+  doctorId       String
+  patientId      String
+  doctor         User     @relation("IssuedPrescriptions", fields: [doctorId], references: [id])
+  patient        User     @relation("ReceivedPrescriptions", fields: [patientId], references: [id])
+  hash           String   @unique
+  qrToken        String   @unique
+  validUntil     DateTime
+  status         PrescriptionStatus @default(ACTIVE)
+  createdAt      DateTime @default(now())
+
+  items PrescriptionItem[]
+}
+
+enum PrescriptionStatus {
+  ACTIVE
+  DISPENSED
+  EXPIRED
+}
+
+model PrescriptionItem {
+  id             String      @id @default(cuid())
+  prescriptionId String
+  prescription   Prescription @relation(fields: [prescriptionId], references: [id])
+  medicineId     String
+  medicine       Medicine    @relation(fields: [medicineId], references: [id])
+  dose           String
+  duration       String
+}
+
+model Medicine {
+  id          String @id @default(cuid())
+  brandName   String
+  genericName String
+  strength    String
+  form        String
+
+  items PrescriptionItem[]
+}
+
+// ── Records, shares, access log ───────────────────────────────────
+model MedicalRecord {
+  id        String  @id @default(cuid())
+  patientId String
+  patient   User    @relation(fields: [patientId], references: [id])
+  type      String // prescription_scan | lab_report | note
+  fileUrl   String
+  encrypted Boolean @default(true)
+  createdAt DateTime @default(now())
+
+  shares RecordShare[]
+  logs   AccessLog[]
+}
+
+model RecordShare {
+  id        String       @id @default(cuid())
+  recordId  String
+  record    MedicalRecord @relation(fields: [recordId], references: [id])
+  granteeId String
+  grantee   User         @relation(fields: [granteeId], references: [id])
+  expiresAt DateTime
+  revokedAt DateTime?
+}
+
+model AccessLog {
+  id         String  @id @default(cuid())
+  recordId   String
+  record     MedicalRecord @relation(fields: [recordId], references: [id])
+  accessedBy String
+  user       User    @relation(fields: [accessedBy], references: [id])
+  action     String // view | download | share | revoke
+  accessedAt DateTime @default(now())
+}
+
+// ── Payments ──────────────────────────────────────────────────────
+model Payment {
+  id            String      @id @default(cuid())
+  appointmentId String      @unique
+  appointment   Appointment @relation(fields: [appointmentId], references: [id])
+  amount        Int
+  gateway       String // bkash | nagad | card
+  status        PaymentStatus @default(HOLD)
+  releasedAt    DateTime?
+}
+
+enum PaymentStatus {
+  HOLD
+  RELEASED
+  REFUNDED
+}
+
+// ── Blood community ───────────────────────────────────────────────
+model BloodDonor {
+  id             String  @id @default(cuid())
+  userId         String  @unique
+  user           User    @relation(fields: [userId], references: [id])
+  bloodGroup     String
+  areaLat        Decimal @db.Decimal(9, 6)
+  areaLng        Decimal @db.Decimal(9, 6)
+  lastDonatedAt  DateTime?
+  verified       Boolean @default(false)
+}
+
+model BloodRequest {
+  id          String  @id @default(cuid())
+  requesterId String
+  requester   User    @relation(fields: [requesterId], references: [id])
+  bloodGroup  String
+  hospitalId  String?
+  urgency     String  // routine | urgent | critical
+  status      String  @default("open")
+  createdAt   DateTime @default(now())
+}
+
+// ── Trust & audit ─────────────────────────────────────────────────
+model Review {
+  id            String     @id @default(cuid())
+  appointmentId String     @unique
+  appointment   Appointment @relation(fields: [appointmentId], references: [id])
+  rating        Int
+  text          String?    @db.Text
+  verified      Boolean    @default(false)
+}
+
+model Report {
+  id         String @id @default(cuid())
+  reporterId String
+  reporter   User   @relation(fields: [reporterId], references: [id])
+  targetType String // doctor | pharmacy | user
+  targetId   String
+  reason     String @db.Text
+  status     String @default("open")
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  actorId   String
+  action    String
+  target    String
+  createdAt DateTime @default(now())
+}
+
+// ── AI assistant (§8: interaction log required) ───────────────────
+model AiSession {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  messages  AiMessage[]
+}
+
+model AiMessage {
+  id        String    @id @default(cuid())
+  sessionId String
+  session   AiSession @relation(fields: [sessionId], references: [id])
+  role      String    // user | assistant
+  content   String    @db.Text
+  flagged   Boolean   @default(false)
+  createdAt DateTime  @default(now())
+}
+
+model Schedule {
+  id       String @id @default(cuid())
+  doctorId String
+  doctor   Doctor @relation(fields: [doctorId], references: [id])
+  weekday  Int // 0-6
+  startAt  String // "10:00"
+  endAt    String
+  mode     String
+}
