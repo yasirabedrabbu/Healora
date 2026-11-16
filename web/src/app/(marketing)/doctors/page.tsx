@@ -2,7 +2,7 @@ import { Container } from "@/components/shared/Container";
 import { DoctorCard } from "@/components/doctor/DoctorCard";
 import { doctors } from "@/lib/data/doctors";
 import { Input } from "@/components/ui/Input";
-import { HugeiconsIcon, Search01Icon, Stethoscope02Icon } from "@/components/icons";
+import { HugeiconsIcon, Search01Icon } from "@/components/icons";
 
 export const metadata = { title: "ডাক্তার খুঁজুন" };
 

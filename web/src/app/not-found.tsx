@@ -1,6 +1,4 @@
-import Link from "next/link";
-import { HugeiconsIcon, AlertCircleIcon, Home01Icon } from "@/components/icons";
-import { ButtonLink } from "@/components/ui/ButtonLink";
+import { HugeiconsIcon, AlertCircleIcon, Home01Icon } from "@/components/icons";import { ButtonLink } from "@/components/ui/ButtonLink";
 
 export default function NotFound() {
   return (

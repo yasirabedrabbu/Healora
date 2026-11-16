@@ -1,8 +1,7 @@
 import { Container } from "@/components/shared/Container";
 import { Badge } from "@/components/ui/Badge";
-import { Card } from "@/components/ui/Card";
 import { HugeiconsIcon, QrCode01Icon, BadgeCheckIcon, Doctor02Icon, MedicalFileIcon } from "@/components/icons";
-import { cardInteractive, cardVariants, cardBase } from "@/components/ui/Card/variants";
+import { cardBase, cardVariants } from "@/components/ui/Card/variants";
 import { cn } from "@/lib/utils";
 
 export const metadata = { title: "প্রেসক্রিপশন যাচাই" };

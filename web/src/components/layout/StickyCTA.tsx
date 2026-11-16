@@ -18,9 +18,12 @@ export function StickyCTA() {
 
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > 560);
-    onScroll();
+    const raf = requestAnimationFrame(onScroll);
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
 
   const isPortal = pathname.startsWith("/dashboard") ||

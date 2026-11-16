@@ -25,16 +25,19 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  // Scroll-aware shrink: h-16 -> h-14 after 8px.
+  // Scroll-aware shrink: h-16 -> h-14 after 8px. rAF defers the initial
+  // read past the effect body (avoids sync setState in effect).
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
+    const raf = requestAnimationFrame(onScroll);
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
 
-  // Close the mobile sheet on navigation.
-  useEffect(() => setOpen(false), [pathname]);
+  // Mobile sheet closes via link onClick (no setState-in-effect).
 
   return (
     <header
@@ -50,6 +53,7 @@ export function Header() {
             <Link
               key={item.href}
               href={item.href}
+              onClick={() => setOpen(false)}
               className="relative rounded-lg px-3 py-2 text-sm font-medium text-gray-600 transition-colors duration-150 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white data-active:text-brand-600 dark:data-active:text-brand-300"
               data-active={pathname === item.href || undefined}
             >

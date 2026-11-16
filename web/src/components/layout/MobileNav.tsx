@@ -15,8 +15,7 @@ const items: PortalNavItem[] = [
 ];
 
 /** Horizontal scroll rail for portal pages on mobile. */
-export function MobileNav({ items: navItems = items }: { items?: PortalNavItem[] }) {
-  const pathname = usePathname();
+export function MobileNav({ items: navItems = items }: { items?: PortalNavItem[] }) {  const pathname = usePathname();
   const { t } = useI18n();
 
   return (
@@ -24,7 +23,7 @@ export function MobileNav({ items: navItems = items }: { items?: PortalNavItem[]
       aria-label="Portal"
       className="flex gap-2 overflow-x-auto border-b border-gray-200 bg-white px-4 py-3 md:hidden dark:border-gray-800 dark:bg-gray-800"
     >
-      {items.map((item) => {
+      {navItems.map((item) => {
         const active = pathname === item.href || pathname.startsWith(item.href + "/");
         return (
           <Link
