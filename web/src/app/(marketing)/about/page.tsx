@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { PageHeader } from "@/components/dashboard/PageHeader";
 import { Container } from "@/components/shared/Container";
 import { Card } from "@/components/ui/Card";
 import { HugeiconsIcon, TargetIcon, HandshakeIcon, Shield01Icon, GlobeIcon } from "@/components/icons";
