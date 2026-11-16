@@ -9,6 +9,8 @@ export const en: Dictionary = {
     howItWorks: "How it works",
     trust: "Trust",
     faq: "FAQ",
+    pricing: "Pricing",
+    about: "About",
     menu: "Menu",
     verified: "Verified",
     booking: "Book now",

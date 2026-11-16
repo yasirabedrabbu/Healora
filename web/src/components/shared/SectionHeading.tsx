@@ -1,16 +1,27 @@
 import { Reveal } from "@/components/motion/Reveal";
+import { cn } from "@/lib/utils";
 
 export function SectionHeading({
   eyebrow,
   title,
   description,
+  align = "center",
+  className,
 }: {
   eyebrow?: string;
   title: string;
   description?: string;
+  align?: "center" | "left";
+  className?: string;
 }) {
   return (
-    <Reveal className="mx-auto mb-14 max-w-2xl text-center">
+    <Reveal
+      className={cn(
+        "mb-14 max-w-2xl",
+        align === "center" ? "mx-auto text-center" : "text-left",
+        className
+      )}
+    >
       {eyebrow && (
         <p className="text-sm font-semibold uppercase tracking-wider text-brand-600 dark:text-brand-300">
           {eyebrow}

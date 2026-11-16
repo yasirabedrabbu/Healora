@@ -4,7 +4,7 @@ export type StatItem = { value: string; label: string };
 export type FeatureItem = { icon: "shield" | "qr" | "record" | "language" | "alert" | "hospital"; title: string; text: string };
 export type StepItem = { n: string; title: string; text: string };
 export type FaqItem = { id: string; question: string; answer: string };
-export type TestimonialItem = { name: string; role: string; quote: string };
+export type TestimonialItem = { name: string; role: string; quote: string; img: string };
 export type PlanItem = { id: string; name: string; price: string; period: string; features: string[]; featured?: boolean };
 
 export const stats: StatItem[] = [
@@ -29,9 +29,9 @@ export const faqs: FaqItem[] = [
 ];
 
 export const testimonials: TestimonialItem[] = [
-  { name: "রাহিম উদ্দিন", role: "ঢাকা", quote: "রাত ১১টায় জরুরি প্রেসক্রিপশন লাগল। QR দেখিয়ে ফার্মেসি থেকে ওষুধ নিয়েছি — কোনো ঝামেলা ছাড়াই।" },
-  { name: "শারমিন আক্তার", role: "চট্টগ্রাম", quote: "আমার মায়ের সব রিপোর্ট এখন এক জায়গায়। কে কখন দেখেছে, সেটাও লগে থাকে। মনে দাগ নেই।" },
-  { name: "ডা. মাহমুদ রহমান", role: "ভেরিফায়েড ডাক্তার", quote: "রোগীর রেকর্ড আগে থেকেই দেখে নিতে পারছি। ফলো-আপ অনেক সহজ হয়েছে।" },
+  { name: "রাহিম উদ্দিন", role: "ঢাকা", img: "/images/patient.jpg", quote: "রাত ১১টায় জরুরি প্রেসক্রিপশন লাগল। QR দেখিয়ে ফার্মেসি থেকে ওষুধ নিয়েছি — কোনো ঝামেলা ছাড়াই।" },
+  { name: "শারমিন আক্তার", role: "চট্টগ্রাম", img: "/images/doctor-female.jpg", quote: "আমার মায়ের সব রিপোর্ট এখন এক জায়গায়। কে কখন দেখেছে, সেটাও লগে থাকে। মনে দাগ নেই।" },
+  { name: "ডা. মাহমুদ রহমান", role: "ভেরিফায়েড ডাক্তার", img: "/images/doctor-male.jpg", quote: "রোগীর রেকর্ড আগে থেকেই দেখে নিতে পারছি। ফলো-আপ অনেক সহজ হয়েছে।" },
 ];
 
 export const plans: PlanItem[] = [

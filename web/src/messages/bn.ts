@@ -7,6 +7,8 @@ export const bn = {
     howItWorks: "কীভাবে কাজ করে",
     trust: "ট্রাস্ট",
     faq: "প্রশ্নোত্তর",
+    pricing: "প্রাইসিং",
+    about: "আমাদের সম্পর্কে",
     menu: "মেনু",
     verified: "ভেরিফায়েড",
     booking: "বুকিং করুন",

@@ -32,11 +32,11 @@ export {
   MinusIcon,
 
   // Medical domain
+  AmbulanceIcon,
   Stethoscope02Icon,
   Doctor02Icon,
   Hospital01Icon,
   HospitalBed01Icon,
-  AmbulanceIcon,
   BloodTypeIcon,
   GiveBloodIcon,
   QrCode01Icon,
@@ -63,6 +63,7 @@ export {
   // Consultation modes
   Video01Icon,
   CallIcon,
+  CustomerServiceIcon,
   BubbleChatIcon,
   MicIcon,
   CameraIcon,
@@ -100,6 +101,9 @@ export {
   Wallet01Icon,
   NotificationIcon,
   GlobeIcon,
+  MailIcon,
+  HandshakeIcon,
+  TargetIcon,
   LanguageSquareIcon,
   SunIcon,
   Moon02Icon,

@@ -37,7 +37,7 @@ export function Testimonials() {
                 “{item.quote}”
               </blockquote>
               <div className="mt-6 flex items-center gap-3 border-t border-gray-200 pt-5 dark:border-gray-800">
-                <Avatar name={item.name} size="sm" />
+                <Avatar name={item.name} src={item.img} size="sm" />
                 <div>
                   <p className="text-sm font-semibold text-gray-900 dark:text-gray-50">{item.name}</p>
                   <p className="text-xs text-gray-500 dark:text-gray-400">{item.role}</p>

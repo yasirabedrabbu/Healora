@@ -9,8 +9,8 @@ import { Container } from "@/components/shared/Container";
 
 const quickLinks = [
   { key: "findDoctor", href: "/doctors" },
-  { key: "howItWorks", href: "/#how-it-works" },
-  { key: "trust", href: "/#trust" },
+  { key: "pricing", href: "/pricing" },
+  { key: "about", href: "/about" },
   { key: "faq", href: "/#faq" },
 ] as const;
 
