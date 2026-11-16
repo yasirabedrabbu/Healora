@@ -1,7 +1,7 @@
 "use client";
 
 import { HugeiconsIcon, Shield01Icon, QrCode01Icon, MedicalFileIcon, LanguageSquareIcon, AlertCircleIcon, Hospital01Icon } from "@/components/icons";
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { Container } from "@/components/shared/Container";
 import { fadeUp, staggerContainer } from "@/lib/motion";
