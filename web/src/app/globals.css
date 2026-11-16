@@ -1,29 +1,110 @@
 @import "tailwindcss";
 
+/* Class-based dark mode (next-themes sets .dark on <html>) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Untitled UI token structure, anchored to handoff §12 hexes:
+ *   gray-50=Cloud #F6F8F9 · gray-200=Border #E3E8EC
+ *   gray-600=Slate #5B6675 · gray-900=Ink #0D1117
+ *   brand-500=Deep Teal #0B7A75 · secondary=Trust Blue #1A4FC4
+ *   success-600 #1E9E5A · warning-600 #E0A100 · error-600 #D93A3A
+ * NO hardcoded hex outside this file. No shadows/gradients per prompt.
+ */
 @theme {
-  --color-primary-50: #e8f5f4;
-  --color-primary-100: #c5e8e6;
-  --color-primary-200: #8fd1cc;
-  --color-primary-300: #56b8b1;
-  --color-primary-400: #1f9c95;
-  --color-primary-500: #0b7a75;
-  --color-primary-600: #096662;
-  --color-primary-700: #07524f;
-  --color-primary-800: #063f3d;
-  --color-primary-900: #042c2b;
+  --color-gray-25: #fcfcfd;
+  --color-gray-50: #f6f8f9;
+  --color-gray-100: #eef1f3;
+  --color-gray-200: #e3e8ec;
+  --color-gray-300: #cdd5db;
+  --color-gray-400: #98a2b3;
+  --color-gray-500: #667085;
+  --color-gray-600: #5b6675;
+  --color-gray-700: #3f4a56;
+  --color-gray-800: #1d2939;
+  --color-gray-900: #0d1117;
+
+  --color-brand-25: #f2faf9;
+  --color-brand-50: #e8f5f4;
+  --color-brand-100: #c5e8e6;
+  --color-brand-200: #8fd1cc;
+  --color-brand-300: #56b8b1;
+  --color-brand-400: #1f9c95;
+  --color-brand-500: #0b7a75;
+  --color-brand-600: #096662;
+  --color-brand-700: #07524f;
+  --color-brand-800: #063f3d;
+  --color-brand-900: #042c2b;
 
   --color-secondary: #1a4fc4;
-  --color-ink: #0d1117;
-  --color-slate: #5b6675;
-  --color-cloud: #f6f8f9;
-  --color-border: #e3e8ec;
-  --color-success: #1e9e5a;
-  --color-warning: #e0a100;
-  --color-danger: #d93a3a;
+  --color-secondary-dark: #123a97;
+  --color-secondary-light: #3d6fe0;
+
+  --color-success-25: #f4fbf6;
+  --color-success-50: #e8f7ee;
+  --color-success-100: #c9ecd6;
+  --color-success-200: #9adcb2;
+  --color-success-300: #63c78a;
+  --color-success-400: #3cb56b;
+  --color-success-500: #2aa65e;
+  --color-success-600: #1e9e5a;
+  --color-success-700: #157a44;
+
+  --color-warning-25: #fffdf2;
+  --color-warning-50: #fff8e8;
+  --color-warning-100: #ffefbf;
+  --color-warning-200: #ffe7a8;
+  --color-warning-300: #ffd676;
+  --color-warning-400: #ffc53d;
+  --color-warning-500: #f2b00a;
+  --color-warning-600: #e0a100;
+  --color-warning-700: #b87e00;
+
+  --color-error-25: #fef9f9;
+  --color-error-50: #fdf2f2;
+  --color-error-100: #fde8e8;
+  --color-error-200: #f9d2d2;
+  --color-error-300: #f2a0a0;
+  --color-error-400: #e97070;
+  --color-error-500: #de4b4b;
+  --color-error-600: #d93a3a;
+  --color-error-700: #b52e2e;
+
   --color-blood: #c8283c;
 
-  --font-heading: var(--font-anek), "Anek Bangla", sans-serif;
-  --font-body: var(--font-hind), "Hind Siliguri", sans-serif;
+  /* Untitled UI radius scale */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-3xl: 24px;
+
+  /* Untitled UI display scale (desktop sizes; mobile via responsive classes) */
+  --text-display-xs: 1.5rem;
+  --text-display-xs--line-height: 2rem;
+  --text-display-xs--letter-spacing: -0.02em;
+  --text-display-sm: 1.875rem;
+  --text-display-sm--line-height: 2.375rem;
+  --text-display-sm--letter-spacing: -0.02em;
+  --text-display-md: 2.25rem;
+  --text-display-md--line-height: 2.75rem;
+  --text-display-md--letter-spacing: -0.02em;
+  --text-display-lg: 3rem;
+  --text-display-lg--line-height: 3.75rem;
+  --text-display-lg--letter-spacing: -0.02em;
+  --text-display-xl: 3.5rem;
+  --text-display-xl--line-height: 4.125rem;
+  --text-display-xl--letter-spacing: -0.03em;
+  --text-display-2xl: 4rem;
+  --text-display-2xl--line-height: 4.5rem;
+  --text-display-2xl--letter-spacing: -0.03em;
+
+  --font-heading: var(--font-clash), var(--font-anek), sans-serif;
+  --font-body: var(--font-satoshi), var(--font-hind), sans-serif;
+
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @layer base {
@@ -31,22 +112,28 @@
     scroll-behavior: smooth;
   }
   body {
-    @apply bg-cloud text-ink font-body;
+    @apply bg-white text-gray-900 font-body;
     line-height: 1.7;
   }
-  h1,
-  h2,
-  h3,
-  h4 {
+  .dark body {
+    @apply bg-gray-900 text-gray-50;
+  }
+  h1, h2, h3, h4 {
     @apply font-heading;
     line-height: 1.25;
   }
+  /* WCAG: consistent focus ring, brand-300, 2px offset */
+  :where(a, button, input, select, textarea, [tabindex]):focus-visible {
+    outline: 2px solid var(--color-brand-300);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
 }
 
+/* Respect prefers-reduced-motion for CSS animation; JS paths check via
+   useReducedMotion hook (lib/useReducedMotion.ts). */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;

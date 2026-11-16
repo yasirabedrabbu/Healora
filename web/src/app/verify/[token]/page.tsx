@@ -3,6 +3,9 @@ import { VerifiedBadge } from "@/components/doctor/VerifiedBadge";
 
 export const metadata = { title: "Prescription verify | Healora" };
 
+// Tokens are unbounded (any QR value) → allow blocking render at request time.
+export const instant = false;
+
 export default async function VerifyPage({
   params,
 }: {

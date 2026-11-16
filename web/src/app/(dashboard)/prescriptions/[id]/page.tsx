@@ -7,6 +7,11 @@ import { prescriptions } from "@/lib/data/patient";
 
 export const metadata = { title: "Prescription detail | Healora" };
 
+// Mock data is fully enumerable → prerender static shells for each id.
+export function generateStaticParams() {
+  return prescriptions.map((p) => ({ id: p.id }));
+}
+
 export default async function PrescriptionDetailPage({
   params,
 }: {

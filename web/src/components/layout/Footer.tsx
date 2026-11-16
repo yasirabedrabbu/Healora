@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CurrentYear } from "@/components/shared/CurrentYear";
 import { siteConfig } from "@/config/site";
 import { Container } from "@/components/shared/Container";
 import { Logo } from "@/components/shared/Logo";
@@ -36,7 +37,7 @@ export function Footer() {
 
       <div className="border-t border-border py-6">
         <Container className="text-center text-xs text-slate">
-          © {new Date().getFullYear()} {siteConfig.name}. Shob adhikar surakshito.
+          © <CurrentYear /> {siteConfig.name}. Shob adhikar surakshito.
         </Container>
       </div>
     </footer>
