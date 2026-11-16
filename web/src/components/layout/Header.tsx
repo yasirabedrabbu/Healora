@@ -7,7 +7,8 @@ import { HugeiconsIcon, Menu01Icon, Cancel01Icon } from "@/components/icons";
 import { useEffect, useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import { EASE_STANDARD } from "@/lib/motion";
-import { Button, ButtonLink } from "@/components/ui/Button";
+import { Button } from "@/components/ui/Button";
+import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Logo } from "@/components/shared/Logo";
 import { LocaleToggle, ThemeToggle } from "./Toggles";
 
@@ -67,7 +68,7 @@ export function Header() {
         <div className="hidden items-center gap-2.5 md:flex">
           <LocaleToggle />
           <ThemeToggle />
-          <Button variant="ghost" size="sm">{t.common.login}</Button>
+          <Button variant="tertiary" size="sm">{t.common.login}</Button>
           <ButtonLink href="/doctors" size="sm">{t.common.signup}</ButtonLink>
         </div>
 

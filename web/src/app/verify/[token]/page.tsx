@@ -1,5 +1,5 @@
 import { Container } from "@/components/shared/Container";
-import { VerifiedBadge } from "@/components/doctor/VerifiedBadge";
+import { Badge } from "@/components/ui/Badge";
 
 export const metadata = { title: "Prescription verify | Healora" };
 

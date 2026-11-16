@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PageHeader } from "@/components/dashboard/PageHeader";
-import { Button } from "@/components/shared/Button";
-import { VerifiedBadge } from "@/components/doctor/VerifiedBadge";
+import { ButtonLink } from "@/components/ui/ButtonLink";
+import { Badge } from "@/components/ui/Badge";
 import { prescriptions } from "@/lib/data/patient";
 
 export const metadata = { title: "Prescription detail | Healora" };
@@ -27,9 +27,9 @@ export default async function PrescriptionDetailPage({
         title="Prescription detail"
         description={`${item.doctor} · ${item.date}`}
         action={
-          <Link href={`/verify/${item.id}`}>
-            <Button variant="outline">QR verify page</Button>
-          </Link>
+          <ButtonLink href={`/verify/${item.id}`} variant="secondary">
+            QR verify page
+          </ButtonLink>
         }
       />
 
@@ -43,7 +43,7 @@ export default async function PrescriptionDetailPage({
             <p className="text-sm text-slate">Valid till</p>
             <p className="font-semibold text-ink">{item.validUntil}</p>
           </div>
-          {item.status === "valid" && <VerifiedBadge />}
+          {item.status === "valid" && <Badge color="success" dot>ভেরিফায়েড</Badge>}
         </div>
 
         <h2 className="mt-6 font-semibold text-ink">Medicine</h2>
