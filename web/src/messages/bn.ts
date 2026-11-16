@@ -33,6 +33,10 @@ export const bn = {
     prescriptions: "প্রেসক্রিপশন",
     blood: "রক্ত",
     family: "পরিবার",
+    prescribe: "প্রেসক্রাইব করুন",
+    patients: "রোগীর তালিকা",
+    verification: "ভেরিফিকেশন কিউ",
+    payments: "পেমেন্ট ও অ্যানালিটিক্স",
   },
 } ;
 

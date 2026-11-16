@@ -35,5 +35,9 @@ export const en: Dictionary = {
     prescriptions: "Prescription",
     blood: "Blood",
     family: "Family",
+    prescribe: "Prescribe",
+    patients: "Patients",
+    verification: "Verification queue",
+    payments: "Payments & analytics",
   },
 };

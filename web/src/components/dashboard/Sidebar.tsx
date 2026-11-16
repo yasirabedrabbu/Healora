@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { HugeiconsIcon, DashboardCircleIcon, MedicalFileIcon, PrescriptionIcon, BloodTypeIcon, UserGroupIcon } from "@/components/icons";
+import { HugeiconsIcon, DashboardCircleIcon, MedicalFileIcon, PrescriptionIcon, BloodTypeIcon, UserGroupIcon, Shield01Icon, Wallet01Icon } from "@/components/icons";
 import { useI18n } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import type { PortalNavItem } from "@/config/dashboard";
@@ -13,6 +13,10 @@ const icons = {
   prescriptions: PrescriptionIcon,
   blood: BloodTypeIcon,
   family: UserGroupIcon,
+  prescribe: PrescriptionIcon,
+  patients: UserGroupIcon,
+  verification: Shield01Icon,
+  payments: Wallet01Icon,
 } as const;
 
 export function Sidebar({ items }: { items: PortalNavItem[] }) {

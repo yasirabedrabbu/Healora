@@ -54,14 +54,18 @@ export function HowItWorks() {
           title="চার ধাপের সমাপ্তি"
           description="বুকিং থেকে প্রেসক্রিপশন যাচাই, সব এক জায়গায়।"
         />
-        <ol className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <ol className="relative grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {steps.map((s) => (
-            <li key={s.n} data-step className="rounded-xl border border-gray-200 bg-white p-6 transition-[border-color,translate] duration-200 ease-standard hover:-translate-y-0.5 hover:border-gray-300 dark:border-gray-800 dark:bg-gray-800">
-              <span className="font-heading text-4xl font-bold text-brand-200 dark:text-brand-800">
+            <li
+              key={s.n}
+              data-step
+              className="relative rounded-2xl border border-gray-200 bg-white p-6 transition-[border-color,translate] duration-200 ease-standard hover:-translate-y-1 hover:border-brand-300 dark:border-gray-800 dark:bg-gray-800 dark:hover:border-brand-700"
+            >
+              <span className="grid h-12 w-12 place-items-center rounded-xl bg-brand-25 font-heading text-xl font-bold text-brand-600 ring-1 ring-brand-200 dark:bg-brand-900 dark:text-brand-200 dark:ring-brand-800">
                 {s.n}
               </span>
-              <h3 className="mt-4 text-xl font-semibold text-gray-900 dark:text-gray-50">{s.title}</h3>
-              <p className="mt-2 text-gray-500 dark:text-gray-400">{s.text}</p>
+              <h3 className="mt-5 text-xl font-semibold text-gray-900 dark:text-gray-50">{s.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-gray-500 dark:text-gray-400">{s.text}</p>
             </li>
           ))}
         </ol>
