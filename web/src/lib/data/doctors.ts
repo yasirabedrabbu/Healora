@@ -12,7 +12,7 @@ export const doctors: Doctor[] = [
     modes: ["video", "audio", "chamber"],
     rating: 4.8,
     verified: true,
-    nextSlot: "Aaj, 6:30 PM",
+    nextSlot: "??, ?:?? PM",
   },
   {
     id: "dr-akter-02",
@@ -25,6 +25,6 @@ export const doctors: Doctor[] = [
     modes: ["video", "chat", "chamber"],
     rating: 4.9,
     verified: true,
-    nextSlot: "Kal, 10:00 AM",
+    nextSlot: "???, ??:?? AM",
   },
 ];

@@ -1,12 +1,13 @@
 export const siteConfig = {
   name: "Healora",
-  tagline: "Bishwasher shathe shushthota",
+  url: "https://healora.example",
+  tagline: "বিশ্বাসের সাথে সুস্থতা",
   description:
-    "Bangladesh-er trust-first digital healthcare platform. Verified doctor, QR-verifiable prescription, nijer medical record nijer hate.",
+    "বাংলাদেশের ট্রাস্ট-ফার্স্ট ডিজিটাল স্বাস্থ্যসেবা প্ল্যাটফর্ম। ভেরিফায়েড ডাক্তার, QR যাচাইযোগ্য প্রেসক্রিপশন, নিজের মেডিকেল রেকর্ড নিজের হাতে।",
   nav: [
-    { label: "Doctor khujun", href: "/doctors" },
-    { label: "Kivabe kaj kore", href: "/#how-it-works" },
-    { label: "Trust", href: "/#trust" },
+    { label: "ডাক্তার খুঁজুন", href: "/doctors" },
+    { label: "কীভাবে কাজ করে", href: "/#how-it-works" },
+    { label: "প্রাইসিং", href: "/pricing" },
     { label: "FAQ", href: "/#faq" },
   ],
   contact: {
