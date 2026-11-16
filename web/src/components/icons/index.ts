@@ -63,6 +63,7 @@ export {
   // Consultation modes
   Video01Icon,
   CallIcon,
+  SmartphoneIcon,
   CustomerServiceIcon,
   BubbleChatIcon,
   MicIcon,
