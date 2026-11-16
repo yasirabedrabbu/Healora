@@ -1,20 +1,23 @@
 import { PageHeader } from "@/components/dashboard/PageHeader";
-import { PrescriptionCard } from "@/components/prescription/PrescriptionCard";
 import { EmptyState } from "@/components/shared/EmptyState";
+import { PrescriptionCard } from "@/components/prescription/PrescriptionCard";
 import { prescriptions } from "@/lib/data/patient";
 
-export const metadata = { title: "Prescription | Healora" };
+export const metadata = { title: "প্রেসক্রিপশন" };
 
 export default function PrescriptionsPage() {
   return (
     <>
       <PageHeader
-        title="Prescription"
-        description="Shob prescription ekhane. Pharmacy-te QR dekhale verify hobe."
+        title="প্রেসক্রিপশন"
+        description="সব প্রেসক্রিপশন এখানে। ফার্মেসিতে QR দেখালেই যাচাই হবে।"
       />
 
       {prescriptions.length === 0 ? (
-        <EmptyState title="Ekhono prescription nai" text="Doctor consultation-er por prescription ekhane ashbe." />
+        <EmptyState
+          title="এখনও প্রেসক্রিপশন নেই"
+          text="ডাক্তার কনসালটেশনের পর প্রেসক্রিপশন এখানে আসবে।"
+        />
       ) : (
         <div className="grid gap-4 md:grid-cols-2">
           {prescriptions.map((p) => (
