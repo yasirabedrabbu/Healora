@@ -10,6 +10,7 @@ import { EASE_STANDARD } from "@/lib/motion";
 import { Button } from "@/components/ui/Button";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { LocaleToggle, ThemeToggle } from "./Toggles";
+import { ScrollProgress } from "./ScrollProgress";
 
 const navItems = [
   { key: "findDoctor", href: "/doctors" },
@@ -27,6 +28,7 @@ export function Header() {
   // Modern pill header: no shrink gimmick, floating rounded container.
   return (
     <header className="sticky top-0 z-50">
+      <ScrollProgress />
       <div className="mx-auto mt-4 max-w-7xl px-5 sm:px-8 lg:px-12">
         <div className="flex h-16 items-center justify-between rounded-2xl border border-gray-200 bg-white/95 px-4 backdrop-blur md:px-5 dark:border-gray-800 dark:bg-gray-900/95">
           <Link href="/" className="flex items-center gap-2" aria-label="Healora — home">

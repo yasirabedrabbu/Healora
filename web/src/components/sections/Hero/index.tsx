@@ -1,21 +1,67 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "motion/react";
+import { motion, useScroll, useTransform } from "motion/react";
+import { useRef } from "react";
 import { HugeiconsIcon, BadgeCheckIcon, QrCode01Icon, MedicalFileIcon } from "@/components/icons";
 import { useI18n } from "@/lib/i18n";
 import { fadeUp, staggerContainer } from "@/lib/motion";
-import { useReducedMotion } from "@/lib/useReducedMotion";
+import { useReducedMotion as prefersReduced } from "@/lib/useReducedMotion";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Container } from "@/components/shared/Container";
 
+/** Word-by-word headline: 40ms stagger, blur-to-sharp. */
+function StaggerTitle({ text }: { text: string }) {
+  const reduce = prefersReduced();
+  return (
+    <motion.span
+      className="block"
+      initial={reduce ? undefined : "hidden"}
+      animate="visible"
+      variants={reduce ? undefined : { hidden: {}, visible: { transition: { staggerChildren: 0.04 } } }}
+    >
+      {text.split(" ").map((word, i) => (
+        <motion.span
+          key={i}
+          variants={{
+            hidden: { opacity: 0, y: 14, filter: "blur(4px)" },
+            visible: {
+              opacity: 1,
+              y: 0,
+              filter: "blur(0px)",
+              transition: { duration: 0.4, ease: [0.4, 0, 0.2, 1] },
+            },
+          }}
+          className="inline-block will-change-transform"
+        >
+          {word}
+          {i < text.split(" ").length - 1 ? "\u00A0" : ""}
+        </motion.span>
+      ))}
+    </motion.span>
+  );
+}
+
+const chips = [
+  { icon: BadgeCheckIcon, label: "ভেরিফায়েড ডাক্তার", className: "-left-3 top-6 sm:-left-6" },
+  { icon: QrCode01Icon, label: "QR যাচাই সম্পন্ন", className: "-right-3 top-1/3 sm:-right-6" },
+] as const;
+
 export function Hero() {
   const { t } = useI18n();
-  const reduce = useReducedMotion();
-  const item = reduce ? undefined : fadeUp;
+  const reduce = prefersReduced();
+  const section = useRef<HTMLElement>(null);
+
+  // Subtle scroll parallax on the hero image (scrub, small travel).
+  const { scrollYProgress } = useScroll({
+    target: section,
+    offset: ["start start", "end start"],
+  });
+  const imgY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 48]);
+  const imgScale = useTransform(scrollYProgress, [0, 1], [1, reduce ? 1 : 1.04]);
 
   return (
-    <section className="relative overflow-hidden pb-20 pt-16 lg:pb-28">
+    <section ref={section} className="relative overflow-hidden pb-20 pt-14 lg:pb-28">
       <Container className="grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr]">
         <motion.div
           variants={reduce ? undefined : staggerContainer}
@@ -23,29 +69,29 @@ export function Hero() {
           animate="visible"
         >
           <motion.span
-            variants={item}
+            variants={reduce ? undefined : fadeUp}
             className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-25 px-4 py-1.5 text-sm font-medium text-brand-700 dark:bg-brand-900 dark:text-brand-200"
           >
-            <HugeiconsIcon icon={BadgeCheckIcon} size={16} aria-hidden />
-            {t.home.badge}
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-500" />
+            </span>
+            পাইলট চলছে — প্রথম ২০ ডাক্তার
           </motion.span>
 
-          <motion.h1
-            variants={item}
-            className="mt-6 text-display-sm font-bold text-gray-900 sm:text-display-md lg:text-display-lg dark:text-gray-50"
-          >
-            {t.home.heroTitle}
-          </motion.h1>
+          <h1 className="mt-6 text-display-sm font-bold text-gray-900 sm:text-display-md lg:text-display-lg dark:text-gray-50">
+            <StaggerTitle text={t.home.heroTitle} />
+          </h1>
 
           <motion.p
-            variants={item}
+            variants={reduce ? undefined : fadeUp}
             className="mt-6 max-w-xl text-lg text-gray-500 lg:mx-0 dark:text-gray-400"
           >
             {t.home.heroText}
           </motion.p>
 
           <motion.div
-            variants={item}
+            variants={reduce ? undefined : fadeUp}
             className="mt-10 flex flex-col justify-center gap-3 sm:flex-row lg:justify-start"
           >
             <ButtonLink href="/doctors" size="lg">
@@ -56,9 +102,8 @@ export function Hero() {
             </ButtonLink>
           </motion.div>
 
-          {/* Mini trust row: icon + text + colour */}
           <motion.ul
-            variants={item}
+            variants={reduce ? undefined : fadeUp}
             className="mt-10 flex flex-wrap justify-center gap-x-6 gap-y-3 text-sm text-gray-500 lg:justify-start dark:text-gray-400"
           >
             <li className="flex items-center gap-2">
@@ -76,22 +121,49 @@ export function Hero() {
           </motion.ul>
         </motion.div>
 
-        {/* Image-first hero visual, no CLS, floating stat card overlay */}
-        <motion.div
-          initial={reduce ? undefined : { opacity: 0, scale: 0.98 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
-          className="relative mx-auto aspect-4/3 w-full max-w-xl"
-        >
-          <Image
-            src="/images/hero.jpg"
-            alt="হিলোরায় ভেরিফায়েড ডাক্তারের সাথে ভিডিও কনসালটেশন"
-            fill
-            priority
-            sizes="(min-width: 1024px) 46vw, 100vw"
-            className="rounded-3xl border border-gray-200 object-cover dark:border-gray-800"
-          />
-          <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between gap-4 rounded-2xl border border-gray-200 bg-white p-4 sm:left-6 sm:right-auto dark:border-gray-800 dark:bg-gray-900">
+        <div className="relative mx-auto w-full max-w-xl">
+          <motion.div
+            initial={reduce ? undefined : { opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+            className="relative aspect-4/3 w-full"
+          >
+            <motion.div style={{ y: imgY, scale: imgScale }} className="absolute inset-0">
+              <Image
+                src="/images/hero.jpg"
+                alt="হিলোরায় ভেরিফায়েড ডাক্তারের সাথে ভিডিও কনসালটেশন"
+                fill
+                priority
+                sizes="(min-width: 1024px) 46vw, 100vw"
+                className="rounded-3xl border border-gray-200 object-cover dark:border-gray-800"
+              />
+            </motion.div>
+
+            {/* Floating trust chips (motion float, no glow) */}
+            {chips.map((c, i) => (
+              <motion.div
+                key={c.label}
+                initial={reduce ? undefined : { opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 + i * 0.15, duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+                className={`absolute z-10 ${c.className}`}
+              >
+                <motion.div
+                  animate={reduce ? undefined : { y: [0, -6, 0] }}
+                  transition={{ repeat: Infinity, duration: 3 + i, ease: "easeInOut" }}
+                  className="flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-3 py-2 dark:border-gray-800 dark:bg-gray-900"
+                >
+                  <span className="grid h-7 w-7 place-items-center rounded-lg bg-brand-50 text-brand-600 dark:bg-brand-900 dark:text-brand-200">
+                    <HugeiconsIcon icon={c.icon} size={16} aria-hidden />
+                  </span>
+                  <span className="text-xs font-semibold text-gray-900 dark:text-gray-50">{c.label}</span>
+                </motion.div>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Bottom stat card retained */}
+          <div className="absolute -bottom-5 left-4 right-4 flex items-center justify-between gap-4 rounded-2xl border border-gray-200 bg-white p-4 sm:right-auto sm:w-72 dark:border-gray-800 dark:bg-gray-900">
             <div className="flex items-center gap-3">
               <span className="grid h-10 w-10 place-items-center rounded-xl bg-success-50 text-success-600 dark:bg-success-700/10 dark:text-success-300">
                 <HugeiconsIcon icon={BadgeCheckIcon} size={20} aria-hidden />
@@ -105,7 +177,7 @@ export function Hero() {
               আজ ৬:৩০ PM
             </span>
           </div>
-        </motion.div>
+        </div>
       </Container>
     </section>
   );
