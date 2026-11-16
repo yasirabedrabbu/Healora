@@ -7,6 +7,9 @@ import { cn } from "@/lib/utils";
 
 export const metadata = { title: "প্রেসক্রিপশন যাচাই" };
 
+// Tokens are unbounded (any QR value) → allow blocking render at request time.
+export const instant = false;
+
 // Mock: backend ashle ekhane API call hobe (GET /verify/{qr_token})
 const prescription = {
   doctor: "ডা. মাহমুদ রহমান",
