@@ -10,8 +10,10 @@ export function PageHeader({
   return (
     <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
       <div>
-        <h1 className="text-2xl font-bold text-ink sm:text-3xl">{title}</h1>
-        {description && <p className="mt-2 text-slate">{description}</p>}
+        <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl dark:text-gray-50">{title}</h1>
+        {description && (
+          <p className="mt-2 text-gray-500 dark:text-gray-400">{description}</p>
+        )}
       </div>
       {action}
     </div>
