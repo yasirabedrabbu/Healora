@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary-50: #e8f5f4;
+  --color-primary-100: #c5e8e6;
+  --color-primary-200: #8fd1cc;
+  --color-primary-300: #56b8b1;
+  --color-primary-400: #1f9c95;
+  --color-primary-500: #0b7a75;
+  --color-primary-600: #096662;
+  --color-primary-700: #07524f;
+  --color-primary-800: #063f3d;
+  --color-primary-900: #042c2b;
+
+  --color-secondary: #1a4fc4;
+  --color-ink: #0d1117;
+  --color-slate: #5b6675;
+  --color-cloud: #f6f8f9;
+  --color-border: #e3e8ec;
+  --color-success: #1e9e5a;
+  --color-warning: #e0a100;
+  --color-danger: #d93a3a;
+  --color-blood: #c8283c;
+
+  --font-heading: var(--font-anek), "Anek Bangla", sans-serif;
+  --font-body: var(--font-hind), "Hind Siliguri", sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-cloud text-ink font-body;
+    line-height: 1.7;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-heading;
+    line-height: 1.25;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
