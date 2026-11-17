@@ -1,13 +1,19 @@
 """Pydantic request/response models for the AI service."""
 from typing import Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class ChatRequest(BaseModel):
-    """Inbound chat turn. No identity fields by design (safety rule 3)."""
+    """Inbound chat turn. No identity fields by design (safety rule 3).
 
-    session_id: str = Field(min_length=1, max_length=64)
+    Accepts both camelCase (Next.js proxy) and snake_case (tests/curl):
+    FastAPI/Pydantic populate_by_name + sessionId alias.
+    """
+
+    model_config = ConfigDict(populate_by_name=True)
+
+    session_id: str = Field(min_length=1, max_length=64, alias="sessionId")
     message: str = Field(min_length=1, max_length=2000)
     locale: Literal["bn", "en"] = "bn"
 
