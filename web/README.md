@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Healora web — Next.js 16 app + REST API
 
-## Getting Started
+See the [root README](../README.md) for the full project.
 
-First, run the development server:
+## Commands
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+cp .env.example .env                  # fill DATABASE_URL + AUTH_SECRET
+npx prisma7 generate                  # Prisma 7 CLI (see docs/RUN.md for the 8/7 quirk)
+npx prisma7 migrate dev               # needs PostgreSQL
+node --env-file=.env prisma/seed.ts   # demo data
+npm run dev                           # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Quality gates
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npx eslint src --max-warnings=0
+npx tsc --noEmit
+npm run build
+node scripts/audit-lines.mjs          # ≤200 lines per file
+npm start & node scripts/smoke.mjs    # 39-route smoke test
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Layout
 
-## Learn More
+- `prisma/` — schema (24 entities, Handoff §13) + seed
+- `src/app/api/` — 16 REST routes, each: rate-limit → Zod → service → JSON
+- `src/app/(dashboard)/` — patient portal + nested doctor/hospital/lab/pharmacy/admin portals
+- `src/lib/` — db (pg adapter), auth (OTP HS256 sessions), validate, rate-limit, security
+- `scripts/` — smoke + line audit
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Hard rules live in [`docs/CONTRIBUTING.md`](../docs/CONTRIBUTING.md) — ≤200
+lines/file, no `any`, Untitled UI tokens + HugeIcons only, no shadows/gradients,
+reduced-motion fallbacks, medical disclaimers + 999-first copy.
