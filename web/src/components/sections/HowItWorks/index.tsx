@@ -5,7 +5,7 @@ import { gsap } from "@/lib/gsap";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { Container } from "@/components/shared/Container";
-import { steps } from "@/content/home";
+import { useHomeCopy } from "@/messages/copy/home-types";
 
 /**
  * GSAP ScrollTrigger scrollytelling (one of the 2-3 allowed pinned
@@ -15,6 +15,7 @@ import { steps } from "@/content/home";
 export function HowItWorks() {
   const root = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
+  const c = useHomeCopy();
 
   useEffect(() => {
     if (reduce) return;
@@ -50,12 +51,13 @@ export function HowItWorks() {
     <section ref={root} id="how-it-works" className="py-24">
       <Container>
         <SectionHeading
-          eyebrow="কীভাবে কাজ করে"
-          title="চার ধাপের সমাপ্তি"
-          description="বুকিং থেকে প্রেসক্রিপশন যাচাই, সব এক জায়গায়।"
+          eyebrow={c.headings.howItWorks.eyebrow}
+          title={c.headings.howItWorks.title}
+          titleAccent={c.headings.howItWorks.titleAccent}
+          description={c.headings.howItWorks.description}
         />
         <ol className="relative grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {steps.map((s) => (
+          {c.steps.map((s) => (
             <li
               key={s.n}
               data-step

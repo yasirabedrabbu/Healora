@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { siteConfig } from "@/config/site";
 import { doctors } from "@/lib/data/doctors";
 
-/** Public routes only — portals and auth are excluded by design. */
+/** Public routes only - portals and auth are excluded by design. */
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = siteConfig.url;
   const routes = [

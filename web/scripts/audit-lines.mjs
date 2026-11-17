@@ -31,4 +31,4 @@ if (over.length) {
   console.error("OVER 200 LINES:\n" + over.join("\n"));
   process.exit(1);
 }
-console.log("Line rule OK — all files <= 200 lines.");
+console.log("Line rule OK - all files <= 200 lines.");

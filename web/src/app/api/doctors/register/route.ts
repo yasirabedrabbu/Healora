@@ -7,7 +7,7 @@ import { rateLimit, limitKey } from "@/lib/rate-limit";
 export const instant = false;
 
 /**
- * POST /api/doctors/register — BMDC/NID application (Handoff §10).
+ * POST /api/doctors/register - BMDC/NID application (Handoff §10).
  * Creates a PENDING doctor; only admin approve (via verification queue)
  * flips verifiedStatus to APPROVED and the badge goes live.
  */
@@ -15,7 +15,7 @@ export async function POST(req: Request) {
   return handleRoute(async () => {
     const session = await requireSession();
     const rl = rateLimit(`doc-reg:${limitKey(req, session.userId)}`, 3, 60 * 60 * 1000);
-    if (!rl.ok) return fail("অনেক বেশি আবেদন — একটু পরে", 429);
+    if (!rl.ok) return fail("অনেক বেশি আবেদন - একটু পরে", 429);
 
     const data = parseOrThrow(doctorRegisterSchema, await req.json());
 

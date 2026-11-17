@@ -9,7 +9,7 @@ export const instant = false;
 const hashSecret = process.env.AUTH_SECRET ?? "dev-only-secret-change-me";
 
 /**
- * POST /api/prescriptions — doctors only (Handoff §9/§10).
+ * POST /api/prescriptions - doctors only (Handoff §9/§10).
  * Issues a hash-signed prescription with a unique QR token + validity
  * date. One-time use enforced at /dispense.
  */

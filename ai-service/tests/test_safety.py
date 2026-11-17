@@ -1,4 +1,4 @@
-"""Safety layer tests — the non-negotiable medical guardrails."""
+"""Safety layer tests - the non-negotiable medical guardrails."""
 from app.services.safety import (
     DISCLAIMER_BN,
     EMERGENCY_BN,

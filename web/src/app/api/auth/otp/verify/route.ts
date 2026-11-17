@@ -7,14 +7,14 @@ import { rateLimit, limitKey } from "@/lib/rate-limit";
 export const instant = false;
 
 /**
- * POST /api/auth/otp/verify — exchange OTP for a session cookie.
+ * POST /api/auth/otp/verify - exchange OTP for a session cookie.
  * Dev: accepts the code echoed by /request. Production: check hashed
  * OTP table with TTL + single-use consumption.
  */
 export async function POST(req: Request) {
   return handleRoute(async () => {
     const rl = rateLimit(`otp-verify:${limitKey(req)}`, 10, 10 * 60 * 1000);
-    if (!rl.ok) return fail("অনেক বেশি চেষ্টা — একটু পরে চেষ্টা করুন", 429);
+    if (!rl.ok) return fail("অনেক বেশি চেষ্টা - একটু পরে চেষ্টা করুন", 429);
 
     const { phone, code } = parseOrThrow(otpVerifySchema, await req.json());
 

@@ -1,28 +1,14 @@
 "use client";
 
-import { CountUp } from "@/components/shared/CountUp";
 import { Reveal } from "@/components/motion/Reveal";
 import { Container } from "@/components/shared/Container";
 import { motion } from "motion/react";
 import { useReducedMotion } from "@/lib/useReducedMotion";
-
-const stats = [
-  { target: 20, suffix: "+", label: "ভেরিফায়েড ডাক্তার" },
-  { target: 500, suffix: "+", label: "QR প্রেসক্রিপশন" },
-  { target: 100, suffix: "%", label: "যাচাইযোগ্য প্রেসক্রিপশন" },
-  { fixed: "২৪/৭", label: "সাপোর্ট" },
-] as const;
-
-const marquee = [
-  "BMDC ভেরিফায়েড ডাক্তার",
-  "একবার-ব্যবহারযোগ্য প্রেসক্রিপশন",
-  "অ্যাক্সেস লগসহ নিজের রেকর্ড",
-  "কম ইন্টারনেটে অডিও/চ্যাট ফলব্যাক",
-  "জরুরি অবস্থায় ৯৯৯ প্রায়োরিটি",
-] as const;
+import { useHomeCopy } from "@/messages/copy/home-types";
 
 export function TrustStrip() {
   const reduce = useReducedMotion();
+  const { stats, marquee } = useHomeCopy();
 
   return (
     <section id="trust" className="border-y border-gray-200 bg-gray-25 py-12 dark:border-gray-800 dark:bg-gray-800">
@@ -31,8 +17,8 @@ export function TrustStrip() {
           <dl className="grid grid-cols-2 gap-8 text-center lg:grid-cols-4">
             {stats.map((s) => (
               <div key={s.label} className="flex flex-col">
-                <dd className="order-1 font-heading text-3xl font-bold tabular-nums text-brand-600 sm:text-4xl dark:text-brand-300">
-                  {"fixed" in s ? s.fixed : <CountUp target={s.target} suffix={s.suffix} />}
+                <dd className="order-1 font-heading text-4xl font-bold tabular-nums text-brand-600 sm:text-5xl dark:text-brand-300">
+                  {s.value}
                 </dd>
                 <dt className="order-2 mt-2 text-sm text-gray-500 dark:text-gray-400">{s.label}</dt>
               </div>
@@ -41,7 +27,7 @@ export function TrustStrip() {
         </Reveal>
       </Container>
 
-      {/* Infinite trust marquee — pause on hover, static under reduced motion */}
+      {/* Infinite trust marquee - pause on hover, static under reduced motion */}
       <div className="mt-10 overflow-hidden border-t border-gray-200 pt-6 dark:border-gray-800">
         <motion.ul
           className="flex w-max gap-10 whitespace-nowrap"

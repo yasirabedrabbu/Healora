@@ -5,7 +5,7 @@ import { patientNav } from "@/config/dashboard";
 export const metadata: Metadata = { title: "পোর্টাল" };
 
 /**
- * Route-group layout: portal pages render DashboardShell only — the
+ * Route-group layout: portal pages render DashboardShell only - the
  * marketing Header/Footer from the old root layout no longer wrap these.
  */
 export default function PortalLayout({ children }: { children: React.ReactNode }) {

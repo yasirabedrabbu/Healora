@@ -12,7 +12,7 @@ const shareSchema = z.object({
 });
 
 /**
- * POST /api/records/[id]/share — time-limited, revocable grant (§9).
+ * POST /api/records/[id]/share - time-limited, revocable grant (§9).
  * Only the record owner can share. Creation is logged.
  */
 export async function POST(

@@ -3,7 +3,7 @@ import { handleRoute, ok, fail } from "@/lib/security";
 
 export const instant = false;
 
-/** GET /api/doctors/[id] — public verified profile (Handoff §14). */
+/** GET /api/doctors/[id] - public verified profile (Handoff §14). */
 export async function GET(
   _req: Request,
   { params }: { params: Promise<{ id: string }> }

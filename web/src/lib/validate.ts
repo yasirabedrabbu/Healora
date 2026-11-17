@@ -2,7 +2,7 @@ import { z } from "zod";
 
 /**
  * Shared Zod schemas. Every API route validates its input here first,
- * then calls a service — never trusts raw request data.
+ * then calls a service - never trusts raw request data.
  */
 export const phoneSchema = z
   .string()

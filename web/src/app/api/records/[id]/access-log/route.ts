@@ -5,7 +5,7 @@ import { handleRoute, ok, fail } from "@/lib/security";
 export const instant = false;
 
 /**
- * GET /api/records/[id]/access-log — full view history (§5, §9).
+ * GET /api/records/[id]/access-log - full view history (§5, §9).
  * Owner-only: the transparency layer that powers the trust promise.
  */
 export async function GET(

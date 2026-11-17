@@ -1,7 +1,7 @@
 # Contributing to Healora
 
 Thanks for helping build trust-first healthcare. Medical safety and
-accessibility rules are **non-negotiable** — see the HARD rules below.
+accessibility rules are **non-negotiable** - see the HARD rules below.
 
 ## Getting started
 
@@ -12,20 +12,20 @@ git clone <repo-url> && cd Healora
 
 ## Branches
 
-- `main` — always deployable; protected by CI
+- `main` - always deployable; protected by CI
 - `feat/<area>-<desc>`, `fix/<area>-<desc>`, `docs/<topic>`
 
 ## HARD rules (PRs violating these are rejected)
 
-1. **≤200 lines per file** — split aggressively; one component/resource per folder
+1. **≤200 lines per file** - split aggressively; one component/resource per folder
 2. **TypeScript strict, no `any`**; Python: type hints + docstring on every file
 3. **Validate first**: every API route is Zod (web) / Pydantic (AI) → service → response
 4. **Named exports** (only Next.js pages/layouts may default-export)
-5. **Untitled UI tokens + HugeIcons only** — no shadows, no gradients
+5. **Untitled UI tokens + HugeIcons only** - no shadows, no gradients
 6. **Reduced-motion fallback** on every animated surface
 7. **Medical copy safety**: disclaimers mandatory, emergency → 999 first,
    AI never diagnoses or suggests doses
-8. **No secrets in code** — everything through `.env` (see `.env.example`)
+8. **No secrets in code** - everything through `.env` (see `.env.example`)
 
 ## Before opening a PR
 

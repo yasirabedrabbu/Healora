@@ -9,7 +9,7 @@ export const instant = false;
 const initSchema = z.object({ appointmentId: z.string().min(1) });
 
 /**
- * POST /api/payments/init — create a HOLD payment for an appointment
+ * POST /api/payments/init - create a HOLD payment for an appointment
  * (Handoff §11: hold on platform, release after consultation).
  * Gateway call is stubbed: swap `gatewayReference` for the real
  * SSLCommerz/aamarPay session creation in production.

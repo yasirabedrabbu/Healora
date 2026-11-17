@@ -126,7 +126,7 @@
     line-height: 1.25;
     text-wrap: balance;
   }
-  /* Brand selection — flat tint, no gradient */
+  /* Brand selection - flat tint, no gradient */
   ::selection {
     background-color: var(--color-brand-100);
     color: var(--color-brand-900);

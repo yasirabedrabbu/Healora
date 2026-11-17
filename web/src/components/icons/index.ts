@@ -1,6 +1,6 @@
 /**
  * Single source of truth for Hugeicons (stroke-rounded free set).
- * Every icon used anywhere in the app is re-exported here — no direct
+ * Every icon used anywhere in the app is re-exported here - no direct
  * imports from @hugeicons/react elsewhere. Names verified against
  * @hugeicons/core-free-icons v4.
  */

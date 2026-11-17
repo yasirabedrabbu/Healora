@@ -11,7 +11,7 @@ export type ChatMessage = {
 
 /**
  * Chat state + POST /api/ai/chat transport. Streaming upgrade: swap the
- * fetch for an SSE reader against /chat/stream — the protocol is ready.
+ * fetch for an SSE reader against /chat/stream - the protocol is ready.
  */
 export function useChat() {
   const [messages, setMessages] = useState<ChatMessage[]>([
@@ -19,7 +19,7 @@ export function useChat() {
       id: "welcome",
       role: "assistant",
       content:
-        "স্বাস্থ্য নিয়ে প্রশ্ন করুন — আমি বলব কোন স্পেশালিটির ডাক্তার দেখা উচিত। রোগ নির্ণয় করি না।",
+        "স্বাস্থ্য নিয়ে প্রশ্ন করুন - আমি বলব কোন স্পেশালিটির ডাক্তার দেখা উচিত। রোগ নির্ণয় করি না।",
     },
   ]);
   const [input, setInput] = useState("");
@@ -59,7 +59,7 @@ export function useChat() {
         {
           id: `a-${Date.now()}`,
           role: "assistant",
-          content: "সংযোগ সমস্যা — একটু পরে আবার চেষ্টা করুন।",
+          content: "সংযোগ সমস্যা - একটু পরে আবার চেষ্টা করুন।",
         },
       ]);
     } finally {

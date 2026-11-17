@@ -6,7 +6,7 @@ Healora handles sensitive medical data. Reporting channels and handling rules:
 
 **Do not open a public issue for security reports.**
 
-- Email: security@healora.example *(placeholder — set a real inbox before launch)*
+- Email: security@healora.example *(placeholder - set a real inbox before launch)*
 - Include: affected route/file, reproduction steps, impact assessment
 - Response target: 72 hours acknowledgement, 7 days fix-or-mitigation
 

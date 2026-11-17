@@ -5,7 +5,7 @@ import { rateLimit, limitKey } from "@/lib/rate-limit";
 export const instant = false;
 
 /**
- * GET /api/doctors?specialty=&area=&feeMax=&mode= — Handoff §14 search.
+ * GET /api/doctors?specialty=&area=&feeMax=&mode= - Handoff §14 search.
  * Only APPROVED doctors are ever returned (Handoff §10: verified badge
  * only after manual approve).
  */

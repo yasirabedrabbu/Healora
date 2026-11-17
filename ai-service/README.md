@@ -1,4 +1,4 @@
-"""Healora AI service — Python FastAPI.
+"""Healora AI service - Python FastAPI.
 
 Bangla-first health guidance with a hard medical-safety layer:
 emergency → 999/ER first, diagnosis/dose refusal, mandatory disclaimer.
@@ -20,5 +20,5 @@ No provider reachable → safe degraded mode, disclaimer intact.
 
 ## Deploy
 
-Docker (Render / Railway / HF Spaces / Koyeb) — see ../docs/DEPLOY.md.
+Docker (Render / Railway / HF Spaces / Koyeb) - see ../docs/DEPLOY.md.
 """

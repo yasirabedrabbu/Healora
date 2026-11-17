@@ -6,7 +6,7 @@ import { rateLimit, limitKey } from "@/lib/rate-limit";
 
 export const instant = false;
 
-/** GET /api/appointments — the caller's own list (role-aware). */
+/** GET /api/appointments - the caller's own list (role-aware). */
 export async function GET() {
   return handleRoute(async () => {
     const session = await requireSession();
@@ -27,7 +27,7 @@ export async function GET() {
   });
 }
 
-/** POST /api/appointments — book a verified doctor slot. */
+/** POST /api/appointments - book a verified doctor slot. */
 export async function POST(req: Request) {
   return handleRoute(async () => {
     const session = await requireSession();

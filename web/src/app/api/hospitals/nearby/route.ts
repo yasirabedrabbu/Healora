@@ -5,7 +5,7 @@ import { rateLimit, limitKey } from "@/lib/rate-limit";
 export const instant = false;
 
 /**
- * GET /api/hospitals/nearby?lat=&lng=&radiusKm= — Handoff §14 (Phase 2).
+ * GET /api/hospitals/nearby?lat=&lng=&radiusKm= - Handoff §14 (Phase 2).
  * Haversine distance (PostGIS swap-in ready). Coordinates validated;
  * radius capped at 50km.
  */

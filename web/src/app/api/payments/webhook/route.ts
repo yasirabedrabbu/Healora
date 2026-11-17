@@ -12,7 +12,7 @@ const webhookSchema = z.object({
 });
 
 /**
- * POST /api/payments/webhook — gateway settlement callbacks.
+ * POST /api/payments/webhook - gateway settlement callbacks.
  * Unauthenticated but signature-verified in production; here the payload
  * is validated and the state machine (HOLD → RELEASED/REFUNDED) runs.
  * No-show auto-refund lives in the scheduler (Celery/ARQ in prod).

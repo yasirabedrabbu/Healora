@@ -11,7 +11,7 @@ const uploadSchema = z.object({
   fileUrl: z.string().min(1).max(500),
 });
 
-/** GET /api/records — the patient's own records only (§9). */
+/** GET /api/records - the patient's own records only (§9). */
 export async function GET() {
   return handleRoute(async () => {
     const session = await requireSession();
@@ -24,7 +24,7 @@ export async function GET() {
   });
 }
 
-/** POST /api/records — upload a record (file stored via /uploads or S3). */
+/** POST /api/records - upload a record (file stored via /uploads or S3). */
 export async function POST(req: Request) {
   return handleRoute(async () => {
     const session = await requireSession();

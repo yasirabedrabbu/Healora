@@ -19,7 +19,7 @@ const bedsSchema = z.object({
     .max(10),
 });
 
-/** GET /api/hospitals/[id]/beds — public bed/ICU/oxygen status. */
+/** GET /api/hospitals/[id]/beds - public bed/ICU/oxygen status. */
 export async function GET(
   _req: Request,
   { params }: { params: Promise<{ id: string }> }
@@ -31,7 +31,7 @@ export async function GET(
   });
 }
 
-/** PUT /api/hospitals/[id]/beds — hospital staff updates counts. */
+/** PUT /api/hospitals/[id]/beds - hospital staff updates counts. */
 export async function PUT(
   req: Request,
   { params }: { params: Promise<{ id: string }> }

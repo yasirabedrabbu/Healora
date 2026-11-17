@@ -5,7 +5,7 @@ import { handleRoute, ok, fail } from "@/lib/security";
 export const instant = false;
 
 /**
- * GET /api/prescriptions/[id] — patient sees own; doctor sees issued;
+ * GET /api/prescriptions/[id] - patient sees own; doctor sees issued;
  * nobody else. Access is audit-logged (Handoff §9 access matrix).
  */
 export async function GET(

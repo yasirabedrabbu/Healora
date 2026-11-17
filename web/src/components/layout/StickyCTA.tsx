@@ -8,7 +8,7 @@ import { useI18n } from "@/lib/i18n";
 import { EASE_STANDARD } from "@/lib/motion";
 
 /**
- * Sticky mobile CTA — appears after scrolling past the hero on marketing
+ * Sticky mobile CTA - appears after scrolling past the hero on marketing
  * pages. Hidden on md+ and inside the portal.
  */
 export function StickyCTA() {

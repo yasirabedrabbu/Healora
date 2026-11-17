@@ -17,7 +17,7 @@ class LLMProvider(Protocol):
 
 
 class OllamaProvider:
-    """Local Ollama — the default for the demo (no key, no data leaves)."""
+    """Local Ollama - the default for the demo (no key, no data leaves)."""
 
     def __init__(self, model: str | None = None) -> None:
         self.model = model or os.getenv("AI_MODEL", "llama3.1:8b")

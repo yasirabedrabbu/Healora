@@ -1,4 +1,4 @@
-# Healora AI service — production container
+# Healora AI service - production container
 # Runs the FastAPI app; used by Render / Railway / Hugging Face Spaces / Fly.
 FROM python:3.12-slim
 

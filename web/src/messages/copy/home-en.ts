@@ -1,0 +1,94 @@
+import type { HomeCopy } from "./home-types";
+
+export const en = {
+  headings: {
+    specialties: { eyebrow: "Specialties", title: "Find exactly the", titleAccent: "specialist you need", description: "Every specialist doctor is verified and review-checked." },
+    howItWorks: { eyebrow: "How it works", title: "Done in four", titleAccent: "simple steps", description: "From booking to prescription verification, all in one place." },
+    features: { eyebrow: "Features", title: "Trust and convenience,", titleAccent: "together", description: "Every Healora feature is easy for everyone." },
+    spotlight: { eyebrow: "Doctors", title: "Meet our", titleAccent: "verified doctors", description: "Badges only appear after BMDC number, NID and selfie checks." },
+    testimonials: { eyebrow: "Testimonials", title: "What our users", titleAccent: "say", description: "Real experiences from the first pilot cohort." },
+    pricing: { eyebrow: "Pricing", title: "Simple,", titleAccent: "honest plans", description: "Blood donation is always free - that is a matter of trust." },
+    faq: { eyebrow: "FAQ", title: "Common", titleAccent: "questions", description: "" },
+  },
+  stats: [
+    { value: "20+", label: "Verified doctors" },
+    { value: "500+", label: "QR prescriptions" },
+    { value: "100%", label: "Verifiable prescriptions" },
+    { value: "24/7", label: "Support" },
+  ],
+  marquee: [
+    "BMDC-verified doctors",
+    "Single-use prescriptions",
+    "Your record, with access logs",
+    "Audio/chat fallback on low data",
+    "999 priority in emergencies",
+  ],
+  specialties: ["Medicine", "Gynecology", "Cardiology", "Pediatrics", "Dermatology", "Neurology", "Orthopedics", "ENT"],
+  steps: [
+    { n: "01", title: "Find a doctor", text: "Filter by specialty, fee and language." },
+    { n: "02", title: "Book & pay", text: "Video, audio, chat or in-chamber - confirm instantly." },
+    { n: "03", title: "Consultation", text: "Talk to the doctor and receive your prescription." },
+    { n: "04", title: "Verify with QR", text: "Any pharmacy can scan the QR to check the prescription." },
+  ],
+  features: {
+    qr: { title: "QR prescriptions", text: "Every prescription has a unique ID and QR. Once dispensed it is marked 'dispensed' - it can never be reused." },
+    verified: { title: "Verified doctors", text: "A verified badge only after BMDC, NID and selfie checks." },
+    records: { title: "Your own record", text: "Who viewed it and when - every access is logged." },
+    bangla: { title: "Bangla-first", text: "Bangla UI, with audio/chat fallback on low data." },
+    scam: { title: "Scam protection", text: "Phone masking, off-platform payment warnings, report button. Emergency signs → 999/ER." },
+    appAlt: "Healora app prescription screen on a phone",
+  },
+  spotlight: { bookCta: "Book now", fee: "fee" },
+  testimonials: {
+    items: [
+      { quote: "Needed an urgent prescription at 11 PM. Showed the QR and got medicine from a pharmacy - no hassle at all.", role: "Dhaka" },
+      { quote: "All of my mother's reports are in one place now. It even logs who viewed them. Total peace of mind.", role: "Chattogram" },
+      { quote: "I can review patient records beforehand. Follow-ups have become so much easier.", role: "Verified doctor" },
+    ],
+    disclaimer: "Testimonials come from pilot program participants; they are not medical advice.",
+  },
+  plans: {
+    popular: "Popular",
+    startCta: "Get started",
+    items: [
+      { name: "Free", price: "৳0", period: "forever", features: ["Find doctors", "Verify prescriptions", "Upload medical records", "Blood requests"] },
+      { name: "Plus", price: "৳99", period: "monthly", features: ["Everything in Free", "Family profile (5 members)", "Medicine reminders", "Report sharing + access logs"] },
+      { name: "Family", price: "৳199", period: "monthly", features: ["Everything in Plus", "Unlimited family profiles", "Chronic care tracker", "Priority support"] },
+    ],
+  },
+  faq: {
+    items: [
+      { question: "Are the doctors really verified?", answer: "Yes. Admins approve only after checking the BMDC number, NID and a selfie - that is when the verified badge appears." },
+      { question: "Can prescriptions be verified?", answer: "Yes. Scan the prescription QR to see the doctor, registration number, date and medicines." },
+      { question: "How does payment work?", answer: "Via bKash, Nagad or card. After the consultation, payment goes to the doctor." },
+      { question: "Will AI give a diagnosis?", answer: "No. AI only suggests which specialist to see. Diagnosis is always the doctor's job." },
+    ],
+  },
+  emergency: { title: "Emergency?", text: "On emergency signs, AI immediately shows 999 or the nearest ER.", cta: "Emergency support" },
+  hero: {
+    imageAlt: "Video consultation with a verified doctor on Healora",
+    chips: ["Verified doctors", "4.9 rating · 500+ reviews", "QR verification done"],
+    bullets: ["BMDC verified", "QR verification", "Your own record"],
+    statCard: { specialtyLine: "Gynecology · Verified", slot: "Today 6:30 PM" },
+  },
+  appPreview: {
+    eyebrow: "QR prescriptions",
+    title: "Prescriptions that",
+    titleAccent: "cannot be forged",
+    alt: "Healora app QR prescription screen on a phone",
+    points: [
+      { title: "3-second QR verification", text: "A pharmacy scan instantly shows the doctor, registration number, medicines and validity." },
+      { title: "Single-use only", text: "Once dispensed, the prescription is marked 'dispensed' — it can never be reused." },
+      { title: "Expiry warnings", text: "After the validity date the QR shows a red banner — the pharmacy blocks it." },
+    ],
+  },
+  finalCta: {
+    badge: "Pilot - first 20 doctors",
+    title: "Start",
+    titleAccent: "today",
+    text: "Verified doctors, verifiable prescriptions, records under your control - begin your first consultation today.",
+    primary: "Find a doctor",
+    secondary: "Join as a doctor",
+    footnote: "Always dial 999 in emergencies - Healora is not an emergency service.",
+  },
+} satisfies HomeCopy;

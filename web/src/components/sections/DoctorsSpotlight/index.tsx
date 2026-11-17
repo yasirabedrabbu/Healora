@@ -10,6 +10,7 @@ import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Badge } from "@/components/ui/Badge";
 import { fadeUp, staggerContainer } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
+import { useHomeCopy } from "@/messages/copy/home-types";
 
 const spotlight = [
   {
@@ -32,14 +33,16 @@ const spotlight = [
 
 export function DoctorsSpotlight() {
   const reduce = useReducedMotion();
+  const c = useHomeCopy();
 
   return (
     <section id="spotlight" className="bg-white py-24 dark:bg-gray-900">
       <Container>
         <SectionHeading
-          eyebrow="ডাক্তার"
-          title="ভেরিফায়েড ডাক্তারদের সাথে পরিচিত হোন"
-          description="BMDC নম্বর, NID আর সেলফি যাচাইয়ের পরেই ব্যাজ।"
+          eyebrow={c.headings.spotlight.eyebrow}
+          title={c.headings.spotlight.title}
+          titleAccent={c.headings.spotlight.titleAccent}
+          description={c.headings.spotlight.description}
         />
         <motion.ul
           variants={reduce ? undefined : staggerContainer}
@@ -53,7 +56,7 @@ export function DoctorsSpotlight() {
               <Card interactive className="flex h-full items-center gap-6 p-6">
                 <Image
                   src={d.img}
-                  alt={`${d.name} — ${d.specialty} বিশেষজ্ঞ`}
+                  alt={`${d.name} - ${d.specialty}`}
                   width={112}
                   height={112}
                   className="h-28 w-28 shrink-0 rounded-2xl border border-gray-200 object-cover dark:border-gray-800"
@@ -71,10 +74,10 @@ export function DoctorsSpotlight() {
                       <HugeiconsIcon icon={StarIcon} size={12} aria-hidden />
                       {d.rating}
                     </Badge>
-                    <Badge color="gray" size="sm">৳{d.fee} ফি</Badge>
+                    <Badge color="gray" size="sm">৳{d.fee} {c.spotlight.fee}</Badge>
                   </div>
                   <ButtonLink href="/doctors" variant="secondary" size="sm" className="mt-4">
-                    বুকিং করুন
+                    {c.spotlight.bookCta}
                     <HugeiconsIcon icon={ArrowRight01Icon} size={16} aria-hidden />
                   </ButtonLink>
                 </div>

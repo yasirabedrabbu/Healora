@@ -1,4 +1,4 @@
-"""Chat router — /chat (blocking), /chat/stream (SSE), /chat/history."""
+"""Chat router - /chat (blocking), /chat/stream (SSE), /chat/history."""
 import asyncio
 import json
 import time
@@ -32,7 +32,7 @@ async def _produce_reply(message: str, locale: str) -> tuple[str, bool, bool]:
         provider = get_provider()
         raw = await provider.complete(build_system_prompt(locale), message)
     except Exception:
-        # Degraded mode: LLM unreachable — answer with safe navigation
+        # Degraded mode: LLM unreachable - answer with safe navigation
         # guidance instead of failing. The disclaimer still applies.
         raw = (
             "এখন আমি পূর্ণ উত্তর দিতে পারছি না। আপনার লক্ষণ অনুযায়ী সঠিক "
@@ -70,7 +70,7 @@ async def chat(req: ChatRequest) -> ChatResponse:
 
 @router.post("/stream")
 async def chat_stream(req: ChatRequest) -> EventSourceResponse:
-    """SSE stream — tokens arrive as they generate."""
+    """SSE stream - tokens arrive as they generate."""
 
     async def event_gen():
         reply, emergency, flagged = await _produce_reply(req.message, req.locale)

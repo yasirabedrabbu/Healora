@@ -7,7 +7,7 @@ import { motion } from "motion/react";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 import { HugeiconsIcon, Cancel01Icon, AiBrainIcon } from "@/components/icons";
 
-/** Floating chat panel — streaming, disclaimers, reduced-motion safe. */
+/** Floating chat panel - streaming, disclaimers, reduced-motion safe. */
 export function AssistantWidget({ onClose }: { onClose: () => void }) {
   const { messages, streaming, send, input, setInput } = useChat();
   const reduce = useReducedMotion();
@@ -29,7 +29,7 @@ export function AssistantWidget({ onClose }: { onClose: () => void }) {
           </span>
           <div>
             <p className="text-sm font-semibold text-gray-900 dark:text-gray-50">স্বাস্থ্য সহকারী</p>
-            <p className="text-[11px] text-gray-400">ডায়াগনোসিস নয় — পথ দেখায়</p>
+            <p className="text-[11px] text-gray-400">ডায়াগনোসিস নয় - পথ দেখায়</p>
           </div>
         </div>
         <button

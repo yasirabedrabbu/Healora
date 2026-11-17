@@ -2,20 +2,17 @@
 
 import Image from "next/image";
 import { motion } from "motion/react";
-import { HugeiconsIcon, QrCode01Icon, Shield01Icon, ClockIcon } from "@/components/icons";
-import { SectionHeading } from "@/components/shared/SectionHeading";
+import { HugeiconsIcon, QrCode01Icon, Shield01Icon, ClockIcon } from "@/components/icons";import { SectionHeading } from "@/components/shared/SectionHeading";
 import { Container } from "@/components/shared/Container";
 import { fadeUp, staggerContainer } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
+import { useHomeCopy } from "@/messages/copy/home-types";
 
-const points = [
-  { icon: QrCode01Icon, title: "QR দিয়ে ৩ সেকেন্ডে যাচাই", text: "ফার্মেসি স্ক্যান করলেই ডাক্তার, রেজ নম্বর, ওষুধ আর মেয়াদ দেখা যাবে।" },
-  { icon: Shield01Icon, title: "একবারই ব্যবহারযোগ্য", text: "ডিসপেন্স হলে প্রেসক্রিপশন 'dispensed' হয়ে যায় — পুনরায় ব্যবহার অসম্ভব।" },
-  { icon: ClockIcon, title: "মেয়াদ শেষ হলে সাবধান", text: "ভ্যালিডিটি তারিখ শেষ হলে QR লাল ব্যানার দেখায় — ফার্মেসি আটকে দেয়।" },
-] as const;
+const pointIcons = [QrCode01Icon, Shield01Icon, ClockIcon] as const;
 
 export function AppPreview() {
   const reduce = useReducedMotion();
+  const c = useHomeCopy();
 
   return (
     <section id="app-preview" className="bg-gray-25 py-24 dark:bg-gray-800">
@@ -29,18 +26,19 @@ export function AppPreview() {
             className="order-2 lg:order-1"
           >
             <SectionHeading
-              eyebrow="QR প্রেসক্রিপশন"
-              title="প্রেসক্রিপশন, যেটা ফর্জ করা যায় না"
+              eyebrow={c.appPreview.eyebrow}
+              title={c.appPreview.title}
+              titleAccent={c.appPreview.titleAccent}
               align="left"
             />
             <motion.ul
               variants={reduce ? undefined : staggerContainer}
               className="space-y-5"
             >
-              {points.map((p) => (
+              {c.appPreview.points.map((p, i) => (
                 <motion.li key={p.title} variants={reduce ? undefined : fadeUp} className="flex gap-4">
                   <span className="mt-0.5 grid h-11 w-11 shrink-0 place-items-center rounded-xl border border-brand-100 bg-brand-25 text-brand-500 dark:border-brand-800 dark:bg-brand-900 dark:text-brand-300">
-                    <HugeiconsIcon icon={p.icon} size={22} aria-hidden />
+                    <HugeiconsIcon icon={pointIcons[i]} size={22} aria-hidden />
                   </span>
                   <div>
                     <h3 className="font-semibold text-gray-900 dark:text-gray-50">{p.title}</h3>
@@ -60,7 +58,7 @@ export function AppPreview() {
           >
             <Image
               src="/images/app-preview.jpg"
-              alt="মোবাইলে হিলোরা অ্যাপের QR প্রেসক্রিপশন স্ক্রিন"
+              alt={c.appPreview.alt}
               width={720}
               height={480}
               sizes="(min-width: 1024px) 46vw, 100vw"

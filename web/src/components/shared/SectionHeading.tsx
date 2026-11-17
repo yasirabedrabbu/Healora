@@ -4,12 +4,14 @@ import { cn } from "@/lib/utils";
 export function SectionHeading({
   eyebrow,
   title,
+  titleAccent,
   description,
   align = "center",
   className,
 }: {
   eyebrow?: string;
   title: string;
+  titleAccent?: string;
   description?: string;
   align?: "center" | "left";
   className?: string;
@@ -29,7 +31,12 @@ export function SectionHeading({
         </p>
       )}
       <h2 className="mt-4 text-display-xs font-bold text-gray-900 sm:text-display-sm dark:text-gray-50">
-        {title}
+        {title}{" "}
+        {titleAccent && (
+          <span className="font-serif-accent font-normal italic text-brand-500 dark:text-brand-300">
+            {titleAccent}
+          </span>
+        )}
       </h2>
       {description && (
         <p className="mt-4 text-lg text-gray-500 dark:text-gray-400">{description}</p>

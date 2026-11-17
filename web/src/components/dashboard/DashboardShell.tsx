@@ -4,7 +4,7 @@ import { MobileNav } from "@/components/layout/MobileNav";
 import { Container } from "@/components/shared/Container";
 
 /**
- * Portal chrome — sits inside its own route group layout, so the marketing
+ * Portal chrome - sits inside its own route group layout, so the marketing
  * Header/Footer never wrap dashboard pages.
  */
 export function DashboardShell({

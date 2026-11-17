@@ -4,7 +4,7 @@ import { PrismaPg } from "@prisma/adapter-pg";
 import { randomBytes, createHmac } from "node:crypto";
 
 /**
- * Seed: demo data matching Handoff.md — 2 approved doctors, 1 hospital
+ * Seed: demo data matching Handoff.md - 2 approved doctors, 1 hospital
  * with beds, medicines, a patient, a full appointment → prescription
  * chain, and a blood donor pool. Safe to re-run (idempotent upserts).
  */

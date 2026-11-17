@@ -12,12 +12,12 @@ const decisionSchema = z.object({
   note: z.string().max(300).optional(),
 });
 
-/** GET /api/admin/verifications — pending queue (§10 manual approve). */
+/** GET /api/admin/verifications - pending queue (§10 manual approve). */
 export async function GET() {
   return handleRoute(async () => {
     await requireRole("ADMIN");
 
-    // Metadata only — documents/medical content never shown to admin (§9).
+    // Metadata only - documents/medical content never shown to admin (§9).
     const queue = await db.doctor.findMany({
       where: { verifiedStatus: "PENDING" },
       select: {
@@ -32,7 +32,7 @@ export async function GET() {
   });
 }
 
-/** POST /api/admin/verifications — approve/reject decision. */
+/** POST /api/admin/verifications - approve/reject decision. */
 export async function POST(req: Request) {
   return handleRoute(async () => {
     const session = await requireRole("ADMIN");

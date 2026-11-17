@@ -8,7 +8,7 @@ export function Logo() {
     <Link
       href="/"
       className="flex items-center gap-2 rounded-lg focus-visible:outline-2 focus-visible:outline-brand-300 focus-visible:outline-offset-2"
-      aria-label={`${siteConfig.name} — home`}
+      aria-label={`${siteConfig.name} - home`}
     >
       <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand-500 text-white">
         <HugeiconsIcon icon={HealthIcon} size={20} aria-hidden />

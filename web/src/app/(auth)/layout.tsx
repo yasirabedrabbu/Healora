@@ -10,7 +10,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         <Link
           href="/"
           className="mb-8 flex items-center justify-center gap-2 rounded-lg focus-visible:outline-2 focus-visible:outline-brand-300 focus-visible:outline-offset-2"
-          aria-label={`${siteConfig.name} — home`}
+          aria-label={`${siteConfig.name} - home`}
         >
           <span className="grid h-10 w-10 place-items-center rounded-xl bg-brand-500 text-white">
             <HugeiconsIcon icon={HealthIcon} size={22} aria-hidden />

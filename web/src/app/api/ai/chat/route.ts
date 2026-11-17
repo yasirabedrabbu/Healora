@@ -9,7 +9,7 @@ export const instant = false;
 const AI_SERVICE_URL = process.env.AI_SERVICE_URL ?? "http://localhost:8000";
 
 /**
- * POST /api/ai/chat — proxy to the Python AI service (Handoff §8, §14).
+ * POST /api/ai/chat - proxy to the Python AI service (Handoff §8, §14).
  * Safety rules live in ai-service (refuse diagnosis, disclaimers,
  * emergency-first). We log the interaction per rule 4 and anonymize:
  * no name/phone/record data is ever forwarded (rule 3).
@@ -18,11 +18,11 @@ export async function POST(req: Request) {
   return handleRoute(async () => {
     const session = await getSession();
     const rl = rateLimit(`ai:${limitKey(req, session?.userId)}`, 20, 60 * 60 * 1000);
-    if (!rl.ok) return fail("AI-এর সাথে অনেক বেশি কথা বলা হয়েছে — একটু পরে", 429);
+    if (!rl.ok) return fail("AI-এর সাথে অনেক বেশি কথা বলা হয়েছে - একটু পরে", 429);
 
     const body = parseOrThrow(aiChatSchema, await req.json());
 
-    // Forward the message text only — never identity or record data.
+    // Forward the message text only - never identity or record data.
     const upstream = await fetch(`${AI_SERVICE_URL}/chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },

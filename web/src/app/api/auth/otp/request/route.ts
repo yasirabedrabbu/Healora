@@ -7,14 +7,14 @@ import { rateLimit, limitKey } from "@/lib/rate-limit";
 export const instant = false;
 
 /**
- * POST /api/auth/otp/request — issue a 6-digit OTP (Handoff §14).
+ * POST /api/auth/otp/request - issue a 6-digit OTP (Handoff §14).
  * Dev: code is logged server-side (no SMS provider yet). Rate-limited
  * hard because OTP spam is an abuse vector.
  */
 export async function POST(req: Request) {
   return handleRoute(async () => {
     const rl = rateLimit(`otp-req:${limitKey(req)}`, 5, 10 * 60 * 1000);
-    if (!rl.ok) return fail(`অনেক বেশি চেষ্টা — ${rl.retryAfterSec} সেকেন্ড পরে চেষ্টা করুন`, 429);
+    if (!rl.ok) return fail(`অনেক বেশি চেষ্টা - ${rl.retryAfterSec} সেকেন্ড পরে চেষ্টা করুন`, 429);
 
     const { phone } = parseOrThrow(otpRequestSchema, await req.json());
 

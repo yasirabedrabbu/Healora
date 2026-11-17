@@ -7,7 +7,7 @@ import { useReducedMotion } from "@/lib/useReducedMotion";
 import { motion } from "motion/react";
 import { AssistantWidget } from "./index";
 
-/** FAB toggle for the assistant — accessible name, reduced-motion safe. */
+/** FAB toggle for the assistant - accessible name, reduced-motion safe. */
 export function AssistantLauncher() {
   const [open, setOpen] = useState(false);
   const reduce = useReducedMotion();

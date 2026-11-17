@@ -1,4 +1,4 @@
-# Healora — বিশ্বাসের সাথে সুস্থতা
+# Healora - বিশ্বাসের সাথে সুস্থতা
 
 > Trust-first digital healthcare platform for Bangladesh: verified doctors,
 > QR-verifiable e-prescriptions, patient-owned records, hospital/lab/pharmacy
@@ -14,18 +14,18 @@
 |---|---|---|---|
 | Web app + REST API | Next.js 16 (App Router), TypeScript strict, Prisma 7, Zod | [`web/`](web/) | 3000 |
 | AI health assistant | Python FastAPI, Pydantic, SSE streaming, medical-safety layer | [`ai-service/`](ai-service/) | 8000 |
-| Database | PostgreSQL (pgvector-ready) | — | 5432 |
+| Database | PostgreSQL (pgvector-ready) | - | 5432 |
 
 ## Key principles (non-negotiable)
 
-1. **Medical safety** — the AI never diagnoses, never suggests doses; every
+1. **Medical safety** - the AI never diagnoses, never suggests doses; every
    reply carries a disclaimer; emergencies route to **999 / nearest ER first**
    (`ai-service/app/services/safety.py`).
-2. **Trust layer** — BMDC verification before a doctor goes live; HMAC-signed
+2. **Trust layer** - BMDC verification before a doctor goes live; HMAC-signed
    one-time QR prescriptions; donors' contact details stay hidden until accept.
-3. **Patient-owned data** — records are encrypted, shares are time-limited and
+3. **Patient-owned data** - records are encrypted, shares are time-limited and
    revocable, every access is logged, admins never see medical content.
-4. **Accessibility** — WCAG AA, status = icon + text + colour (never colour
+4. **Accessibility** - WCAG AA, status = icon + text + colour (never colour
    alone), reduced-motion honoured everywhere.
 
 ## Quick start
@@ -60,12 +60,12 @@ CI runs all gates on every push (`.github/workflows/ci.yml`).
 
 ## Docs
 
-- [`docs/API.md`](docs/API.md) — every REST endpoint, auth + safety rules
-- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — system design, data model, flows
-- [`docs/RUN.md`](docs/RUN.md) — local setup + Prisma 7/8 notes
-- [`docs/DEPLOY.md`](docs/DEPLOY.md) — free-tier deployment guide (Vercel + Neon + Render)
-- [`docs/REDESIGN.md`](docs/REDESIGN.md) — UI design system decisions
-- [`docs/CONTRIBUTING.md`](docs/CONTRIBUTING.md) — coding standards + PR flow
+- [`docs/API.md`](docs/API.md) - every REST endpoint, auth + safety rules
+- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) - system design, data model, flows
+- [`docs/RUN.md`](docs/RUN.md) - local setup + Prisma 7/8 notes
+- [`docs/DEPLOY.md`](docs/DEPLOY.md) - free-tier deployment guide (Vercel + Neon + Render)
+- [`docs/REDESIGN.md`](docs/REDESIGN.md) - UI design system decisions
+- [`docs/CONTRIBUTING.md`](docs/CONTRIBUTING.md) - coding standards + PR flow
 
 ## Repo layout
 
@@ -84,4 +84,4 @@ Healora/
 
 ## License
 
-MIT — see [`LICENSE`](LICENSE).
+MIT - see [`LICENSE`](LICENSE).

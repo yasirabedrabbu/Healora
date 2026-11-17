@@ -3,12 +3,12 @@ import { cookies } from "next/headers";
 
 /**
  * OTP-first auth per Handoff §7 (JWT + OTP). Self-contained HS256 session
- * tokens in an HttpOnly cookie — no password surface, no OAuth, matching
+ * tokens in an HttpOnly cookie - no password surface, no OAuth, matching
  * the medical-data rule that only phone/email identity is needed.
  *
  * In dev OTP codes are logged to the server console (no SMS provider yet,
  * Handoff §15: provider TBD). In production the send step swaps to the
- * SMS gateway — the flow shape never changes.
+ * SMS gateway - the flow shape never changes.
  */
 const SECRET = process.env.AUTH_SECRET ?? "dev-only-secret-change-me";
 export const SESSION_COOKIE = "healora_session";
@@ -84,7 +84,7 @@ export async function requireSession(): Promise<SessionPayload> {
   return session;
 }
 
-/** Role guard — admin never sees medical content (Handoff §9). */
+/** Role guard - admin never sees medical content (Handoff §9). */
 export async function requireRole(...roles: string[]): Promise<SessionPayload> {
   const session = await requireSession();
   if (!roles.includes(session.role)) {

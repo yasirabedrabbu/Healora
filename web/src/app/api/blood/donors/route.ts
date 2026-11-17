@@ -4,7 +4,7 @@ import { handleRoute, ok, fail } from "@/lib/security";
 export const instant = false;
 
 /**
- * GET /api/blood/donors?group=&area= — Handoff §14 (§10 scam rules:
+ * GET /api/blood/donors?group=&area= - Handoff §14 (§10 scam rules:
  * donor contact details stay hidden until the requester accepts).
  */
 export async function GET(req: Request) {
@@ -19,7 +19,7 @@ export async function GET(req: Request) {
       take: 50,
     });
 
-    // Contact deliberately omitted — revealed only after accept flow.
+    // Contact deliberately omitted - revealed only after accept flow.
     return ok({
       donors: donors.map((d) => ({
         id: d.id,

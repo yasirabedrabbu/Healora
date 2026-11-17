@@ -1,4 +1,4 @@
-# Healora web — Next.js 16 app + REST API
+# Healora web - Next.js 16 app + REST API
 
 See the [root README](../README.md) for the full project.
 
@@ -25,12 +25,12 @@ npm start & node scripts/smoke.mjs    # 39-route smoke test
 
 ## Layout
 
-- `prisma/` — schema (24 entities, Handoff §13) + seed
-- `src/app/api/` — 16 REST routes, each: rate-limit → Zod → service → JSON
-- `src/app/(dashboard)/` — patient portal + nested doctor/hospital/lab/pharmacy/admin portals
-- `src/lib/` — db (pg adapter), auth (OTP HS256 sessions), validate, rate-limit, security
-- `scripts/` — smoke + line audit
+- `prisma/` - schema (24 entities, Handoff §13) + seed
+- `src/app/api/` - 16 REST routes, each: rate-limit → Zod → service → JSON
+- `src/app/(dashboard)/` - patient portal + nested doctor/hospital/lab/pharmacy/admin portals
+- `src/lib/` - db (pg adapter), auth (OTP HS256 sessions), validate, rate-limit, security
+- `scripts/` - smoke + line audit
 
-Hard rules live in [`docs/CONTRIBUTING.md`](../docs/CONTRIBUTING.md) — ≤200
+Hard rules live in [`docs/CONTRIBUTING.md`](../docs/CONTRIBUTING.md) - ≤200
 lines/file, no `any`, Untitled UI tokens + HugeIcons only, no shadows/gradients,
 reduced-motion fallbacks, medical disclaimers + 999-first copy.

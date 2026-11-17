@@ -1,6 +1,6 @@
 import { Container } from "@/components/shared/Container";
 
-/** Route-level loading skeleton — flat surfaces + borders, no shimmer/gradients. */
+/** Route-level loading skeleton - flat surfaces + borders, no shimmer/gradients. */
 export default function Loading() {
   return (
     <Container className="py-16">

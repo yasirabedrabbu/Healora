@@ -1,4 +1,4 @@
-// Healora — Prisma schema mirroring Handoff.md §13 (data model draft).
+// Healora - Prisma schema mirroring Handoff.md §13 (data model draft).
 // PostgreSQL + PostGIS (coords via Decimal pair until PostGIS extension) + pgvector-ready.
 
 generator client {

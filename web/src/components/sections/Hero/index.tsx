@@ -3,19 +3,20 @@
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
-import { HugeiconsIcon, BadgeCheckIcon, QrCode01Icon, MedicalFileIcon } from "@/components/icons";
+import { HugeiconsIcon, BadgeCheckIcon, QrCode01Icon, MedicalFileIcon, StarIcon } from "@/components/icons";
 import { useI18n } from "@/lib/i18n";
 import { fadeUp, staggerContainer } from "@/lib/motion";
 import { useReducedMotion as prefersReduced } from "@/lib/useReducedMotion";
+import { useHomeCopy } from "@/messages/copy/home-types";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Container } from "@/components/shared/Container";
 
 /** Word-by-word headline: 40ms stagger, blur-to-sharp. */
-function StaggerTitle({ text }: { text: string }) {
+function StaggerTitle({ text, accent = false }: { text: string; accent?: boolean }) {
   const reduce = prefersReduced();
   return (
     <motion.span
-      className="block"
+      className={accent ? "block font-serif-accent font-normal italic text-brand-500 dark:text-brand-300" : "block"}
       initial={reduce ? undefined : "hidden"}
       animate="visible"
       variants={reduce ? undefined : { hidden: {}, visible: { transition: { staggerChildren: 0.04 } } }}
@@ -43,12 +44,14 @@ function StaggerTitle({ text }: { text: string }) {
 }
 
 const chips = [
-  { icon: BadgeCheckIcon, label: "ভেরিফায়েড ডাক্তার", className: "-left-3 top-6 sm:-left-6" },
-  { icon: QrCode01Icon, label: "QR যাচাই সম্পন্ন", className: "-right-3 top-1/3 sm:-right-6" },
+  { icon: BadgeCheckIcon, className: "-left-3 top-6 sm:-left-8" },
+  { icon: StarIcon, className: "-right-3 top-10 sm:-right-8" },
+  { icon: QrCode01Icon, className: "-right-3 top-1/2 sm:-right-8" },
 ] as const;
 
 export function Hero() {
   const { t } = useI18n();
+  const c = useHomeCopy();
   const reduce = prefersReduced();
   const section = useRef<HTMLElement>(null);
 
@@ -76,11 +79,12 @@ export function Hero() {
               <span className="absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-500" />
             </span>
-            পাইলট চলছে — প্রথম ২০ ডাক্তার
+            পাইলট চলছে - প্রথম ২০ ডাক্তার
           </motion.span>
 
           <h1 className="mt-6 text-display-sm font-bold text-gray-900 sm:text-display-md lg:text-display-lg dark:text-gray-50">
             <StaggerTitle text={t.home.heroTitle} />
+            <StaggerTitle text={t.home.heroTitleAccent} accent />
           </h1>
 
           <motion.p
@@ -108,30 +112,30 @@ export function Hero() {
           >
             <li className="flex items-center gap-2">
               <HugeiconsIcon icon={BadgeCheckIcon} size={18} aria-hidden className="text-success-600 dark:text-success-300" />
-              BMDC ভেরিফায়েড
+              {c.hero.bullets[0]}
             </li>
             <li className="flex items-center gap-2">
               <HugeiconsIcon icon={QrCode01Icon} size={18} aria-hidden className="text-brand-600 dark:text-brand-300" />
-              QR যাচাই
+              {c.hero.bullets[1]}
             </li>
             <li className="flex items-center gap-2">
               <HugeiconsIcon icon={MedicalFileIcon} size={18} aria-hidden className="text-secondary dark:text-secondary-light" />
-              নিজের রেকর্ড
+              {c.hero.bullets[2]}
             </li>
           </motion.ul>
         </motion.div>
 
-        <div className="relative mx-auto w-full max-w-xl">
+        <div className="relative mx-auto w-full max-w-md lg:max-w-lg">
           <motion.div
             initial={reduce ? undefined : { opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
-            className="relative aspect-4/3 w-full"
+            className="relative aspect-3/4 w-full"
           >
             <motion.div style={{ y: imgY, scale: imgScale }} className="absolute inset-0">
               <Image
                 src="/images/hero.jpg"
-                alt="হিলোরায় ভেরিফায়েড ডাক্তারের সাথে ভিডিও কনসালটেশন"
+                alt={c.hero.imageAlt}
                 fill
                 priority
                 sizes="(min-width: 1024px) 46vw, 100vw"
@@ -140,13 +144,13 @@ export function Hero() {
             </motion.div>
 
             {/* Floating trust chips (motion float, no glow) */}
-            {chips.map((c, i) => (
+            {chips.map((chip, i) => (
               <motion.div
-                key={c.label}
+                key={chip.className}
                 initial={reduce ? undefined : { opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 + i * 0.15, duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-                className={`absolute z-10 ${c.className}`}
+                className={`absolute z-10 ${chip.className}`}
               >
                 <motion.div
                   animate={reduce ? undefined : { y: [0, -6, 0] }}
@@ -154,9 +158,9 @@ export function Hero() {
                   className="flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-3 py-2 dark:border-gray-800 dark:bg-gray-900"
                 >
                   <span className="grid h-7 w-7 place-items-center rounded-lg bg-brand-50 text-brand-600 dark:bg-brand-900 dark:text-brand-200">
-                    <HugeiconsIcon icon={c.icon} size={16} aria-hidden />
+                    <HugeiconsIcon icon={chip.icon} size={16} aria-hidden />
                   </span>
-                  <span className="text-xs font-semibold text-gray-900 dark:text-gray-50">{c.label}</span>
+                  <span className="text-xs font-semibold text-gray-900 dark:text-gray-50">{c.hero.chips[i]}</span>
                 </motion.div>
               </motion.div>
             ))}
@@ -170,11 +174,11 @@ export function Hero() {
               </span>
               <div>
                 <p className="text-sm font-semibold text-gray-900 dark:text-gray-50">ডা. সাদিয়া আক্তার</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">গাইনি · ভেরিফায়েড</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">{c.hero.statCard.specialtyLine}</p>
               </div>
             </div>
             <span className="rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-600 dark:bg-brand-900 dark:text-brand-200">
-              আজ ৬:৩০ PM
+              {c.hero.statCard.slot}
             </span>
           </div>
         </div>

@@ -4,16 +4,23 @@ import { useState } from "react";
 import { Accordion } from "@/components/ui/Accordion";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { Container } from "@/components/shared/Container";
-import { faqs } from "@/content/home";
+import { faqIds } from "@/content/home";
+import { useHomeCopy } from "@/messages/copy/home-types";
 
 export function FAQ() {
-  const [openId, setOpenId] = useState<string | null>(faqs[0]?.id ?? null);
+  const c = useHomeCopy();
+  const items = c.faq.items.map((item, i) => ({ id: faqIds[i], ...item }));
+  const [openId, setOpenId] = useState<string | null>(items[0]?.id ?? null);
 
   return (
     <section id="faq" className="py-24">
       <Container className="max-w-3xl">
-        <SectionHeading eyebrow="প্রশ্নোত্তর" title="প্রশ্নগুলো" />
-        <Accordion items={faqs} openId={openId} onOpenChange={setOpenId} />
+        <SectionHeading
+          eyebrow={c.headings.faq.eyebrow}
+          title={c.headings.faq.title}
+          titleAccent={c.headings.faq.titleAccent}
+        />
+        <Accordion items={items} openId={openId} onOpenChange={setOpenId} />
       </Container>
     </section>
   );

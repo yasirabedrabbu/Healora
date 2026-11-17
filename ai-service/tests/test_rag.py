@@ -1,4 +1,4 @@
-"""RAG store tests — chunk store + cosine retrieval."""
+"""RAG store tests - chunk store + cosine retrieval."""
 from app.services.rag import Chunk, InMemoryStore, retrieve
 
 

@@ -17,8 +17,8 @@ never stack traces; every response carries `X-Content-Type-Options`,
 |---|---|---|---|
 | POST | `/api/auth/otp/request` | `{phone}` | 5 req / 10 min / IP; dev returns `devCode` |
 | POST | `/api/auth/otp/verify` | `{phone, code}` | sets HttpOnly session cookie |
-| POST | `/api/auth/logout` | — | clears cookie |
-| GET | `/api/auth/me` | — | own profile only |
+| POST | `/api/auth/logout` | - | clears cookie |
+| GET | `/api/auth/me` | - | own profile only |
 
 ## Doctors & appointments
 

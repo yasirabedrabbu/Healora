@@ -4,7 +4,7 @@ import { PrismaPg } from "@prisma/adapter-pg";
 /**
  * Single Prisma client for the app.
  *
- * Prisma 7 (client v7.10.1) requires a driver adapter at instantiation —
+ * Prisma 7 (client v7.10.1) requires a driver adapter at instantiation -
  * `@prisma/adapter-pg` with the connection string from .env. In dev,
  * Next.js hot-reloads modules, so the client is stashed on globalThis
  * to avoid exhausting connections.

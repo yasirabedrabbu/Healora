@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
 /**
- * Scroll-in reveal for sections. Replaces the old GSAP reveal — GSAP is
+ * Scroll-in reveal for sections. Replaces the old GSAP reveal - GSAP is
  * now reserved for the HowItWorks scrollytelling only (motion budget).
  */
 export function Reveal({

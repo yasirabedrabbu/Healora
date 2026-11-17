@@ -1,6 +1,6 @@
 import type { ButtonSize, ButtonVariant } from "./types";
 
-/** Untitled UI button spec. Depth via border + motion only — no shadows. */
+/** Untitled UI button spec. Depth via border + motion only - no shadows. */
 export const buttonVariants: Record<ButtonVariant, string> = {
   primary: "bg-brand-500 text-white hover:bg-brand-600 active:bg-brand-700 border border-brand-500 hover:border-brand-600",
   secondary:

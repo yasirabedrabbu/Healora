@@ -1,4 +1,4 @@
-# Deploying Healora — free-tier guide
+# Deploying Healora - free-tier guide
 
 Healora has **two deployables + one database**:
 
@@ -12,11 +12,11 @@ Total: **$0/month** to run the full stack live.
 
 ---
 
-## 1. PostgreSQL — Neon (free 0.5 GB)
+## 1. PostgreSQL - Neon (free 0.5 GB)
 
 1. Sign up at <https://neon.tech> → **New project** (pick a close region,
    e.g. `Singapore`).
-2. Copy the connection string — it looks like:
+2. Copy the connection string - it looks like:
    `postgresql://user:pass@ep-xxx-pooler.region.aws.neon.tech/healora?sslmode=require`
 3. Use the **-pooler** variant for the app (serverless-friendly).
 
@@ -34,7 +34,7 @@ DATABASE_URL="<neon-pooler-url>" node --env-file=.env prisma/seed.ts   # demo da
 Alternatives: **Supabase** free (500 MB, includes auth/storage you won't use
 yet), **Aiven** free plan.
 
-## 2. Web + API — Vercel (Hobby, free)
+## 2. Web + API - Vercel (Hobby, free)
 
 1. Push this repo to GitHub.
 2. <https://vercel.com> → **Add New Project** → import the repo.
@@ -50,16 +50,16 @@ yet), **Aiven** free plan.
 | `AI_API_KEY` | your OpenAI key **only if** `AI_PROVIDER=openai` |
 | `NODE_ENV` | `production` |
 
-5. **Deploy.** Every git push redeploys; API routes deploy with the app —
+5. **Deploy.** Every git push redeploys; API routes deploy with the app -
    no separate backend host needed.
 
 > ⚠️ Production OTP: `api/auth/otp/*` currently logs the code and accepts it
 > in the sandbox. Before real users: swap in an SMS gateway (e.g. local
-> provider APIs) and store hashed single-use codes — the flow shape is ready.
+> provider APIs) and store hashed single-use codes - the flow shape is ready.
 
-## 3. AI service — Render (free web service)
+## 3. AI service - Render (free web service)
 
-**Option A — Render (simplest):**
+**Option A - Render (simplest):**
 
 1. <https://render.com> → **New → Web Service** → connect the GitHub repo.
 2. Settings: **Root Directory = `ai-service`**, **Runtime = Docker**
@@ -78,24 +78,24 @@ yet), **Aiven** free plan.
 Free-tier note: Render free spins down after 15 min idle (~50 s cold start).
 Frontend already fails soft ("AI সার্ভিস এখন পাওয়া যাচ্ছে না").
 
-**Option B — Hugging Face Spaces (free, no cold sleep):**
+**Option B - Hugging Face Spaces (free, no cold sleep):**
 
 1. Create a **Docker Space** → upload `ai-service/` contents.
 2. Space reads the same Dockerfile; set `AI_PROVIDER`/`AI_API_KEY` in
    Space settings (Secrets). Keep the repo **private** if a key is set.
 3. Use the Space URL as `AI_SERVICE_URL`.
 
-**Option C — Koyeb free:** similar Docker flow, always-on free instance.
+**Option C - Koyeb free:** similar Docker flow, always-on free instance.
 
 > **Why not Ollama in prod?** Free tiers can't run a local LLM (no long-lived
 > process/GPU). Keep Ollama for local dev only; in the cloud use
-> `AI_PROVIDER=openai` (cheapest: gpt-4o-mini) — or leave the provider
+> `AI_PROVIDER=openai` (cheapest: gpt-4o-mini) - or leave the provider
 > unreachable and the service answers in safe degraded mode with the
 > disclaimer intact (no key needed, zero cost).
 
 ## 4. Custom domain (optional)
 
-- Domain: ~$10/yr (Namecheap/Cloudflare) — this is the only thing not free.
+- Domain: ~$10/yr (Namecheap/Cloudflare) - this is the only thing not free.
 - Vercel: Project → Domains → add. Render: Settings → Custom Domains.
 - HTTPS certificates are automatic on both.
 
@@ -119,5 +119,5 @@ prescription → QR verify → pharmacy dispense (one-time) → records share/re
 | OTP = console/echo | SMS gateway (§15) + hashed single-use codes |
 | Payments = sandbox | SSLCommerz/bKash live keys (§11) |
 | Files = local `/uploads` | S3-compatible (R2 free tier / Supabase storage) |
-| Rate limit = in-memory | Upstash Redis (free) — same call-site API |
-| WebSocket queue/map tiles | Vercel limits long WS — Supabase Realtime or separate node |
+| Rate limit = in-memory | Upstash Redis (free) - same call-site API |
+| WebSocket queue/map tiles | Vercel limits long WS - Supabase Realtime or separate node |

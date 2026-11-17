@@ -16,7 +16,7 @@ def create_app() -> FastAPI:
         title="Healora AI Assistant",
         version="0.1.0",
         description=(
-            "Bangla-first health guidance. Triage and navigation only — "
+            "Bangla-first health guidance. Triage and navigation only - "
             "never diagnosis. Every answer carries the medical disclaimer."
         ),
     )

@@ -4,7 +4,7 @@ import { labNav } from "@/config/dashboard";
 
 export const metadata: Metadata = { title: "ল্যাব পোর্টাল" };
 
-/** Lab portal chrome — test booking + reports. */
+/** Lab portal chrome - test booking + reports. */
 export default function LabLayout({ children }: { children: React.ReactNode }) {
   return <DashboardShell items={labNav}>{children}</DashboardShell>;
 }

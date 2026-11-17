@@ -2,7 +2,7 @@
 
 pgvector-backed store stub with a clean interface: chunk → embed →
 upsert → search. The medical content source is the handoff knowledge
-base (sections 4, 8, 10) — no invented claims outside it.
+base (sections 4, 8, 10) - no invented claims outside it.
 """
 from dataclasses import dataclass, field
 

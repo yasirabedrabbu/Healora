@@ -5,7 +5,7 @@ import { handleRoute, ok, fail } from "@/lib/security";
 export const instant = false;
 
 /**
- * DELETE /api/records/[id]/share/[grant] — revoke (§9: revoke-able).
+ * DELETE /api/records/[id]/share/[grant] - revoke (§9: revoke-able).
  * Owner-only; the revoke itself lands in the access log.
  */
 export async function DELETE(

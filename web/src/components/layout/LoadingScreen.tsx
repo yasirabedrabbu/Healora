@@ -5,6 +5,8 @@ import { AnimatePresence, motion } from "motion/react";
 import { HugeiconsIcon, HealthIcon } from "@/components/icons";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 import { siteConfig } from "@/config/site";
+import { usePageCopy } from "@/lib/i18n";
+import { footerCopy, type FooterCopy } from "@/messages/copy/footer";
 
 const SEEN_KEY = "healora-splash-seen";
 
@@ -15,6 +17,7 @@ const SEEN_KEY = "healora-splash-seen";
 export function LoadingScreen() {
   const [show, setShow] = useState(false);
   const reduce = useReducedMotion();
+  const brand = usePageCopy<FooterCopy>(footerCopy).brand;
 
   useEffect(() => {
     try {
@@ -62,7 +65,7 @@ export function LoadingScreen() {
               {siteConfig.name}
             </motion.span>
             <span className="text-sm text-gray-500 dark:text-gray-400">
-              বিশ্বাসের সাথে সুস্থতা
+              {brand}
             </span>
           </div>
         </motion.div>

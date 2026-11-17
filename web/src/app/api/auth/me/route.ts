@@ -4,7 +4,7 @@ import { handleRoute, ok } from "@/lib/security";
 
 export const instant = false;
 
-/** GET /api/auth/me — current user profile (never other users'). */
+/** GET /api/auth/me - current user profile (never other users'). */
 export async function GET() {
   return handleRoute(async () => {
     const session = await requireSession();

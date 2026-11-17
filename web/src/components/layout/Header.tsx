@@ -31,7 +31,7 @@ export function Header() {
       <ScrollProgress />
       <div className="mx-auto mt-4 max-w-7xl px-5 sm:px-8 lg:px-12">
         <div className="flex h-16 items-center justify-between rounded-2xl border border-gray-200 bg-white/95 px-4 backdrop-blur md:px-5 dark:border-gray-800 dark:bg-gray-900/95">
-          <Link href="/" className="flex items-center gap-2" aria-label="Healora — home">
+          <Link href="/" className="flex items-center gap-2" aria-label="Healora - home">
             <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand-500 text-white">
               <HugeiconsIcon icon={HealthIcon} size={20} aria-hidden />
             </span>

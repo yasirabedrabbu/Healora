@@ -7,7 +7,7 @@ export const instant = false;
 const hashSecret = process.env.AUTH_SECRET ?? "dev-only-secret-change-me";
 
 /**
- * GET /api/verify/[token] — public QR verification (Handoff §14).
+ * GET /api/verify/[token] - public QR verification (Handoff §14).
  * Shows doctor, reg no., date, medicine list + validity; re-verifies the
  * HMAC so tampering with the QR payload is detectable.
  */
@@ -22,7 +22,7 @@ export async function GET(
       where: { qrToken: token },
       include: { items: { include: { medicine: true } } },
     });
-    if (!prescription) return fail("অবৈধ QR — পাওয়া যায়নি", 404);
+    if (!prescription) return fail("অবৈধ QR - পাওয়া যায়নি", 404);
 
     // Doctor identity: Prescription.doctor is a User; the verified profile
     // (BMDC, specialty) lives on the Doctor row keyed by userId.
@@ -43,7 +43,7 @@ export async function GET(
       })),
     });
     const expected = createHmac("sha256", hashSecret).update(payload).digest("hex");
-    if (expected !== prescription.hash) return fail("হ্যাশ মিলছে না — জালিয়াতি সন্দেহ", 409);
+    if (expected !== prescription.hash) return fail("হ্যাশ মিলছে না - জালিয়াতি সন্দেহ", 409);
 
     const expired = prescription.validUntil < new Date();
     return ok({

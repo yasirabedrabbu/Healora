@@ -23,10 +23,10 @@
 Request → rate limit → Zod/Pydantic validate → service/DB → secure headers JSON
 ```
 
-Errors: thrown `Error & { status }` caught by `handleRoute` — clean messages,
+Errors: thrown `Error & { status }` caught by `handleRoute` - clean messages,
 never stack traces.
 
-## Data model (24 entities — Handoff §13)
+## Data model (24 entities - Handoff §13)
 
 Identity: `User` (phone-first, role enum) · `Doctor` + `DoctorDocument` (BMDC verification)
 Facilities: `Hospital`/`HospitalBed` · `Lab` · `Pharmacy` (license/DGDA numbers)
@@ -49,7 +49,7 @@ identifiable data upstream; every interaction logged; disclaimer mandatory.
 
 ## Trust mechanics
 
-- **Doctors** go live only after admin APPROVED (§10) — search exposes approved only
+- **Doctors** go live only after admin APPROVED (§10) - search exposes approved only
 - **Prescriptions** are HMAC-signed; public `/verify/[token]` re-derives the hash
   (mismatch = forgery → 409); dispense is single-use (409 on reuse, 410 expired)
 - **Records** are owner-only; shares expire + revoke; every touch logged
