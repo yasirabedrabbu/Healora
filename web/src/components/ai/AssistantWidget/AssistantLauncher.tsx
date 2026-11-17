@@ -2,36 +2,30 @@
 
 import { useState } from "react";
 import { AnimatePresence } from "motion/react";
-import { HugeiconsIcon, AiBrainIcon } from "@/components/icons";
-import { useReducedMotion } from "@/lib/useReducedMotion";
-import { motion } from "motion/react";
+import { HugeiconsIcon, AiBrainIcon, Cancel01Icon } from "@/components/icons";
+import { useI18n } from "@/lib/i18n";
 import { AssistantWidget } from "./index";
 
-/** FAB toggle for the assistant - accessible name, reduced-motion safe. */
+/** Fixed bottom-right stack: panel above, FAB below. StickyCTA leaves 5.5rem free on mobile. */
 export function AssistantLauncher() {
   const [open, setOpen] = useState(false);
-  const reduce = useReducedMotion();
+  const { t } = useI18n();
 
   return (
-    <>
+    <div className="pointer-events-none fixed bottom-4 right-4 z-50 flex flex-col items-end gap-3 md:bottom-6 md:right-6">
       <AnimatePresence>
         {open && <AssistantWidget key="widget" onClose={() => setOpen(false)} />}
       </AnimatePresence>
 
-      <motion.button
+      <button
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
-        aria-label={open ? "সহকারী বন্ধ করুন" : "স্বাস্থ্য সহকারী খুলুন"}
-        initial={reduce ? undefined : { scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        whileHover={reduce ? undefined : { scale: 1.06 }}
-        whileTap={reduce ? undefined : { scale: 0.94 }}
-        transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
-        className="fixed bottom-6 right-6 z-50 grid h-14 w-14 place-items-center rounded-full bg-brand-500 text-white"
+        aria-label={open ? t.ui.assistantClose : t.ui.assistantOpen}
+        className="pointer-events-auto grid h-14 w-14 place-items-center rounded-full bg-gray-900 text-white transition-transform duration-200 ease-standard hover:scale-105 active:scale-95 dark:bg-white dark:text-gray-900"
       >
-        <HugeiconsIcon icon={AiBrainIcon} size={24} aria-hidden />
-      </motion.button>
-    </>
+        <HugeiconsIcon icon={open ? Cancel01Icon : AiBrainIcon} size={24} aria-hidden />
+      </button>
+    </div>
   );
 }

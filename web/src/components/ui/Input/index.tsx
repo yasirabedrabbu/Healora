@@ -1,16 +1,11 @@
 import { useId } from "react";
 import { cn } from "@/lib/utils";
-import {
-  errorBase,
-  hintBase,
-  inputBase,
-  inputSizes,
-  inputStates,
-  labelBase,
-} from "./variants";
+import { errorBase, hintBase, inputBase, inputSizes, inputStates, labelBase } from "./variants";
 import type { FieldWrapProps, InputProps } from "./types";
 
-function FieldWrap({ label, hint, error, htmlFor, children }: FieldWrapProps) {
+type WrapProps = FieldWrapProps & { errorId: string; hintId: string };
+
+function FieldWrap({ label, hint, error, htmlFor, errorId, hintId, children }: WrapProps) {
   return (
     <div className="w-full">
       {label && (
@@ -20,11 +15,15 @@ function FieldWrap({ label, hint, error, htmlFor, children }: FieldWrapProps) {
       )}
       {children}
       {error ? (
-        <p className={errorBase} role="alert">
+        <p id={errorId} className={errorBase} role="alert">
           {error}
         </p>
       ) : (
-        hint && <p className={hintBase}>{hint}</p>
+        hint && (
+          <p id={hintId} className={hintBase}>
+            {hint}
+          </p>
+        )
       )}
     </div>
   );
@@ -43,14 +42,19 @@ export function Input({
 }: InputProps) {
   const autoId = useId();
   const inputId = id ?? autoId;
-  const state: keyof typeof inputStates = disabled
-    ? "disabled"
-    : error
-      ? "error"
-      : "default";
+  const errorId = `${inputId}-error`;
+  const hintId = `${inputId}-hint`;
+  const state: keyof typeof inputStates = disabled ? "disabled" : error ? "error" : "default";
 
   return (
-    <FieldWrap label={label} hint={hint} error={error} htmlFor={inputId}>
+    <FieldWrap
+      label={label}
+      hint={hint}
+      error={error}
+      htmlFor={inputId}
+      errorId={errorId}
+      hintId={hintId}
+    >
       <div className="relative">
         {prefixIcon && (
           <span
@@ -64,7 +68,7 @@ export function Input({
           id={inputId}
           disabled={disabled}
           aria-invalid={!!error || undefined}
-          aria-describedby={error ? `${inputId}-error` : undefined}
+          aria-describedby={error ? errorId : hint ? hintId : undefined}
           className={cn(
             inputBase,
             inputSizes[size],

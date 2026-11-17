@@ -52,3 +52,25 @@ export const bn = {
 } ;
 
 export type Dictionary = typeof bn;
+  ui: {
+    logout: "লগআউট",
+    toggleTheme: "ডার্ক মোড পরিবর্তন করুন",
+    switchToEnglish: "ইংরেজিতে দেখুন",
+    switchToBangla: "বাংলায় দেখুন",
+    closeDialog: "ডায়ালগ বন্ধ করুন",
+    homeLabel: "হিলোরা - হোম",
+    mainNav: "প্রধান মেনু",
+    portalNav: "পোর্টাল মেনু",
+    assistantTitle: "স্বাস্থ্য সহকারী",
+    assistantTagline: "ডায়াগনোসিস নয় - পথ দেখায়",
+    assistantOpen: "স্বাস্থ্য সহকারী খুলুন",
+    assistantClose: "সহকারী বন্ধ করুন",
+    assistantPlaceholder: "লক্ষণ বা প্রশ্ন লিখুন…",
+    assistantSend: "পাঠান",
+    assistantMessageLabel: "বার্তা",
+    assistantDisclaimer: "AI চিকিৎসা পরামর্শ নয় · জরুরিতে ৯৯৯ · বার্তা প্রক্রিয়াকরণের জন্য সংরক্ষিত হতে পারে",
+    assistantWelcome: "স্বাস্থ্য নিয়ে প্রশ্ন করুন - আমি বলব কোন স্পেশালিটির ডাক্তার দেখা উচিত। রোগ নির্ণয় করি না।",
+    assistantError: "সংযোগ সমস্যা - একটু পরে আবার চেষ্টা করুন।",
+    assistantBusy: "অনেক অনুরোধ আসছে - কিছুক্ষণ পরে আবার চেষ্টা করুন।",
+    selectSlotHint: "বুকিং করতে আগে একটি সময় বেছে নিন",
+  },

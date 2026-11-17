@@ -1,6 +1,6 @@
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes } from "react";
 
-export type ButtonVariant = "primary" | "secondary" | "tertiary" | "link" | "outline";
+export type ButtonVariant = "primary" | "ink" | "secondary" | "tertiary" | "link" | "outline";
 export type ButtonSize = "sm" | "md" | "lg";
 export type IconPosition = "left" | "right";
 

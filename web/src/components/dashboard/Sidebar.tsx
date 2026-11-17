@@ -2,10 +2,15 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { HugeiconsIcon, DashboardCircleIcon, MedicalFileIcon, PrescriptionIcon, BloodTypeIcon, UserGroupIcon, Shield01Icon, Wallet01Icon, Calendar01Icon, Task01Icon, HospitalBed01Icon, TestTubeIcon, FileIcon, Folder01Icon, ScanIcon, AmbulanceIcon } from "@/components/icons";
+import {
+  HugeiconsIcon, DashboardCircleIcon, MedicalFileIcon, PrescriptionIcon, BloodTypeIcon, UserGroupIcon,
+  Shield01Icon, Wallet01Icon, Calendar01Icon, Task01Icon, HospitalBed01Icon, TestTubeIcon, FileIcon,
+  Folder01Icon, ScanIcon, AmbulanceIcon, HealthIcon,
+} from "@/components/icons";
 import { useI18n } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import type { PortalNavItem } from "@/config/dashboard";
+import { LogoutButton } from "./LogoutButton";
 
 const icons = {
   dashboard: DashboardCircleIcon,
@@ -34,11 +39,15 @@ export function Sidebar({ items }: { items: PortalNavItem[] }) {
   const { t } = useI18n();
 
   return (
-    <aside className="hidden w-64 shrink-0 border-r border-gray-200 bg-gray-25 md:block dark:border-gray-800 dark:bg-gray-800">
-      <nav
-        className="sticky top-16 flex flex-col gap-1 p-4"
-        aria-label="Portal"
-      >
+    <aside className="sticky top-4 hidden h-[calc(100vh-2rem)] w-64 shrink-0 flex-col rounded-3xl border border-gray-200 bg-white p-4 md:flex dark:border-gray-700 dark:bg-gray-800">
+      <Link href="/" aria-label={t.ui.homeLabel} className="mb-6 flex items-center gap-2 px-2 pt-1">
+        <span className="grid h-9 w-9 place-items-center rounded-full bg-gray-900 text-white dark:bg-white dark:text-gray-900">
+          <HugeiconsIcon icon={HealthIcon} size={18} aria-hidden />
+        </span>
+        <span className="font-heading text-xl font-bold text-gray-900 dark:text-gray-50">Healora</span>
+      </Link>
+
+      <nav className="flex flex-1 flex-col gap-1 overflow-y-auto" aria-label={t.ui.portalNav}>
         {items.map((item) => {
           const active = pathname === item.href || pathname.startsWith(item.href + "/");
           return (
@@ -47,23 +56,27 @@ export function Sidebar({ items }: { items: PortalNavItem[] }) {
               href={item.href}
               aria-current={active ? "page" : undefined}
               className={cn(
-                "flex items-center gap-3 rounded-lg px-4 py-2.5 text-sm font-medium transition-colors duration-150",
+                "flex items-center gap-3 rounded-full px-4 py-2.5 text-sm font-medium transition-colors duration-150",
                 active
-                  ? "bg-brand-50 text-brand-600 dark:bg-brand-900 dark:text-brand-200"
-                  : "text-gray-600 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white"
+                  ? "bg-brand-50 text-brand-700 dark:bg-brand-900 dark:text-brand-100"
+                  : "text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white"
               )}
             >
               <HugeiconsIcon
                 icon={icons[item.key]}
                 size={20}
                 aria-hidden
-                className={active ? "text-brand-500 dark:text-brand-300" : "text-gray-400"}
+                className={active ? "text-brand-600 dark:text-brand-200" : "text-gray-500 dark:text-gray-400"}
               />
               {t.nav[item.key]}
             </Link>
           );
         })}
       </nav>
+
+      <div className="mt-4 border-t border-gray-200 pt-4 dark:border-gray-700">
+        <LogoutButton className="w-full" />
+      </div>
     </aside>
   );
 }

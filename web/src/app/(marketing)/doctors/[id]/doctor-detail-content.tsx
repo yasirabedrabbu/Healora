@@ -1,37 +1,33 @@
 "use client";
 
-import Image from "next/image";
+import { useState } from "react";
 import { PageHeader } from "@/components/dashboard/PageHeader";
+import { Container } from "@/components/shared/Container";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
-import { ButtonLink } from "@/components/ui/ButtonLink";
+import { Avatar } from "@/components/ui/Avatar";
 import { Button } from "@/components/ui/Button";
+import { ButtonLink } from "@/components/ui/ButtonLink";
 import {
-  HugeiconsIcon,
-  StarIcon,
-  ClockIcon,
-  LanguageSquareIcon,
-  Video01Icon,
-  BubbleChatIcon,
-  Hospital01Icon,
+  HugeiconsIcon, StarIcon, ClockIcon, LanguageSquareIcon, Video01Icon, BubbleChatIcon, Hospital01Icon, CallIcon,
 } from "@/components/icons";
-import { usePageCopy } from "@/lib/i18n";
+import { usePageCopy, useI18n } from "@/lib/i18n";
 import { copy as pageCopy } from "@/messages/copy/doctors";
 import type { Doctor } from "@/types/doctor";
 
-const modeIcons = {
-  video: Video01Icon,
-  audio: null,
-  chat: BubbleChatIcon,
-  chamber: Hospital01Icon,
-} as const;
+const modeIcons = { video: Video01Icon, audio: CallIcon, chat: BubbleChatIcon, chamber: Hospital01Icon } as const;
 
-/** Doctor profile client view - data is fetched server-side and passed as props. */
 export function DoctorDetailContent({ doctor }: { doctor: Doctor }) {
   const copy = usePageCopy(pageCopy);
+  const { t } = useI18n();
+  const [slot, setSlot] = useState<string | null>(null);
+
+  // After login the user lands back here with the chosen slot.
+  const back = `/doctors/${doctor.id}${slot ? `?slot=${encodeURIComponent(slot)}` : ""}`;
+  const bookHref = `/login?next=${encodeURIComponent(back)}`;
 
   return (
-    <>
+    <Container className="max-w-6xl py-10 sm:py-14">
       <PageHeader
         title={doctor.name}
         description={`${doctor.specialty} · ${doctor.degrees}`}
@@ -42,17 +38,12 @@ export function DoctorDetailContent({ doctor }: { doctor: Doctor }) {
         }
       />
 
-      <div className="grid gap-6 lg:grid-cols-[1fr_360px]">
-        <Card className="p-6">
-          <div className="flex items-start gap-6">
-            <Image
-              src="/images/doctor-male.jpg"
-              alt={copy.detail.profileImageAlt.replace("{name}", doctor.name)}
-              width={120}
-              height={120}
-              className="h-28 w-28 shrink-0 rounded-2xl border border-gray-200 object-cover dark:border-gray-800"
-            />
-            <div className="min-w-0 flex-1 space-y-3 text-sm text-gray-500 dark:text-gray-400">
+      <div className="grid gap-6 lg:grid-cols-[1fr_380px]">
+        <Card className="p-6 sm:p-8">
+          <div className="flex flex-col items-start gap-6 sm:flex-row">
+            {/* Initials avatar: no more one stock photo for every doctor. Pass src when the DB has a photo. */}
+            <Avatar name={doctor.name} size="xl" className="h-28 w-28 rounded-3xl text-3xl" />
+            <div className="min-w-0 flex-1 space-y-4 text-sm text-gray-600 dark:text-gray-300">
               <div className="flex flex-wrap items-center gap-2">
                 <Badge color="brand" size="sm">
                   <HugeiconsIcon icon={StarIcon} size={12} aria-hidden />
@@ -69,55 +60,68 @@ export function DoctorDetailContent({ doctor }: { doctor: Doctor }) {
                 <HugeiconsIcon icon={LanguageSquareIcon} size={16} aria-hidden />
                 {doctor.languages.join(", ")}
               </p>
-              <div className="flex flex-wrap gap-2">
+              <ul className="flex flex-wrap gap-2">
                 {doctor.modes.map((m) => (
-                  <span
+                  <li
                     key={m}
-                    className="inline-flex items-center gap-1.5 rounded-lg bg-gray-25 px-2.5 py-1 text-xs font-medium text-gray-600 ring-1 ring-gray-200 dark:bg-gray-900 dark:text-gray-300 dark:ring-gray-800"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 px-3 py-1 text-xs font-medium text-gray-700 dark:border-gray-600 dark:text-gray-200"
                   >
-                    {modeIcons[m] && <HugeiconsIcon icon={modeIcons[m]} size={14} aria-hidden />}
+                    <HugeiconsIcon icon={modeIcons[m]} size={14} aria-hidden />
                     {copy.detail.modeLabels[m]}
-                  </span>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </div>
           </div>
         </Card>
 
-        <Card className="p-6">
+        <Card variant="flat" className="p-6">
           <h2 className="flex items-center gap-2 font-semibold text-gray-900 dark:text-gray-50">
             <HugeiconsIcon icon={ClockIcon} size={18} aria-hidden />
             {copy.detail.chooseSlot}
           </h2>
-          <div className="mt-4 grid grid-cols-2 gap-2">
+          <div role="group" aria-label={copy.detail.chooseSlot} className="mt-4 grid grid-cols-2 gap-2">
             {copy.detail.slots.map((s) => (
-              <Button key={s} variant="outline" size="sm">
+              <Button
+                key={s}
+                size="sm"
+                variant={slot === s ? "ink" : "outline"}
+                aria-pressed={slot === s}
+                onClick={() => setSlot(s)}
+              >
                 {s}
               </Button>
             ))}
           </div>
-          <div className="mt-5 space-y-2 border-t border-gray-200 pt-5 text-sm text-gray-500 dark:border-gray-800 dark:text-gray-400">
-            <p className="flex justify-between">
-              <span>{copy.detail.feeRow}</span>
-              <span className="font-semibold text-gray-900 dark:text-gray-50">৳{doctor.fee}</span>
-            </p>
-            <p className="flex justify-between">
-              <span>{copy.detail.paymentRow}</span>
-              <span>{copy.detail.paymentMethods}</span>
-            </p>
-          </div>
-          <ButtonLink href="/login" block className="mt-5">
-            {copy.detail.bookCta}
-          </ButtonLink>
-          <p className="mt-3 text-center text-xs text-gray-400 dark:text-gray-500">
-            {copy.detail.refundNote}
-          </p>
+
+          <dl className="mt-5 space-y-2 border-t border-gray-200 pt-5 text-sm text-gray-600 dark:border-gray-700 dark:text-gray-300">
+            <div className="flex justify-between">
+              <dt>{copy.detail.feeRow}</dt>
+              <dd className="font-semibold text-gray-900 dark:text-gray-50">৳{doctor.fee}</dd>
+            </div>
+            <div className="flex justify-between">
+              <dt>{copy.detail.paymentRow}</dt>
+              <dd>{copy.detail.paymentMethods}</dd>
+            </div>
+          </dl>
+
+          {slot ? (
+            <ButtonLink href={bookHref} block className="mt-5">
+              {copy.detail.bookCta}
+            </ButtonLink>
+          ) : (
+            <>
+              <Button block disabled className="mt-5">
+                {copy.detail.bookCta}
+              </Button>
+              <p className="mt-2 text-center text-xs text-gray-500 dark:text-gray-400">{t.ui.selectSlotHint}</p>
+            </>
+          )}
+          <p className="mt-3 text-center text-xs text-gray-500 dark:text-gray-400">{copy.detail.refundNote}</p>
         </Card>
       </div>
 
-      <p className="mt-8 text-center text-xs text-gray-400 dark:text-gray-500">
-        {copy.detail.emergencyNote}
-      </p>
-    </>
+      <p className="mt-8 text-center text-xs text-gray-500 dark:text-gray-400">{copy.detail.emergencyNote}</p>
+    </Container>
   );
 }

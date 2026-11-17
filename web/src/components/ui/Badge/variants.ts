@@ -3,8 +3,8 @@ import type { BadgeColor, BadgeSize, BadgeVariant } from "./types";
 /** Untitled UI badges: soft background + strong text, optional dot. */
 export const badgeColors: Record<BadgeColor, Record<BadgeVariant, string>> = {
   gray: {
-    soft: "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300",
-    outline: "border border-gray-300 text-gray-600 dark:text-gray-300",
+    soft: "bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-100",
+    outline: "border border-gray-300 text-gray-700 dark:border-gray-600 dark:text-gray-200",
   },
   brand: {
     soft: "bg-brand-50 text-brand-700 dark:bg-brand-900 dark:text-brand-200",

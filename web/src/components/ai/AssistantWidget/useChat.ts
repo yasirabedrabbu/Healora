@@ -1,6 +1,7 @@
 "use client";
 
-import { useRef, useState, useCallback } from "react";
+import { useCallback, useMemo, useState } from "react";
+import { useI18n } from "@/lib/i18n";
 
 export type ChatMessage = {
   id: string;
@@ -9,63 +10,60 @@ export type ChatMessage = {
   emergency?: boolean;
 };
 
-/**
- * Chat state + POST /api/ai/chat transport. Streaming upgrade: swap the
- * fetch for an SSE reader against /chat/stream - the protocol is ready.
- */
+/** crypto.randomUUID is undefined on http://LAN-IP (insecure context) - never crash on it. */
+const uid = (): string =>
+  globalThis.crypto?.randomUUID?.() ??
+  `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
+
+type ChatReply = { reply?: string; emergency?: boolean };
+
 export function useChat() {
-  const [messages, setMessages] = useState<ChatMessage[]>([
-    {
-      id: "welcome",
-      role: "assistant",
-      content:
-        "স্বাস্থ্য নিয়ে প্রশ্ন করুন - আমি বলব কোন স্পেশালিটির ডাক্তার দেখা উচিত। রোগ নির্ণয় করি না।",
-    },
-  ]);
+  const { t } = useI18n();
+  const [history, setHistory] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [streaming, setStreaming] = useState(false);
-  const sessionId = useRef(crypto.randomUUID());
+  const [sessionId] = useState(uid);
+
+  // Welcome is derived (not stored) so it follows the language toggle.
+  const messages = useMemo<ChatMessage[]>(
+    () => [{ id: "welcome", role: "assistant", content: t.ui.assistantWelcome }, ...history],
+    [history, t.ui.assistantWelcome]
+  );
+
+  const push = useCallback((m: Omit<ChatMessage, "id">) => {
+    setHistory((prev) => [...prev, { id: uid(), ...m }]);
+  }, []);
 
   const send = useCallback(async () => {
     const text = input.trim();
-    if (!text) return;
+    if (!text || streaming) return;
     setInput("");
-    setMessages((prev) => [...prev, { id: `u-${Date.now()}`, role: "user", content: text }]);
+    push({ role: "user", content: text });
     setStreaming(true);
 
     try {
       const res = await fetch("/api/ai/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sessionId: sessionId.current, message: text }),
+        body: JSON.stringify({ sessionId, message: text }),
       });
-      const data = (await res.json()) as {
-        reply: string;
-        emergency: boolean;
-        sessionId: string;
-      };
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: `a-${Date.now()}`,
-          role: "assistant",
-          content: data.reply,
-          emergency: data.emergency,
-        },
-      ]);
+
+      if (res.status === 429) {
+        push({ role: "assistant", content: t.ui.assistantBusy });
+        return;
+      }
+      const data = (await res.json().catch(() => null)) as ChatReply | null;
+      if (!res.ok || !data?.reply) {
+        push({ role: "assistant", content: t.ui.assistantError });
+        return;
+      }
+      push({ role: "assistant", content: data.reply, emergency: data.emergency });
     } catch {
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: `a-${Date.now()}`,
-          role: "assistant",
-          content: "সংযোগ সমস্যা - একটু পরে আবার চেষ্টা করুন।",
-        },
-      ]);
+      push({ role: "assistant", content: t.ui.assistantError });
     } finally {
       setStreaming(false);
     }
-  }, [input]);
+  }, [input, streaming, sessionId, push, t.ui.assistantBusy, t.ui.assistantError]);
 
   return { messages, streaming, send, input, setInput };
 }

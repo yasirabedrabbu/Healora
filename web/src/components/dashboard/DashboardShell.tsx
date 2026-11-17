@@ -1,27 +1,20 @@
 import type { PortalNavItem } from "@/config/dashboard";
 import { Sidebar } from "./Sidebar";
+import { PortalTopbar } from "./PortalTopbar";
 import { MobileNav } from "@/components/layout/MobileNav";
 import { Container } from "@/components/shared/Container";
 
-/**
- * Portal chrome - sits inside its own route group layout, so the marketing
- * Header/Footer never wrap dashboard pages.
- */
-export function DashboardShell({
-  items,
-  children,
-}: {
-  items: PortalNavItem[];
-  children: React.ReactNode;
-}) {
+/** One shell per role layout. Never nest two of these. */
+export function DashboardShell({ items, children }: { items: PortalNavItem[]; children: React.ReactNode }) {
   return (
-    <div className="min-h-[calc(100vh-4rem)] bg-gray-50 dark:bg-gray-900">
-      <MobileNav items={items} />
-      <div className="flex">
-        <Sidebar items={items} />
-        <div className="min-w-0 flex-1">
-          <Container className="max-w-6xl py-10">{children}</Container>
-        </div>
+    <div className="min-h-screen bg-gray-50 md:flex md:gap-4 md:p-4 dark:bg-gray-900">
+      <Sidebar items={items} />
+      <div className="flex min-w-0 flex-1 flex-col">
+        <PortalTopbar />
+        <MobileNav items={items} />
+        <main id="main-content" className="min-w-0 flex-1">
+          <Container className="max-w-6xl py-8 md:px-2 lg:px-4">{children}</Container>
+        </main>
       </div>
     </div>
   );
