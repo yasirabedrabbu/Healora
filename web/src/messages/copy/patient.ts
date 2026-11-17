@@ -28,6 +28,13 @@ type PrescriptionsCopy = {
   description: string;
   emptyTitle: string;
   emptyText: string;
+  tabs: { all: string; active: string; paused: string; completed: string };
+  newButton: string;
+  statusLabels: { active: string; paused: string; completed: string };
+  syncedFrom: string;
+  nextDose: string;
+  tabletsLabel: string;
+  daysLeftLabel: string;
 };
 
 type PrescriptionDetailCopy = {
@@ -87,6 +94,13 @@ export const copy: { bn: PatientCopy; en: PatientCopy } = {
       description: "সব প্রেসক্রিপশন এখানে। ফার্মেসিতে QR দেখালেই যাচাই হবে।",
       emptyTitle: "এখনও প্রেসক্রিপশন নেই",
       emptyText: "ডাক্তার কনসালটেশনের পর প্রেসক্রিপশন এখানে আসবে।",
+      tabs: { all: "সব", active: "চলমান", paused: "বিরতি", completed: "সম্পন্ন" },
+      newButton: "নতুন প্রেসক্রিপশন",
+      statusLabels: { active: "চলমান", paused: "বিরতি", completed: "সম্পন্ন" },
+      syncedFrom: "ডাক্তার",
+      nextDose: "পরবর্তী ডোজ",
+      tabletsLabel: "ট্যাবলেট",
+      daysLeftLabel: "দিন বাকি",
     },
     prescriptionDetail: {
       title: "প্রেসক্রিপশন ডিটেইল",
@@ -140,6 +154,13 @@ export const copy: { bn: PatientCopy; en: PatientCopy } = {
       description: "All your prescriptions in one place. Pharmacies verify with the QR code.",
       emptyTitle: "No prescriptions yet",
       emptyText: "Prescriptions from doctor consultations will appear here.",
+      tabs: { all: "All", active: "Active", paused: "Paused", completed: "Completed" },
+      newButton: "New prescription",
+      statusLabels: { active: "Active", paused: "Paused", completed: "Completed" },
+      syncedFrom: "Synced from",
+      nextDose: "Next dose",
+      tabletsLabel: "tablets",
+      daysLeftLabel: "days left",
     },
     prescriptionDetail: {
       title: "Prescription Details",

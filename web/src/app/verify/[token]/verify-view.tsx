@@ -12,7 +12,7 @@ const prescription = {
   doctor: "ডা. মাহমুদ রহমান",
   regNo: "A-00000",
   date: "১৬ নভে ২০২৬",
-  medicines: ["প্যারাসিটামল ৫০০মিগ্রা — ১+১+১ — ৫ দিন"],
+  medicines: ["প্যারাসিটামল ৫০০মিগ্রা · ১+১+১ · ৫ দিন"],
   validUntil: "১৬ ডিসে ২০২৬",
   status: "valid" as const,
 };
@@ -23,7 +23,7 @@ export function VerifyView({ token }: { token: string }) {
 
   return (
     <div className={cn(cardBase, cardVariants.outlined, "p-8")}>
-      {/* Verdict banner — icon + text + colour (colour-blind-safe) */}
+      {/* Verdict banner · icon + text + colour (colour-blind-safe) */}
       <div
         className={cn(
           "mb-6 flex items-center gap-3 rounded-lg border p-4",

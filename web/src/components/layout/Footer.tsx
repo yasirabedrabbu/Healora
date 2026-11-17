@@ -61,7 +61,7 @@ export function Footer() {
       <div className="border-t border-gray-800">
         <Container className="flex flex-col items-center justify-between gap-3 py-6 text-xs text-gray-500 sm:flex-row">
           <p>
-            © <CurrentYear /> {siteConfig.name} — {c.copyrightSuffix}
+            © <CurrentYear /> {siteConfig.name} · {c.copyrightSuffix}
           </p>
           <p>{c.emergencyNote}</p>
         </Container>

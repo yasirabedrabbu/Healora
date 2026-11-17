@@ -30,6 +30,7 @@ export {
   CheckIcon,
   AddIcon,
   MinusIcon,
+  PlusSignIcon,
 
   // Medical domain
   AmbulanceIcon,

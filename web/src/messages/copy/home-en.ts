@@ -78,8 +78,8 @@ export const en = {
     alt: "Healora app QR prescription screen on a phone",
     points: [
       { title: "3-second QR verification", text: "A pharmacy scan instantly shows the doctor, registration number, medicines and validity." },
-      { title: "Single-use only", text: "Once dispensed, the prescription is marked 'dispensed' — it can never be reused." },
-      { title: "Expiry warnings", text: "After the validity date the QR shows a red banner — the pharmacy blocks it." },
+      { title: "Single-use only", text: "Once dispensed, the prescription is marked 'dispensed' · it can never be reused." },
+      { title: "Expiry warnings", text: "After the validity date the QR shows a red banner · the pharmacy blocks it." },
     ],
   },
   finalCta: {

@@ -5,11 +5,13 @@
  */
 
 import { staffDoctorCopy } from "./staff-doctor";
+import { patientHomeCopy, type PatientHomeCopy } from "./staff-patient";
 import { staffClinicalCopy } from "./staff-clinical";
 import { staffHospitalCopy } from "./staff-hospital";
 import { staffAdminCopy } from "./staff-admin";
 
-export type StaffCopy = import("./staff-doctor").StaffDoctorCopy &
+export type StaffCopy = import("./staff-patient").PatientHomeCopy &
+  import("./staff-doctor").StaffDoctorCopy &
   import("./staff-clinical").StaffClinicalCopy &
   import("./staff-hospital").StaffHospitalCopy &
   import("./staff-admin").StaffAdminCopy;
@@ -17,12 +19,14 @@ export type StaffCopy = import("./staff-doctor").StaffDoctorCopy &
 type StaffPageCopy = { [K in keyof StaffCopy]: { bn: StaffCopy[K]; en: StaffCopy[K] } };
 
 const bn = {
+  ...patientHomeCopy.bn,
   ...staffDoctorCopy.bn,
   ...staffClinicalCopy.bn,
   ...staffHospitalCopy.bn,
   ...staffAdminCopy.bn,
 };
 const en = {
+  ...patientHomeCopy.en,
   ...staffDoctorCopy.en,
   ...staffClinicalCopy.en,
   ...staffHospitalCopy.en,
