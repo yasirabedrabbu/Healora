@@ -1,5 +1,5 @@
 import localFont from "next/font/local";
-import { Anek_Bangla, Hind_Siliguri } from "next/font/google";
+import { Anek_Bangla, Hind_Siliguri, Instrument_Serif } from "next/font/google";
 
 /**
  * English fonts: Fontshare self-hosted (handoff §12).
@@ -31,5 +31,14 @@ export const hindSiliguri = Hind_Siliguri({
   subsets: ["bengali", "latin"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-hind",
+  display: "swap",
+});
+
+/** Serif italic accent word inside display headings (reference redesign). */
+export const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: "italic",
+  variable: "--font-instrument",
   display: "swap",
 });

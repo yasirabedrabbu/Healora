@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { anekBangla, clashDisplay, hindSiliguri, satoshi } from "@/lib/fonts";
+import { anekBangla, clashDisplay, hindSiliguri, instrumentSerif, satoshi } from "@/lib/fonts";
 import { siteConfig } from "@/config/site";
 import { Providers } from "@/components/layout/Providers";
 
@@ -32,7 +32,7 @@ export default function RootLayout({
     <html
       lang="bn"
       suppressHydrationWarning
-      className={`${clashDisplay.variable} ${satoshi.variable} ${anekBangla.variable} ${hindSiliguri.variable}`}
+      className={`${clashDisplay.variable} ${satoshi.variable} ${anekBangla.variable} ${hindSiliguri.variable} ${instrumentSerif.variable}`}
     >
       <body className="min-h-screen bg-white font-body text-gray-900 antialiased dark:bg-gray-900 dark:text-gray-50">
         <Providers>{children}</Providers>

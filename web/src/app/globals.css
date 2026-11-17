@@ -103,6 +103,7 @@
 
   --font-heading: var(--font-clash), var(--font-anek), sans-serif;
   --font-body: var(--font-satoshi), var(--font-hind), sans-serif;
+  --font-serif-accent: var(--font-instrument), Georgia, serif;
 
   --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
 }
