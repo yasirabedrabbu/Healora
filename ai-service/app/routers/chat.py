@@ -28,8 +28,16 @@ async def _produce_reply(message: str, locale: str) -> tuple[str, bool, bool]:
         reply, _, _ = wrap_reply("", emergency, refused)
         return reply, emergency, refused
 
-    provider = get_provider()
-    raw = await provider.complete(build_system_prompt(locale), message)
+    try:
+        provider = get_provider()
+        raw = await provider.complete(build_system_prompt(locale), message)
+    except Exception:
+        # Degraded mode: LLM unreachable — answer with safe navigation
+        # guidance instead of failing. The disclaimer still applies.
+        raw = (
+            "এখন আমি পূর্ণ উত্তর দিতে পারছি না। আপনার লক্ষণ অনুযায়ী সঠিক "
+            "স্পেশালিটি জানতে হিলোরায় ভেরিফায়েড ডাক্তার বুক করুন।"
+        )
     reply, _, flagged = wrap_reply(raw, emergency=False, refused=False)
     return reply, emergency, flagged
 
