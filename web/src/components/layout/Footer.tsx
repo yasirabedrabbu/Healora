@@ -14,6 +14,9 @@ const columns = [
       { label: "ডাক্তার খুঁজুন", href: "/doctors" },
       { label: "রক্তদান", href: "/blood" },
       { label: "প্রেসক্রিপশন", href: "/prescriptions" },
+      { label: "ম্যাপ", href: "/map" },
+      { label: "অ্যাম্বুলেন্স", href: "/ambulance" },
+      { label: "স্বাস্থ্য সহকারী", href: "/assistant" },
       { label: "প্রাইসিং", href: "/pricing" },
     ],
   },
@@ -22,6 +25,7 @@ const columns = [
     links: [
       { label: "আমাদের সম্পর্কে", href: "/about" },
       { label: "যোগাযোগ", href: "/contact" },
+      { label: "FAQ", href: "/faq" },
       { label: "ডাক্তার হিসেবে যোগ দিন", href: "/doctor/register" },
     ],
   },
