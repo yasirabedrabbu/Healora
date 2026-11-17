@@ -2,7 +2,6 @@ import { createHmac } from "node:crypto";
 import { db } from "@/lib/db";
 import { handleRoute, ok, fail } from "@/lib/security";
 
-export const runtime = "nodejs";
 export const instant = false;
 
 const hashSecret = process.env.AUTH_SECRET ?? "dev-only-secret-change-me";
@@ -49,7 +48,7 @@ export async function GET(
     const expired = prescription.validUntil < new Date();
     return ok({
       ok: true,
-      doctor: { name: prescription.doctor.user.name, bmdcNo: prescription.doctor.bmdcNo, specialty: prescription.doctor.specialty },
+      doctor: { name: doctorProfile.user.name, bmdcNo: doctorProfile.bmdcNo, specialty: doctorProfile.specialty },
       status: prescription.status,
       expired,
       validUntil: prescription.validUntil,

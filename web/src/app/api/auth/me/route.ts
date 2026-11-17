@@ -2,7 +2,6 @@ import { db } from "@/lib/db";
 import { requireSession } from "@/lib/auth";
 import { handleRoute, ok } from "@/lib/security";
 
-export const runtime = "nodejs";
 export const instant = false;
 
 /** GET /api/auth/me — current user profile (never other users'). */

@@ -1,7 +1,6 @@
 import { db } from "@/lib/db";
 import { handleRoute, ok, fail } from "@/lib/security";
 
-export const runtime = "nodejs";
 export const instant = false;
 
 /**

@@ -1,7 +1,6 @@
 import { clearSessionCookie } from "@/lib/auth";
 import { handleRoute, ok } from "@/lib/security";
 
-export const runtime = "nodejs";
 export const instant = false;
 
 /** POST /api/auth/logout — clear the session cookie. */

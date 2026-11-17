@@ -4,7 +4,6 @@ import { z } from "zod";
 import { parseOrThrow } from "@/lib/validate";
 import { handleRoute, ok, fail } from "@/lib/security";
 
-export const runtime = "nodejs";
 export const instant = false;
 
 const bedsSchema = z.object({

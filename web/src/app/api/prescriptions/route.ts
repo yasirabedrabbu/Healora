@@ -4,7 +4,6 @@ import { requireRole } from "@/lib/auth";
 import { prescriptionSchema, parseOrThrow } from "@/lib/validate";
 import { handleRoute, ok, fail } from "@/lib/security";
 
-export const runtime = "nodejs";
 export const instant = false;
 
 const hashSecret = process.env.AUTH_SECRET ?? "dev-only-secret-change-me";
