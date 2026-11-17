@@ -35,9 +35,4 @@ export function LocaleToggle() {
       {locale === "bn" ? "EN" : "বাং"}
     </button>
   );
-  // motion.div className change:
-className="fixed bottom-4 left-4 right-[5.5rem] z-50 md:hidden"
-
-// ButtonLink change:
-<ButtonLink href="/doctors" block size="lg" variant="ink">
 }

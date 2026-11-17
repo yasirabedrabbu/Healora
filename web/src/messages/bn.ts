@@ -49,9 +49,6 @@ export const bn = {
     verification: "ভেরিফিকেশন কিউ",
     payments: "পেমেন্ট ও অ্যানালিটিক্স",
   },
-} ;
-
-export type Dictionary = typeof bn;
   ui: {
     logout: "লগআউট",
     toggleTheme: "ডার্ক মোড পরিবর্তন করুন",
@@ -68,9 +65,14 @@ export type Dictionary = typeof bn;
     assistantPlaceholder: "লক্ষণ বা প্রশ্ন লিখুন…",
     assistantSend: "পাঠান",
     assistantMessageLabel: "বার্তা",
-    assistantDisclaimer: "AI চিকিৎসা পরামর্শ নয় · জরুরিতে ৯৯৯ · বার্তা প্রক্রিয়াকরণের জন্য সংরক্ষিত হতে পারে",
-    assistantWelcome: "স্বাস্থ্য নিয়ে প্রশ্ন করুন - আমি বলব কোন স্পেশালিটির ডাক্তার দেখা উচিত। রোগ নির্ণয় করি না।",
+    assistantDisclaimer:
+      "AI চিকিৎসা পরামর্শ নয় · জরুরিতে ৯৯৯ · বার্তা প্রক্রিয়াকরণের জন্য সংরক্ষিত হতে পারে",
+    assistantWelcome:
+      "স্বাস্থ্য নিয়ে প্রশ্ন করুন - আমি বলব কোন স্পেশালিটির ডাক্তার দেখা উচিত। রোগ নির্ণয় করি না।",
     assistantError: "সংযোগ সমস্যা - একটু পরে আবার চেষ্টা করুন।",
     assistantBusy: "অনেক অনুরোধ আসছে - কিছুক্ষণ পরে আবার চেষ্টা করুন।",
     selectSlotHint: "বুকিং করতে আগে একটি সময় বেছে নিন",
   },
+};
+
+export type Dictionary = typeof bn;

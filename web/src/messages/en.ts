@@ -51,7 +51,7 @@ export const en: Dictionary = {
     verification: "Verification queue",
     payments: "Payments & analytics",
   },
-    ui: {
+  ui: {
     logout: "Log out",
     toggleTheme: "Toggle dark mode",
     switchToEnglish: "Switch to English",
@@ -67,8 +67,10 @@ export const en: Dictionary = {
     assistantPlaceholder: "Describe a symptom or ask a question…",
     assistantSend: "Send",
     assistantMessageLabel: "Message",
-    assistantDisclaimer: "Not medical advice · Emergency: 999 · Messages may be processed and stored",
-    assistantWelcome: "Ask a health question - I will point you to the right specialty. I do not diagnose.",
+    assistantDisclaimer:
+      "Not medical advice · Emergency: 999 · Messages may be processed and stored",
+    assistantWelcome:
+      "Ask a health question - I will point you to the right specialty. I do not diagnose.",
     assistantError: "Connection problem - please try again shortly.",
     assistantBusy: "Too many requests - please wait a moment and retry.",
     selectSlotHint: "Choose a time slot to book",
