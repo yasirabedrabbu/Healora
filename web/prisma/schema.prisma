@@ -25,15 +25,12 @@ model User {
   recordSharesGiven RecordShare[]
   accessLogs       AccessLog[]
   appointments     Appointment[]       @relation("PatientAppointments")
-  appointmentsDoctor Appointment[]     @relation("DoctorAppointments")
   prescriptionsIssued   Prescription[] @relation("IssuedPrescriptions")
   prescriptionsReceived Prescription[] @relation("ReceivedPrescriptions")
   bloodDonor       BloodDonor?
   bloodRequests    BloodRequest[]
-  reviews          Review[]
   reportsMade      Report[]
   aiSessions       AiSession[]
-  aiMessages       AiMessage[]
 }
 
 enum Role {
@@ -63,7 +60,6 @@ model Doctor {
 
   documents   DoctorDocument[]
   appointments Appointment[]   @relation("DoctorAppointments")
-  prescriptions Prescription[]
   schedules   Schedule[]
 }
 
