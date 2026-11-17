@@ -38,6 +38,12 @@ export type PatientHomeCopy = {
   taken: string;
   missed: string;
   inHours: (h: string) => string;
+  nextAppointment: string;
+  activePrescriptions: string;
+  medicalRecords: string;
+  recordsHint: string;
+  recordsTitle: string;
+  prescriptionsTitle: string;
 };
 
 const bn: PatientHomeCopy = {
@@ -75,6 +81,12 @@ const bn: PatientHomeCopy = {
   taken: "খাওয়া হয়েছে",
   missed: "মিসড",
   inHours: (h) => `${h} ঘণ্টা পরে`,
+  nextAppointment: "পরবর্তী অ্যাপয়েন্টমেন্ট",
+  activePrescriptions: "সক্রিয় প্রেসক্রিপশন",
+  medicalRecords: "মেডিকেল রেকর্ড",
+  recordsHint: "সব রেকর্ড নিরাপদে সংরক্ষিত",
+  recordsTitle: "সাম্প্রতিক রেকর্ড",
+  prescriptionsTitle: "সাম্প্রতিক প্রেসক্রিপশন",
 };
 
 const en: PatientHomeCopy = {
@@ -112,6 +124,12 @@ const en: PatientHomeCopy = {
   taken: "Taken",
   missed: "Missed",
   inHours: (h) => `in ${h}h`,
+  nextAppointment: "Next appointment",
+  activePrescriptions: "Active prescriptions",
+  medicalRecords: "Medical records",
+  recordsHint: "All records stored securely",
+  recordsTitle: "Recent records",
+  prescriptionsTitle: "Recent prescriptions",
 };
 
 export const patientHomeCopy: { bn: PatientHomeCopy; en: PatientHomeCopy } = { bn, en };

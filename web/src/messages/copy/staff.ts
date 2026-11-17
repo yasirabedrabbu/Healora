@@ -10,8 +10,7 @@ import { staffClinicalCopy } from "./staff-clinical";
 import { staffHospitalCopy } from "./staff-hospital";
 import { staffAdminCopy } from "./staff-admin";
 
-export type StaffCopy = import("./staff-patient").PatientHomeCopy &
-  import("./staff-doctor").StaffDoctorCopy &
+export type StaffCopy = { dashboardHome: PatientHomeCopy } & import("./staff-doctor").StaffDoctorCopy &
   import("./staff-clinical").StaffClinicalCopy &
   import("./staff-hospital").StaffHospitalCopy &
   import("./staff-admin").StaffAdminCopy;
@@ -19,14 +18,12 @@ export type StaffCopy = import("./staff-patient").PatientHomeCopy &
 type StaffPageCopy = { [K in keyof StaffCopy]: { bn: StaffCopy[K]; en: StaffCopy[K] } };
 
 const bn = {
-  ...patientHomeCopy.bn,
   ...staffDoctorCopy.bn,
   ...staffClinicalCopy.bn,
   ...staffHospitalCopy.bn,
   ...staffAdminCopy.bn,
 };
 const en = {
-  ...patientHomeCopy.en,
   ...staffDoctorCopy.en,
   ...staffClinicalCopy.en,
   ...staffHospitalCopy.en,
@@ -34,7 +31,8 @@ const en = {
 };
 
 export const copy: StaffPageCopy = {
-  dashboardHome: { bn: bn.dashboardHome, en: en.dashboardHome },
+  // Patient home copy is a flat object, so it is attached directly (not spread).
+  dashboardHome: { bn: patientHomeCopy.bn, en: patientHomeCopy.en },
   doctorDashboard: { bn: bn.doctorDashboard, en: en.doctorDashboard },
   doctorPatients: { bn: bn.doctorPatients, en: en.doctorPatients },
   doctorPrescribe: { bn: bn.doctorPrescribe, en: en.doctorPrescribe },
