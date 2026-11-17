@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { HugeiconsIcon, DashboardCircleIcon, MedicalFileIcon, PrescriptionIcon, BloodTypeIcon, UserGroupIcon, Shield01Icon, Wallet01Icon } from "@/components/icons";
+import { HugeiconsIcon, DashboardCircleIcon, MedicalFileIcon, PrescriptionIcon, BloodTypeIcon, UserGroupIcon, Shield01Icon, Wallet01Icon, Calendar01Icon, Task01Icon, HospitalBed01Icon, TestTubeIcon, FileIcon, Folder01Icon, ScanIcon, AmbulanceIcon } from "@/components/icons";
 import { useI18n } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import type { PortalNavItem } from "@/config/dashboard";
@@ -15,6 +15,16 @@ const icons = {
   family: UserGroupIcon,
   prescribe: PrescriptionIcon,
   patients: UserGroupIcon,
+  schedule: Calendar01Icon,
+  earnings: Wallet01Icon,
+  queue: Task01Icon,
+  beds: HospitalBed01Icon,
+  roster: UserGroupIcon,
+  labBooking: TestTubeIcon,
+  labReports: FileIcon,
+  orders: Folder01Icon,
+  dispense: ScanIcon,
+  ambulance: AmbulanceIcon,
   verification: Shield01Icon,
   payments: Wallet01Icon,
 } as const;
