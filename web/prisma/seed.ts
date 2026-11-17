@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import { PrismaClient } from "@prisma/client";
+import { PrismaPg } from "@prisma/adapter-pg";
 import { randomBytes, createHmac } from "node:crypto";
 
 /**
@@ -7,7 +8,12 @@ import { randomBytes, createHmac } from "node:crypto";
  * with beds, medicines, a patient, a full appointment → prescription
  * chain, and a blood donor pool. Safe to re-run (idempotent upserts).
  */
-const db = new PrismaClient();
+const db = new PrismaClient({
+  adapter: new PrismaPg({
+    connectionString:
+      process.env.DATABASE_URL ?? "postgresql://localhost:5432/healora",
+  }),
+});
 const SECRET = process.env.AUTH_SECRET ?? "dev-only-secret-change-me";
 const hash = (s: string) => createHmac("sha256", SECRET).update(s).digest("hex");
 
