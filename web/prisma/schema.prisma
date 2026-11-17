@@ -329,3 +329,16 @@ model Schedule {
   endAt    String
   mode     String
 }
+
+// ── OTP codes (hashed, short-lived, single-use) ───────────────────
+model OtpCode {
+  id         String    @id @default(cuid())
+  phone      String
+  codeHash   String
+  expiresAt  DateTime
+  attempts   Int       @default(0)
+  consumedAt DateTime?
+  createdAt  DateTime  @default(now())
+
+  @@index([phone, createdAt])
+}

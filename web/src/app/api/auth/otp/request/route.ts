@@ -1,39 +1,55 @@
 import { db } from "@/lib/db";
-import { generateOtp } from "@/lib/auth";
+import { generateOtp, hashOtp } from "@/lib/auth";
+import { sendOtpSms } from "@/lib/sms";
 import { otpRequestSchema, parseOrThrow } from "@/lib/validate";
 import { handleRoute, ok, fail } from "@/lib/security";
 import { rateLimit, limitKey } from "@/lib/rate-limit";
 
 export const instant = false;
 
+const OTP_TTL_MS = 5 * 60 * 1000;
+const WINDOW_MS = 10 * 60 * 1000;
+
 /**
- * POST /api/auth/otp/request - issue a 6-digit OTP (Handoff §14).
- * Dev: code is logged server-side (no SMS provider yet). Rate-limited
- * hard because OTP spam is an abuse vector.
+ * POST /api/auth/otp/request - issue a 6-digit OTP (Handoff section 14).
+ * Stored hashed with a 5-minute TTL. No user row is created here: an account
+ * only exists after a successful verify.
  */
 export async function POST(req: Request) {
   return handleRoute(async () => {
-    const rl = rateLimit(`otp-req:${limitKey(req)}`, 5, 10 * 60 * 1000);
-    if (!rl.ok) return fail(`অনেক বেশি চেষ্টা - ${rl.retryAfterSec} সেকেন্ড পরে চেষ্টা করুন`, 429);
+    const ip = rateLimit(`otp-req:${limitKey(req)}`, 5, WINDOW_MS);
+    if (!ip.ok) {
+      return fail(`অনেক বেশি চেষ্টা - ${ip.retryAfterSec} সেকেন্ড পরে চেষ্টা করুন`, 429);
+    }
 
     const { phone } = parseOrThrow(otpRequestSchema, await req.json());
 
-    const user = await db.user.upsert({
-      where: { phone },
-      create: { phone, role: "PATIENT" },
-      update: {},
-    });
+    // Per-phone cap: stops SMS bombing of one number from many IPs.
+    const perPhone = rateLimit(`otp-req-phone:${phone}`, 3, WINDOW_MS);
+    if (!perPhone.ok) {
+      return fail(`এই নম্বরে অনেক বেশি কোড চাওয়া হয়েছে - ${perPhone.retryAfterSec} সেকেন্ড পরে চেষ্টা করুন`, 429);
+    }
 
     const code = generateOtp();
-    // Dev transport. Production: SMS gateway + hashed storage + 5-min TTL.
-    console.info(`[otp] ${phone} -> ${code}`);
-    await db.auditLog.create({
-      data: { actorId: user.id, action: "otp.request", target: phone },
+
+    // Only the newest code is valid.
+    await db.otpCode.updateMany({
+      where: { phone, consumedAt: null },
+      data: { consumedAt: new Date() },
     });
+    await db.otpCode.create({
+      data: {
+        phone,
+        codeHash: hashOtp(phone, code),
+        expiresAt: new Date(Date.now() + OTP_TTL_MS),
+      },
+    });
+
+    await sendOtpSms(phone, code);
 
     return ok({
       ok: true,
-      // Dev-only echo so the sandbox flow is testable end-to-end.
+      // Dev-only echo so the sandbox flow is testable without an SMS gateway.
       devCode: process.env.NODE_ENV === "production" ? undefined : code,
     });
   });

@@ -1,15 +1,16 @@
 import { db } from "@/lib/db";
-import { setSessionCookie } from "@/lib/auth";
+import { otpMatches, setSessionCookie } from "@/lib/auth";
 import { otpVerifySchema, parseOrThrow } from "@/lib/validate";
 import { handleRoute, ok, fail } from "@/lib/security";
 import { rateLimit, limitKey } from "@/lib/rate-limit";
 
 export const instant = false;
 
+const MAX_ATTEMPTS = 5;
+
 /**
- * POST /api/auth/otp/verify - exchange OTP for a session cookie.
- * Dev: accepts the code echoed by /request. Production: check hashed
- * OTP table with TTL + single-use consumption.
+ * POST /api/auth/otp/verify - exchange a valid OTP for a session cookie.
+ * Checks the hashed code, TTL, attempt cap and single use.
  */
 export async function POST(req: Request) {
   return handleRoute(async () => {
@@ -18,14 +19,40 @@ export async function POST(req: Request) {
 
     const { phone, code } = parseOrThrow(otpVerifySchema, await req.json());
 
-    // Dev verification: the request route logs the code; here we accept
-    // any 6 digits in the sandbox so flows stay testable without SMS.
-    if (process.env.NODE_ENV === "production" && code === "000000") {
-      return fail("অবৈধ কোড", 401);
+    const otp = await db.otpCode.findFirst({
+      where: { phone, consumedAt: null, expiresAt: { gt: new Date() } },
+      orderBy: { createdAt: "desc" },
+    });
+    if (!otp) return fail("কোডের মেয়াদ শেষ বা অবৈধ - নতুন কোড নিন", 401);
+
+    if (otp.attempts >= MAX_ATTEMPTS) {
+      await db.otpCode.update({
+        where: { id: otp.id },
+        data: { consumedAt: new Date() },
+      });
+      return fail("অনেক ভুল চেষ্টা - নতুন কোড নিন", 429);
     }
 
-    const user = await db.user.findUnique({ where: { phone } });
-    if (!user) return fail("ব্যবহারকারী পাওয়া যায়নি", 404);
+    if (!otpMatches(phone, code, otp.codeHash)) {
+      await db.otpCode.update({
+        where: { id: otp.id },
+        data: { attempts: { increment: 1 } },
+      });
+      return fail("ভুল কোড", 401);
+    }
+
+    // Single use: only one request can flip consumedAt from null.
+    const claimed = await db.otpCode.updateMany({
+      where: { id: otp.id, consumedAt: null },
+      data: { consumedAt: new Date() },
+    });
+    if (claimed.count === 0) return fail("কোডটি আগেই ব্যবহার হয়েছে", 401);
+
+    const user = await db.user.upsert({
+      where: { phone },
+      create: { phone, role: "PATIENT" },
+      update: {},
+    });
 
     await setSessionCookie(user.id, user.role);
     await db.auditLog.create({
