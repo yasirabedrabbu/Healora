@@ -6,11 +6,12 @@ import { HugeiconsIcon, HospitalBed01Icon, Time01Icon } from "@/components/icons
 export const metadata = { title: "বেড স্ট্যাটাস" };
 
 // Mock bed board — PUT /api/hospitals/[id]/beds updates this live (§14).
-const beds = [
+type BedRow = { type: string; total: number; available: number };
+const beds: BedRow[] = [
   { type: "জেনারেল", total: 50, available: 12 },
   { type: "ICU", total: 10, available: 2 },
   { type: "অক্সিজেন", total: 8, available: 5 },
-] as const;
+];
 
 export default function BedsPage() {
   return (

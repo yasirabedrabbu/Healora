@@ -7,10 +7,11 @@ import { HugeiconsIcon, UploadIcon, FileIcon, AiBrainIcon } from "@/components/i
 export const metadata = { title: "ল্যাব রিপোর্ট" };
 
 // Mock reports — upload lands in /uploads (or S3) via the records API.
-const reports = [
+type ReportRow = { name: string; status: string };
+const reports: ReportRow[] = [
   { name: "সিবিসি — নভেম্বর ২০২৬", status: "ai-summarized" },
   { name: "ফাস্টিং সুগার — অক্টোবর ২০২৬", status: "pending" },
-] as const;
+];
 
 export default function LabReportsPage() {
   return (

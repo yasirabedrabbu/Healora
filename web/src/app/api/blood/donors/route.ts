@@ -1,5 +1,4 @@
 import { db } from "@/lib/db";
-import { getSession } from "@/lib/auth";
 import { handleRoute, ok, fail } from "@/lib/security";
 
 export const runtime = "nodejs";

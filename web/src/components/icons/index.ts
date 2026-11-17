@@ -101,6 +101,8 @@ export {
   Analytics01Icon,
   Wallet01Icon,
   NotificationIcon,
+  Location01Icon,
+  TruckIcon,
   GlobeIcon,
   MailIcon,
   HandshakeIcon,

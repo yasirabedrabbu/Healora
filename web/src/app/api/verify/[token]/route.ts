@@ -21,12 +21,17 @@ export async function GET(
 
     const prescription = await db.prescription.findUnique({
       where: { qrToken: token },
-      include: {
-        items: { include: { medicine: true } },
-        doctor: { select: { bmdcNo: true, specialty: true, verifiedStatus: true, user: { select: { name: true } } } },
-      },
+      include: { items: { include: { medicine: true } } },
     });
     if (!prescription) return fail("অবৈধ QR — পাওয়া যায়নি", 404);
+
+    // Doctor identity: Prescription.doctor is a User; the verified profile
+    // (BMDC, specialty) lives on the Doctor row keyed by userId.
+    const doctorProfile = await db.doctor.findUnique({
+      where: { userId: prescription.doctorId },
+      select: { bmdcNo: true, specialty: true, verifiedStatus: true, user: { select: { name: true } } },
+    });
+    if (!doctorProfile) return fail("ডাক্তার পাওয়া যায়নি", 404);
 
     // Re-derive the hash to confirm integrity.
     const payload = JSON.stringify({

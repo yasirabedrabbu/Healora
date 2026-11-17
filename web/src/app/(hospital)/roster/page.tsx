@@ -1,6 +1,5 @@
 import { PageHeader } from "@/components/dashboard/PageHeader";
 import { Card } from "@/components/ui/Card";
-import { Badge } from "@/components/ui/Badge";
 import { HugeiconsIcon, Doctor02Icon, ClockIcon } from "@/components/icons";
 
 export const metadata = { title: "ডাক্তার রোস্টার" };

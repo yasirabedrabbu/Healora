@@ -99,6 +99,8 @@ model HospitalBed {
   total      Int
   available  Int
   updatedAt  DateTime @updatedAt
+
+  @@unique([hospitalId, type])
 }
 
 model Lab {
@@ -266,6 +268,7 @@ model BloodRequest {
   bloodGroup  String
   hospitalId  String?
   urgency     String  // routine | urgent | critical
+  note        String? @db.Text
   status      String  @default("open")
   createdAt   DateTime @default(now())
 }

@@ -5,7 +5,7 @@ import { AnimatePresence } from "motion/react";
 import { HugeiconsIcon, AiBrainIcon } from "@/components/icons";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 import { motion } from "motion/react";
-import { AssistantWidget } from "./AssistantWidget";
+import { AssistantWidget } from "./index";
 
 /** FAB toggle for the assistant — accessible name, reduced-motion safe. */
 export function AssistantLauncher() {

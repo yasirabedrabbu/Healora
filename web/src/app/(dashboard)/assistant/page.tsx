@@ -1,6 +1,6 @@
 import { PageHeader } from "@/components/dashboard/PageHeader";
 import { Card } from "@/components/ui/Card";
-import { AssistantChat } from "@/components/ai/AssistantChat";
+import { AssistantChat } from "@/components/ai/AssistantWidget/AssistantChat";
 import { HugeiconsIcon, AiBrainIcon, Shield01Icon, AlertCircleIcon } from "@/components/icons";
 
 export const metadata = {

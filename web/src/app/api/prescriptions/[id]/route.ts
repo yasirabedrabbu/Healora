@@ -22,14 +22,20 @@ export async function GET(
       where: { id },
       include: {
         items: { include: { medicine: true } },
-        doctor: { select: { bmdcNo: true, specialty: true, user: { select: { name: true } } } },
+        doctor: { select: { name: true } },
       },
     });
     if (!prescription) return fail("প্রেসক্রিপশন পাওয়া যায়নি", 404);
 
+    // Doctor profile (BMDC/specialty) lives on the Doctor row, keyed by userId.
+    const doctorProfile = await db.doctor.findUnique({
+      where: { userId: prescription.doctorId },
+      select: { bmdcNo: true, specialty: true },
+    });
+
     const allowed = prescription.patientId === session.userId || prescription.doctorId === session.userId;
     if (!allowed) return fail("অনুমতি নেই", 403);
 
-    return ok({ prescription });
+    return ok({ prescription, doctorProfile });
   });
 }

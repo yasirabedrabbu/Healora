@@ -8,13 +8,14 @@ import { PageHeader } from "@/components/dashboard/PageHeader";
 import { HugeiconsIcon, AddIcon, Calendar01Icon } from "@/components/icons";
 import { cn } from "@/lib/utils";
 
-const weekdays = ["রবি", "সোম", "মঙ্গল", "বুধ", "বৃহঃ", "শুক্র", "শনি"] as const;
+const weekdays = ["রবি", "সোম", "মঙ্গল", "বুধ", "বৃহঃ", "শুক্র", "শনি"];
 
 // Mock schedule — GET/PUT /api/doctors/me/schedule (Phase 1 API).
-const initial = [
+type Slot = { day: number; start: string; end: string; mode: string };
+const initial: Slot[] = [
   { day: 0, start: "10:00", end: "13:00", mode: "ভিডিও" },
   { day: 2, start: "17:00", end: "20:00", mode: "চেম্বার" },
-] as const;
+];
 
 export default function SchedulePage() {
   const [slots, setSlots] = useState([...initial]);
@@ -80,7 +81,7 @@ export default function SchedulePage() {
           size="sm"
           className={cn("mt-5")}
           onClick={() =>
-            setSlots((p) => [...p, { day: 4, start: "10:00", end: "12:00", mode: "ভিডিও" } as (typeof p)[number]])
+            setSlots((p) => [...p, { day: 4, start: "10:00", end: "12:00", mode: "ভিডিও" }])
           }
         >
           <HugeiconsIcon icon={AddIcon} size={16} aria-hidden />
