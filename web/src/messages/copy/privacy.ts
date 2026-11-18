@@ -1,6 +1,7 @@
 /** Privacy policy page copy - all page-level strings, bn/en 1:1. */
 export const copy = {
   bn: {
+    eyebrow: "প্রাইভেসি ও ডেটা",
     title: "প্রাইভেসি পলিসি",
     description: "শেষ হালনাগাদ: নভেম্বর ২০২৬",
     sections: [
@@ -25,6 +26,7 @@ export const copy = {
       "এই সারসংক্ষেপ আইনি পরামর্শ নয়; চূড়ান্ত পলিসি আইনজীবী রিভিউয়ের পর প্রকাশ হবে।",
   },
   en: {
+    eyebrow: "Privacy and data",
     title: "Privacy Policy",
     description: "Last updated: November 2026",
     sections: [
