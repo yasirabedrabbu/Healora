@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/Badge";
 import { usePageCopy } from "@/lib/i18n";
 import { copy } from "@/messages/copy/staff";
 
-// Mock ledger — gateway settlement data replaces this in Phase 1.
+// Mock ledger - gateway settlement data replaces this in Phase 1.
 type MethodKey = "bkash" | "nagad" | "card";
 const txns: {
   id: string;

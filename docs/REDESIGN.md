@@ -49,3 +49,29 @@ assistant/map headers (via sections/pages above).
 - ৯৯৯/999 emergency-first copy present in both languages everywhere.
 - AI disclaimers ("not medical advice / রোগ নির্ণয় নয়") kept verbatim.
 - No shadows/gradients anywhere; motion gated behind `useReducedMotion`.
+
+## Dashboard redesign (Pillio reference, Nov 2026)
+User-supplied Pillio dashboard screenshots (light sidebar, KPI row, tabbed lists,
+daily timeline, refill list) adapted with dummy data only and our flat tokens.
+
+- `components/dashboard/StatCard.tsx`: icon tile, big value, optional progress bar
+  and delta chip.
+- `components/dashboard/PortalTopbar.tsx`: search pill with a shortcut hint (routes
+  to doctor search), notification bell with dot, avatar, locale/theme toggles.
+- `components/dashboard/Sidebar.tsx`: brand mark, nav list, support card, logout.
+- `app/(dashboard)/dashboard/`: greeting header + CTA, four KPI cards
+  (`stat-cards.tsx`), highlighted daily-doses card + weekly adherence bars
+  (`doses-panel.tsx`), week strip + appointments (`appointments-panel.tsx`),
+  refill alerts (`refill-panel.tsx`), and a daily schedule timeline
+  (`schedule-panel.tsx`). Dummy data in `lib/data/dashboard.ts`.
+- `app/(dashboard)/prescriptions/`: segmented filter (all/active/paused/completed),
+  primary action, and a medication card grid (`medication-card.tsx`) with status
+  pills, stock progress bars and doctor/next-dose meta rows.
+- New copy keys (both locales) in `messages/copy/staff-patient.ts`,
+  `messages/copy/patient.ts` and `messages/{bn,en}.ts` (notifications, support card).
+- Shell container widened to `max-w-7xl`.
+
+### Em dash removal (site-wide)
+U+2014 removed from every visible string (copy modules, seeded data, page text);
+comments use plain hyphens. Time ranges keep the en dash, e.g. `সকাল ৮টা–রাত ১০টা`.
+

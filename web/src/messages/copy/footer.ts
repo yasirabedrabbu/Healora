@@ -1,4 +1,4 @@
-/** Footer copy — 4 dark columns + trust line. */
+/** Footer copy - 4 dark columns + trust line. */
 export type FooterCopy = {
   brand: string;
   trustBadge: string;

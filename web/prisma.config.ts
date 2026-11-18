@@ -10,7 +10,7 @@ import path from "node:path";
  *   (DATABASE_URL_UNPOOLED, no -pooler) or Prisma Migrate breaks with
  *   "prepared statement already exists" / read-only-transaction errors.
  */
-export default {
+const config = {
   schema: path.join(__dirname, "prisma/schema.prisma"),
   migrations: {
     path: path.join(__dirname, "prisma/migrations"),
@@ -22,3 +22,5 @@ export default {
       "postgresql://localhost:5432/healora",
   },
 };
+
+export default config;

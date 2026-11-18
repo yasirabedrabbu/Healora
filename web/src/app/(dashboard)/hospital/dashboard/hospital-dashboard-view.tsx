@@ -24,7 +24,7 @@ export function HospitalDashboardView() {
       <div className="mb-8 grid gap-4 sm:grid-cols-3">
         <StatCard label={c.liveQueue} value="১২" hint={c.liveQueueHint} />
         <StatCard label={c.icuFree} value="২/১০" hint={c.icuHint} />
-        <StatCard label={c.todayRoster} value="৮ ডাক্তার" hint={c.rosterHint} />
+        <StatCard label={c.todayRoster} value={c.rosterValue} hint={c.rosterHint} />
       </div>
 
       <Card className="p-6">

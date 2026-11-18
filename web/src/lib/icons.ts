@@ -1,1 +1,0 @@
-export { HugeiconsIcon } from "@hugeicons/react";

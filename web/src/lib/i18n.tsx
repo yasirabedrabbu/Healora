@@ -28,7 +28,7 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
       if (saved !== "bn" && saved !== "en") return;
       queueMicrotask(() => setLocaleState(saved));
     } catch {
-      /* storage unavailable — keep default */
+      /* storage unavailable - keep default */
     }
   }, []);
 

@@ -14,7 +14,7 @@ export function FinalCTA() {
         <Reveal>
           {/* Oversized brand panel: flat color, border detail, no gradients */}
           <div className="relative overflow-hidden rounded-3xl bg-brand-600 px-8 py-16 text-center sm:px-16 lg:py-20">
-            {/* Ghost QR motif — outlined, decorative only */}
+            {/* Ghost QR motif - outlined, decorative only */}
             <HugeiconsIcon
               icon={QrCode01Icon}
               size={220}

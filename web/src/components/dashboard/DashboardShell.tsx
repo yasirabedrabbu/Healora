@@ -13,7 +13,7 @@ export function DashboardShell({ items, children }: { items: PortalNavItem[]; ch
         <PortalTopbar />
         <MobileNav items={items} />
         <main id="main-content" className="min-w-0 flex-1">
-          <Container className="max-w-6xl py-8 md:px-2 lg:px-4">{children}</Container>
+          <Container className="max-w-7xl py-6 md:px-2 lg:px-4">{children}</Container>
         </main>
       </div>
     </div>

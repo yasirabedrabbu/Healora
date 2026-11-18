@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { usePageCopy } from "@/lib/i18n";
 import { copy } from "@/messages/copy/staff";
 
-// Mock verification queue — manual review flow per handoff §10.
+// Mock verification queue - manual review flow per handoff §10.
 const queue = [
   { name: "ডা. তানভীর ইসলাম", bmdc: "A-01234", nid: "matched", selfie: "matched", submitted: "১২ নভেম্বর" },
   { name: "ডা. নুসরাত জাহান", bmdc: "A-01235", nid: "matched", selfie: "pending", submitted: "১৩ নভেম্বর" },

@@ -72,6 +72,10 @@ export const bn = {
     assistantError: "সংযোগ সমস্যা - একটু পরে আবার চেষ্টা করুন।",
     assistantBusy: "অনেক অনুরোধ আসছে - কিছুক্ষণ পরে আবার চেষ্টা করুন।",
     selectSlotHint: "বুকিং করতে আগে একটি সময় বেছে নিন",
+    notifications: "নোটিফিকেশন",
+    supportTitle: "সাহায্য দরকার?",
+    supportText: "২৪/৭ সাপোর্ট টিম আপনার পাশে আছে।",
+    supportCta: "সাপোর্টে লিখুন",
   },
 };
 

@@ -12,6 +12,7 @@ type HospitalDashboardCopy = {
   icuHint: string;
   todayRoster: string;
   rosterHint: string;
+  rosterValue: string;
   serialsTitle: string;
   statusWaiting: string;
   statusInProgress: string;
@@ -64,6 +65,7 @@ const bn: StaffHospitalCopy = {
     icuHint: "সর্বশেষ আপডেট: ৫ মিনিট আগে",
     todayRoster: "আজকের রোস্টার",
     rosterHint: "৩টি শিফট",
+    rosterValue: "৮ ডাক্তার",
     serialsTitle: "লাইভ সিরিয়াল",
     statusWaiting: "অপেক্ষমাণ",
     statusInProgress: "চলছে",
@@ -92,7 +94,7 @@ const bn: StaffHospitalCopy = {
   hospitalRoster: {
     title: "ডাক্তার রোস্টার",
     description: "শিফট ও ডিউটি ব্যবস্থাপনা - রোগীরা কে কখন দেখা, জানতে পারবে।",
-    shifts: { morning: "সকাল (৮টা–২টা)", afternoon: "বিকেল (২টা–৮টা)", night: "রাত (৮টা–৮টা)" },
+    shifts: { morning: "সকাল (৮টা-২টা)", afternoon: "বিকেল (২টা-৮টা)", night: "রাত (৮টা-৮টা)" },
     footnote: "অন-কল ডাক্তারের নামের পাশে ব্যাজ দেখানো হয়; ইমার্জেন্সি সবসময় ৯৯৯।",
   },
 };
@@ -107,6 +109,7 @@ const en: StaffHospitalCopy = {
     icuHint: "Last updated: 5 minutes ago",
     todayRoster: "Today's roster",
     rosterHint: "3 shifts",
+    rosterValue: "8 doctors",
     serialsTitle: "Live serials",
     statusWaiting: "Waiting",
     statusInProgress: "In progress",
@@ -135,7 +138,7 @@ const en: StaffHospitalCopy = {
   hospitalRoster: {
     title: "Doctor roster",
     description: "Shift and duty management - patients know who sees them and when.",
-    shifts: { morning: "Morning (8am–2pm)", afternoon: "Afternoon (2pm–8pm)", night: "Night (8pm–8am)" },
+    shifts: { morning: "Morning (8am-2pm)", afternoon: "Afternoon (2pm-8pm)", night: "Night (8pm-8am)" },
     footnote: "An on-call badge shows next to the doctor's name; for emergencies always dial 999.",
   },
 };
