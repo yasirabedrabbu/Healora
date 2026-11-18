@@ -82,6 +82,21 @@ export const en = {
       { title: "Expiry warnings", text: "After the validity date the QR shows a red banner · the pharmacy blocks it." },
     ],
   },
+  bento: {
+    eyebrow: "At a glance",
+    title: "The whole journey,",
+    titleAccent: "one screen",
+    description: "From booking to dispensing, every step is verifiable and transparent.",
+    verifyLabel: "Scan the QR",
+    dispensedLabel: "Dispensed",
+    cards: {
+      qr: { tag: "QR prescription", title: "Verify in one scan", text: "A pharmacy scan shows the doctor, medicines and expiry. Once dispensed, it cannot be reused." },
+      booking: { tag: "Booking", title: "A slot in 2 minutes", text: "Pick specialty, fee and video or chamber. Confirmation is instant." },
+      records: { tag: "Records", title: "Who opened what, when", text: "Every access lands in the log. Sharing is a switch you control." },
+      assistant: { tag: "Assistant", title: "Find the right specialty", text: "Describe a symptom and get the right department. It never diagnoses. Emergencies: 999." },
+      blood: { tag: "Blood", title: "Match fast", text: "Match by blood group and area to find the nearest donor." },
+    },
+  },
   finalCta: {
     badge: "Pilot - first 20 doctors",
     title: "Start",

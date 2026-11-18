@@ -7,7 +7,8 @@ import { PageHeader } from "@/components/dashboard/PageHeader";
 import { usePageCopy } from "@/lib/i18n";
 import { copy } from "@/messages/copy/settings";
 import type { SettingsCopy } from "@/messages/copy/settings";
-import { ProfilePanel, NotificationsPanel, PrivacyPanel, SecurityPanel } from "./settings-panels";
+import { ProfilePanel, NotificationsPanel, PrivacyPanel } from "./settings-panels";
+import { SecurityPanel } from "./security-panel";
 
 export type NotifyState = {
   appointments: boolean;

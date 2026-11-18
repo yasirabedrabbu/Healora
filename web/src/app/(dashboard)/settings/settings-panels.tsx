@@ -1,9 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import { Input } from "@/components/ui/Input";
 import { toast } from "@/components/ui/Toast";
-import { HugeiconsIcon, CheckmarkCircle01Icon, Shield01Icon, Layout01Icon } from "@/components/icons";
+import { HugeiconsIcon, CheckmarkCircle01Icon } from "@/components/icons";
 import { useI18n } from "@/lib/i18n";
 import { patientProfile } from "@/lib/data/patient";
 import type { SettingsCopy } from "@/messages/copy/settings";

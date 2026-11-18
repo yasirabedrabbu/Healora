@@ -1,5 +1,6 @@
 import { Hero } from "@/components/sections/Hero";
 import { TrustStrip } from "@/components/sections/TrustStrip";
+import { Bento } from "@/components/sections/Bento";
 import { SpecialtyGrid } from "@/components/sections/SpecialtyGrid";
 import { HowItWorks } from "@/components/sections/HowItWorks";
 import { AppPreview } from "@/components/sections/AppPreview";
@@ -16,6 +17,7 @@ export default function HomePage() {
     <>
       <Hero />
       <TrustStrip />
+      <Bento />
       <SpecialtyGrid />
       <HowItWorks />
       <AppPreview />
