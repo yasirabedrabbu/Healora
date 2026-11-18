@@ -30,6 +30,7 @@ export const en = {
     { n: "03", title: "Consultation", text: "Talk to the doctor and receive your prescription." },
     { n: "04", title: "Verify with QR", text: "Any pharmacy can scan the QR to check the prescription." },
   ],
+  howItWorks: { journeyLabel: "The Healora journey", verifiedLabel: "Secure and verifiable" },
   features: {
     qr: { title: "QR prescriptions", text: "Every prescription has a unique ID and QR. Once dispensed it is marked 'dispensed' - it can never be reused." },
     verified: { title: "Verified doctors", text: "A verified badge only after BMDC, NID and selfie checks." },

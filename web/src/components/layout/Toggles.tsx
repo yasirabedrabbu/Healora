@@ -5,7 +5,7 @@ import { useTheme } from "next-themes";
 import { useI18n } from "@/lib/i18n";
 
 const iconBtn =
-  "grid h-10 w-10 place-items-center rounded-full border border-gray-200 bg-white text-gray-700 transition-colors duration-150 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700";
+  "grid h-10 w-10 place-items-center rounded-full border border-gray-200 bg-white text-gray-700 transition-[color,background-color,border-color,transform] duration-150 hover:-translate-y-0.5 hover:bg-gray-50 active:translate-y-0 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700 motion-reduce:transform-none";
 
 export function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();

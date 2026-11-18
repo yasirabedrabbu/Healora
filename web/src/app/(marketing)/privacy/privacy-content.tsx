@@ -2,7 +2,7 @@
 
 import { Card } from "@/components/ui/Card";
 import { Container } from "@/components/shared/Container";
-import { PageHeader } from "@/components/dashboard/PageHeader";
+import { MarketingHero } from "@/components/sections/MarketingHero";
 import { useI18n, usePageCopy } from "@/lib/i18n";
 import { copy } from "@/messages/copy/privacy";
 
@@ -14,9 +14,10 @@ export function PrivacyContent() {
   const index = (i: number) => (locale === "bn" ? bnDigits[i] : `0${i + 1}`);
 
   return (
-    <section className="py-16">
+    <>
+      <MarketingHero eyebrow={t.eyebrow} title={t.title} description={t.description} />
+    <section className="py-14 sm:py-20">
       <Container className="max-w-3xl">
-        <PageHeader title={t.title} description={t.description} />
         <div className="space-y-4">
           {t.sections.map((s, i) => (
             <Card key={s.title} className="p-6">
@@ -31,5 +32,6 @@ export function PrivacyContent() {
         <p className="mt-8 text-xs text-gray-400 dark:text-gray-500">{t.disclaimer}</p>
       </Container>
     </section>
+    </>
   );
 }

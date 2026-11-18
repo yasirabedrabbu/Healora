@@ -1,6 +1,7 @@
 /** UI copy for the contact page. */
 export const copy = {
   bn: {
+    eyebrow: "সাপোর্ট সেন্টার",
     title: "যোগাযোগ করুন",
     description: "প্রশ্ন, রিপোর্ট বা পার্টনারশিপ - সব ইনবক্সে পৌঁছে দিন।",
     channels: {
@@ -21,6 +22,7 @@ export const copy = {
     emergencyNote: "জরুরি অবস্থায় ৯৯৯-এ কল করুন। হেলোরা জরুরি সেবার বিকল্প নয়।",
   },
   en: {
+    eyebrow: "Support center",
     title: "Contact us",
     description: "Questions, reports or partnerships - we'll get your message to the right inbox.",
     channels: {

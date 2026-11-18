@@ -1,0 +1,52 @@
+@media (hover: hover) and (pointer: fine) {
+  :global(html[data-custom-cursor="true"]),
+  :global(html[data-custom-cursor="true"] *) {
+    cursor: none !important;
+  }
+
+  .ring,
+  .dot {
+    pointer-events: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    will-change: transform;
+  }
+
+  :global(html[data-custom-cursor="true"]) .ring,
+  :global(html[data-custom-cursor="true"]) .dot {
+    opacity: 1;
+  }
+
+  .ring {
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--color-brand-500);
+    border-radius: 999px;
+    transition: width 160ms var(--ease-standard), height 160ms var(--ease-standard), background-color 160ms var(--ease-standard);
+  }
+
+  .ring[data-active] {
+    width: 38px;
+    height: 38px;
+    background-color: var(--color-brand-50);
+  }
+
+  .ring[data-pressed] {
+    width: 22px;
+    height: 22px;
+  }
+
+  .dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 999px;
+    background-color: var(--color-brand-500);
+  }
+
+  :global(.dark) .ring[data-active] {
+    background-color: var(--color-brand-900);
+  }
+}

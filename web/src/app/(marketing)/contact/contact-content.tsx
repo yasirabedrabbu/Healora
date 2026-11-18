@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Card } from "@/components/ui/Card";
 import { HugeiconsIcon, CallIcon, MailIcon, CustomerServiceIcon } from "@/components/icons";
-import { PageHeader } from "@/components/dashboard/PageHeader";
+import { MarketingHero } from "@/components/sections/MarketingHero";
 import { Container } from "@/components/shared/Container";
 import { usePageCopy } from "@/lib/i18n";
 import { copy as pageCopy } from "@/messages/copy/contact";
@@ -26,10 +26,10 @@ export function ContactContent() {
   ];
 
   return (
-    <section className="py-16">
+    <>
+      <MarketingHero eyebrow={copy.eyebrow} title={copy.title} description={copy.description} />
+    <section className="py-14 sm:py-20">
       <Container className="max-w-3xl">
-        <PageHeader title={copy.title} description={copy.description} />
-
         <div className="mb-8 grid gap-4 sm:grid-cols-3">
           {channels.map((c) => (
             <Card key={c.label} className="p-5 text-center">
@@ -82,5 +82,6 @@ export function ContactContent() {
         </p>
       </Container>
     </section>
+    </>
   );
 }

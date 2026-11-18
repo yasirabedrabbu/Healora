@@ -1,6 +1,7 @@
 /** Terms of service page copy - all page-level strings, bn/en 1:1. */
 export const copy = {
   bn: {
+    eyebrow: "সেবার নিয়ম",
     title: "শর্তাবলি",
     description: "শেষ হালনাগাদ: নভেম্বর ২০২৬",
     sections: [
@@ -23,6 +24,7 @@ export const copy = {
     ],
   },
   en: {
+    eyebrow: "Service terms",
     title: "Terms of Service",
     description: "Last updated: November 2026",
     sections: [

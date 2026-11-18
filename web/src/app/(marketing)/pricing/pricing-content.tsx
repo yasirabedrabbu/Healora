@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { PageHeader } from "@/components/dashboard/PageHeader";
+import { MarketingHero } from "@/components/sections/MarketingHero";
 import { Pricing } from "@/components/sections/Pricing";
 import { FAQ } from "@/components/sections/FAQ";
 import { FinalCTA } from "@/components/sections/FinalCTA";
@@ -14,6 +14,7 @@ export function PricingContent() {
 
   return (
     <>
+      <MarketingHero eyebrow={c.eyebrow} title={c.title} description={c.description} />
       <Container>
         <Image
           src="/images/pricing-hero.jpg"
@@ -22,9 +23,6 @@ export function PricingContent() {
           height={560}
           className="mt-12 aspect-[15/7] w-full rounded-3xl border border-gray-200 object-cover dark:border-gray-800"
         />
-        <div className="mt-10">
-          <PageHeader title={c.title} description={c.description} />
-        </div>
       </Container>
       <Pricing />
       <FAQ />

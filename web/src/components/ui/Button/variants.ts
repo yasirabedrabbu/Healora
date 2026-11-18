@@ -27,4 +27,4 @@ export const buttonIconSizes: Record<ButtonSize, string> = {
 };
 
 export const buttonBase =
-  "inline-flex shrink-0 select-none items-center justify-center font-semibold transition-colors duration-200 ease-standard focus-visible:outline-2 focus-visible:outline-brand-400 focus-visible:outline-offset-2 disabled:pointer-events-none disabled:opacity-50";
+  "inline-flex shrink-0 select-none items-center justify-center font-semibold transition-[color,background-color,border-color,transform] duration-200 ease-standard hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-2 focus-visible:outline-brand-400 focus-visible:outline-offset-2 disabled:pointer-events-none disabled:opacity-50 disabled:hover:translate-y-0 motion-reduce:transform-none";

@@ -50,7 +50,7 @@ export function Header() {
                   key={item.href}
                   href={item.href}
                   aria-current={active ? "page" : undefined}
-                  className="relative rounded-full px-4 py-2 text-sm font-medium text-gray-600 transition-colors duration-150 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+                  className="relative rounded-full px-4 py-2 text-sm font-medium text-gray-600 transition-[color,background-color,transform] duration-150 hover:-translate-y-0.5 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white motion-reduce:transform-none"
                 >
                   {active && (
                     <motion.span
@@ -85,7 +85,7 @@ export function Header() {
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}
-              className="grid h-10 w-10 place-items-center rounded-full border border-gray-200 text-gray-900 dark:border-gray-700 dark:text-gray-50"
+              className="grid h-10 w-10 place-items-center rounded-full border border-gray-200 text-gray-900 transition-[background-color,border-color,transform] duration-150 hover:-translate-y-0.5 hover:bg-gray-50 active:translate-y-0 dark:border-gray-700 dark:text-gray-50 dark:hover:bg-gray-800 motion-reduce:transform-none"
               aria-expanded={open}
               aria-controls="mobile-nav"
               aria-label={open ? t.common.close : t.common.menu}

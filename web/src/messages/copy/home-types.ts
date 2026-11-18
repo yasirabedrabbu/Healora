@@ -18,6 +18,7 @@ export type HomeCopy = {
   marquee: string[];
   specialties: string[];
   steps: { n: string; title: string; text: string }[];
+  howItWorks: { journeyLabel: string; verifiedLabel: string };
   features: {
     qr: { title: string; text: string };
     verified: { title: string; text: string };
