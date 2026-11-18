@@ -6,6 +6,7 @@ import {
   HugeiconsIcon, DashboardCircleIcon, MedicalFileIcon, PrescriptionIcon, BloodTypeIcon, UserGroupIcon,
   Shield01Icon, Wallet01Icon, Calendar01Icon, Task01Icon, HospitalBed01Icon, TestTubeIcon, FileIcon,
   Folder01Icon, ScanIcon, AmbulanceIcon, HealthIcon, BubbleChatIcon, Location01Icon, IdCardIcon,
+  Settings02Icon,
 } from "@/components/icons";
 import { useI18n } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
@@ -35,6 +36,8 @@ const icons = {
   emergencyCard: IdCardIcon,
   verification: Shield01Icon,
   payments: Wallet01Icon,
+  consult: BubbleChatIcon,
+  settings: Settings02Icon,
 } as const;
 
 export function Sidebar({ items }: { items: PortalNavItem[] }) {

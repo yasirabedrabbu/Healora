@@ -51,6 +51,8 @@ export const bn = {
     emergencyCard: "ইমার্জেন্সি কার্ড",
     verification: "ভেরিফিকেশন কিউ",
     payments: "পেমেন্ট ও অ্যানালিটিক্স",
+    consult: "পরামর্শ",
+    settings: "সেটিংস",
   },
   ui: {
     logout: "লগআউট",

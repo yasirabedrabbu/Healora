@@ -17,7 +17,8 @@ export function ThemeToggle() {
       className={iconBtn}
       aria-label={t.ui.toggleTheme}
     >
-      <HugeiconsIcon icon={resolvedTheme === "dark" ? SunIcon : Moon02Icon} size={20} aria-hidden />
+      <HugeiconsIcon icon={SunIcon} size={20} aria-hidden className="hidden dark:block" />
+      <HugeiconsIcon icon={Moon02Icon} size={20} aria-hidden className="dark:hidden" />
     </button>
   );
 }
@@ -28,11 +29,11 @@ export function LocaleToggle() {
     <button
       type="button"
       onClick={() => setLocale(locale === "bn" ? "en" : "bn")}
-      className={`${iconBtn} w-auto gap-1.5 px-3 text-xs font-semibold`}
+      className={`${iconBtn} inline-flex w-auto flex-row items-center gap-2 px-3 text-xs font-semibold`}
       aria-label={locale === "bn" ? t.ui.switchToEnglish : t.ui.switchToBangla}
     >
       <HugeiconsIcon icon={LanguageSquareIcon} size={16} aria-hidden />
-      {locale === "bn" ? "EN" : "বাং"}
+      <span className="leading-none">{locale === "bn" ? "English" : "বাংলা"}</span>
     </button>
   );
 }

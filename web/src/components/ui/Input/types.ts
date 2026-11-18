@@ -8,6 +8,8 @@ export interface InputProps
   size?: InputSize;
   /** Hugeicons icon component shown before the field. */
   prefixIcon?: ReactNode;
+  /** Optional trailing icon or unit (e.g. "৳", "kg"). */
+  suffixIcon?: ReactNode;
   label?: string;
   hint?: string;
   error?: string;

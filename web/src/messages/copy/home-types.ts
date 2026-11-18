@@ -44,6 +44,21 @@ export type HomeCopy = {
     alt: string;
     points: { title: string; text: string }[];
   };
+  bento: {
+    eyebrow: string;
+    title: string;
+    titleAccent: string;
+    description: string;
+    verifyLabel: string;
+    dispensedLabel: string;
+    cards: {
+      qr: { tag: string; title: string; text: string };
+      booking: { tag: string; title: string; text: string };
+      records: { tag: string; title: string; text: string };
+      assistant: { tag: string; title: string; text: string };
+      blood: { tag: string; title: string; text: string };
+    };
+  };
   finalCta: {
     badge: string;
     title: string;

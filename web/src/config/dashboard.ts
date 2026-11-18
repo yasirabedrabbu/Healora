@@ -21,7 +21,8 @@ export type PortalNavKey =
   | "map"
   | "emergencyCard"
   | "verification"
-  | "payments";
+  | "payments"
+  | "settings";
 
 export type PortalNavItem = {
   key: PortalNavKey;
@@ -40,6 +41,7 @@ export const patientNav: PortalNavItem[] = [
   { key: "blood", href: "/blood" },
   { key: "family", href: "/family" },
   { key: "emergencyCard", href: "/emergency-card" },
+  { key: "settings", href: "/settings" },
 ];
 
 export const doctorNav: PortalNavItem[] = [
@@ -48,11 +50,13 @@ export const doctorNav: PortalNavItem[] = [
   { key: "patients", href: "/doctor/patients" },
   { key: "schedule", href: "/doctor/schedule" },
   { key: "earnings", href: "/doctor/earnings" },
+  { key: "settings", href: "/settings" },
 ];
 
 export const adminNav: PortalNavItem[] = [
   { key: "verification", href: "/admin/verification" },
   { key: "payments", href: "/admin/payments" },
+  { key: "settings", href: "/settings" },
 ];
 
 export const hospitalNav: PortalNavItem[] = [
@@ -60,14 +64,17 @@ export const hospitalNav: PortalNavItem[] = [
   { key: "queue", href: "/hospital/queue" },
   { key: "beds", href: "/hospital/beds" },
   { key: "roster", href: "/hospital/roster" },
+  { key: "settings", href: "/settings" },
 ];
 
 export const labNav: PortalNavItem[] = [
   { key: "labBooking", href: "/lab/booking" },
   { key: "labReports", href: "/lab/reports" },
+  { key: "settings", href: "/settings" },
 ];
 
 export const pharmacyNav: PortalNavItem[] = [
   { key: "orders", href: "/pharmacy/orders" },
   { key: "dispense", href: "/pharmacy/dispense" },
+  { key: "settings", href: "/settings" },
 ];

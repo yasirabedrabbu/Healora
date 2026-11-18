@@ -53,6 +53,8 @@ export const en: Dictionary = {
     emergencyCard: "Emergency card",
     verification: "Verification queue",
     payments: "Payments & analytics",
+    consult: "Consultation",
+    settings: "Settings",
   },
   ui: {
     logout: "Log out",
