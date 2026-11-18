@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import {
   HugeiconsIcon, DashboardCircleIcon, MedicalFileIcon, PrescriptionIcon, BloodTypeIcon, UserGroupIcon,
   Shield01Icon, Wallet01Icon, Calendar01Icon, Task01Icon, HospitalBed01Icon, TestTubeIcon, FileIcon,
-  Folder01Icon, ScanIcon, AmbulanceIcon, HealthIcon, BubbleChatIcon,
+  Folder01Icon, ScanIcon, AmbulanceIcon, HealthIcon, BubbleChatIcon, Location01Icon, IdCardIcon,
 } from "@/components/icons";
 import { useI18n } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
@@ -30,6 +30,9 @@ const icons = {
   orders: Folder01Icon,
   dispense: ScanIcon,
   ambulance: AmbulanceIcon,
+  assistant: BubbleChatIcon,
+  map: Location01Icon,
+  emergencyCard: IdCardIcon,
   verification: Shield01Icon,
   payments: Wallet01Icon,
 } as const;

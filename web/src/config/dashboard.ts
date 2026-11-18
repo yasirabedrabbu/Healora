@@ -17,6 +17,9 @@ export type PortalNavKey =
   | "orders"
   | "dispense"
   | "ambulance"
+  | "assistant"
+  | "map"
+  | "emergencyCard"
   | "verification"
   | "payments";
 
@@ -29,8 +32,14 @@ export const patientNav: PortalNavItem[] = [
   { key: "dashboard", href: "/dashboard" },
   { key: "records", href: "/records" },
   { key: "prescriptions", href: "/prescriptions" },
+  { key: "assistant", href: "/assistant" },
+  { key: "labBooking", href: "/lab/booking" },
+  { key: "orders", href: "/pharmacy/orders" },
+  { key: "map", href: "/map" },
+  { key: "ambulance", href: "/ambulance" },
   { key: "blood", href: "/blood" },
   { key: "family", href: "/family" },
+  { key: "emergencyCard", href: "/emergency-card" },
 ];
 
 export const doctorNav: PortalNavItem[] = [
