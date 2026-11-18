@@ -4,26 +4,27 @@ import { Input } from "@/components/ui/Input";
 import { toast } from "@/components/ui/Toast";
 import { HugeiconsIcon, CheckmarkCircle01Icon } from "@/components/icons";
 import { useI18n } from "@/lib/i18n";
-import { patientProfile } from "@/lib/data/patient";
 import type { SettingsCopy } from "@/messages/copy/settings";
-import type { NotifyState, PrivacyState } from "./settings-view";
+import type { NotifyState, PrivacyState, ProfileState } from "./settings-view";
 import { SaveRow, SettingsCard, ToggleRow } from "./controls";
 
-export function ProfilePanel({ c, onSave }: { c: SettingsCopy; onSave: () => void }) {
+export function ProfilePanel({ c, profile, setProfile, loading, onSave }: {
+  c: SettingsCopy; profile: ProfileState; setProfile: (value: ProfileState) => void; loading: boolean; onSave: () => void;
+}) {
   const { locale, setLocale } = useI18n();
 
   return (
     <div className="grid gap-4 lg:grid-cols-2">
       <SettingsCard title={c.profile.title} description={c.profile.description}>
         <div className="space-y-4">
-          <Input label={c.profile.fullName} defaultValue={patientProfile.name} autoComplete="name" />
-          <Input label={c.profile.phone} defaultValue="+880 17XX-XXXXXX" type="tel" autoComplete="tel" />
+          <Input label={c.profile.fullName} value={profile.name} onChange={(e) => setProfile({ ...profile, name: e.target.value })} autoComplete="name" />
+          <Input label={c.profile.bloodGroup} value={profile.bloodGroup} onChange={(e) => setProfile({ ...profile, bloodGroup: e.target.value })} />
           <div className="grid gap-4 sm:grid-cols-2">
-            <Input label={c.profile.bloodGroup} defaultValue={patientProfile.bloodGroup} readOnly />
+            <Input label={c.profile.area} value={profile.area} onChange={(e) => setProfile({ ...profile, area: e.target.value })} />
             <Input label={c.profile.accountType} defaultValue={c.profile.accountTypeValue} readOnly />
           </div>
         </div>
-        <SaveRow label={c.save} onSave={onSave} />
+        <SaveRow label={loading ? "..." : c.save} onSave={onSave} />
       </SettingsCard>
 
       <SettingsCard title={c.profile.language} description={c.profile.languageHint}>
@@ -63,11 +64,13 @@ export function NotificationsPanel({
   c,
   state,
   setState,
+  loading,
   onSave,
 }: {
   c: SettingsCopy;
   state: NotifyState;
   setState: (next: NotifyState) => void;
+  loading: boolean;
   onSave: () => void;
 }) {
   const rows = [
@@ -91,7 +94,7 @@ export function NotificationsPanel({
           />
         ))}
       </div>
-      <SaveRow label={c.save} onSave={onSave} />
+      <SaveRow label={loading ? "..." : c.save} onSave={onSave} />
     </SettingsCard>
   );
 }
@@ -100,11 +103,13 @@ export function PrivacyPanel({
   c,
   state,
   setState,
+  loading,
   onSave,
 }: {
   c: SettingsCopy;
   state: PrivacyState;
   setState: (next: PrivacyState) => void;
+  loading: boolean;
   onSave: () => void;
 }) {
   return (
@@ -124,7 +129,7 @@ export function PrivacyPanel({
             onChange={(next) => setState({ ...state, prescriptions: next })}
           />
         </div>
-        <SaveRow label={c.save} onSave={onSave} />
+        <SaveRow label={loading ? "..." : c.save} onSave={onSave} />
       </SettingsCard>
 
       <div className="space-y-4">
