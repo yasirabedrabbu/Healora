@@ -66,6 +66,27 @@ export const aiChatSchema = z.object({
   message: z.string().min(1).max(2000),
 });
 
+export const userSettingsSchema = z.object({
+  locale: z.enum(["bn", "en"]),
+  appointmentAlerts: z.boolean(),
+  refillAlerts: z.boolean(),
+  reportAlerts: z.boolean(),
+  emergencyAlerts: z.boolean(),
+  smsAlerts: z.boolean(),
+  shareRecords: z.boolean(),
+  sharePrescriptions: z.boolean(),
+});
+
+export const updateProfileSchema = z.object({
+  name: z.string().min(2).max(80),
+  bloodGroup: z.enum(["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"]).nullable(),
+  area: z.string().min(2).max(120).nullable(),
+});
+
+export const notificationReadSchema = z.object({
+  ids: z.array(z.string().min(1)).min(1).max(100),
+});
+
 /** Parse with a friendly error; returns typed data or throws 400-ready error. */
 export function parseOrThrow<T extends z.ZodTypeAny>(schema: T, data: unknown): z.infer<T> {
   const result = schema.safeParse(data);

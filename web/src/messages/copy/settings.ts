@@ -10,6 +10,7 @@ export type SettingsCopy = {
     title: string;
     description: string;
     fullName: string;
+    area: string;
     phone: string;
     bloodGroup: string;
     language: string;
@@ -73,6 +74,7 @@ const bn: SettingsCopy = {
     title: "প্রোফাইল তথ্য",
     description: "এই তথ্য ডাক্তার ও ল্যাব দেখতে পায়, তাই সঠিক রাখুন।",
     fullName: "পুরো নাম",
+    area: "এলাকা",
     phone: "মোবাইল নম্বর",
     bloodGroup: "রক্তের গ্রুপ",
     language: "ভাষা",
@@ -136,6 +138,7 @@ const en: SettingsCopy = {
     title: "Profile details",
     description: "Doctors and labs see this, so keep it accurate.",
     fullName: "Full name",
+    area: "Area",
     phone: "Mobile number",
     bloodGroup: "Blood group",
     language: "Language",

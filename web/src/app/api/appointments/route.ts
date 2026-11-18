@@ -40,14 +40,25 @@ export async function POST(req: Request) {
     });
     if (!doctor) return fail("ভেরিফায়েড ডাক্তার নয়", 403);
 
-    const appointment = await db.appointment.create({
-      data: {
-        patientId: session.userId,
-        doctorId: doctor.id,
-        slot: new Date(data.slot),
-        mode: data.mode,
-        status: "BOOKED",
-      },
+    const appointment = await db.$transaction(async (tx) => {
+      const booked = await tx.appointment.create({
+        data: {
+          patientId: session.userId,
+          doctorId: doctor.id,
+          slot: new Date(data.slot),
+          mode: data.mode,
+          status: "BOOKED",
+        },
+      });
+      await tx.notification.create({
+        data: {
+          userId: session.userId,
+          title: "অ্যাপয়েন্টমেন্ট বুক হয়েছে",
+          body: "আপনার বুকিং নিশ্চিত হয়েছে। সময়ের আগে আবার রিমাইন্ডার দেওয়া হবে।",
+          type: "appointment",
+        },
+      });
+      return booked;
     });
 
     return ok({ ok: true, appointmentId: appointment.id }, { status: 201 });

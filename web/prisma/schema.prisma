@@ -31,6 +31,8 @@ model User {
   bloodRequests    BloodRequest[]
   reportsMade      Report[]
   aiSessions       AiSession[]
+  settings         UserSettings?
+  notifications    Notification[]
 }
 
 enum Role {
@@ -341,4 +343,32 @@ model OtpCode {
   createdAt  DateTime  @default(now())
 
   @@index([phone, createdAt])
+}
+
+// ── User preferences & in-app notifications ───────────────────────
+model UserSettings {
+  userId                 String  @id
+  user                   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  locale                 String  @default("bn")
+  appointmentAlerts      Boolean @default(true)
+  refillAlerts           Boolean @default(true)
+  reportAlerts           Boolean @default(true)
+  emergencyAlerts        Boolean @default(true)
+  smsAlerts              Boolean @default(false)
+  shareRecords           Boolean @default(true)
+  sharePrescriptions     Boolean @default(true)
+  updatedAt              DateTime @updatedAt
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  body      String   @db.Text
+  type      String   @default("system")
+  readAt    DateTime?
+  createdAt DateTime @default(now())
+
+  @@index([userId, createdAt])
 }

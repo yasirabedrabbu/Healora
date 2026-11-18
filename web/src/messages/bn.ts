@@ -78,6 +78,8 @@ export const bn = {
     assistantBusy: "অনেক অনুরোধ আসছে - কিছুক্ষণ পরে আবার চেষ্টা করুন।",
     selectSlotHint: "বুকিং করতে আগে একটি সময় বেছে নিন",
     notifications: "নোটিফিকেশন",
+    markNotificationsRead: "পড়া হয়েছে",
+    noNotifications: "এখনো কোনো নোটিফিকেশন নেই।",
     supportTitle: "সাহায্য দরকার?",
     supportText: "২৪/৭ সাপোর্ট টিম আপনার পাশে আছে।",
     supportCta: "সাপোর্টে লিখুন",

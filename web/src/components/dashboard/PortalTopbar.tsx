@@ -4,10 +4,11 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
-  HugeiconsIcon, HealthIcon, Search01Icon, NotificationIcon, UserCircleIcon,
+  HugeiconsIcon, HealthIcon, Search01Icon, UserCircleIcon,
 } from "@/components/icons";
 import { LocaleToggle, ThemeToggle } from "@/components/layout/Toggles";
 import { LogoutButton } from "./LogoutButton";
+import { NotificationsMenu } from "./NotificationsMenu";
 import { useI18n } from "@/lib/i18n";
 
 /** Sticky topbar (reference dashboard): search, notifications, profile, toggles. */
@@ -52,14 +53,7 @@ export function PortalTopbar() {
       </form>
 
       <div className="flex items-center gap-2">
-        <button
-          type="button"
-          aria-label={t.ui.notifications}
-          className="relative grid h-9 w-9 place-items-center rounded-full border border-gray-200 text-gray-600 transition-colors duration-150 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-700"
-        >
-          <HugeiconsIcon icon={NotificationIcon} size={18} aria-hidden />
-          <span aria-hidden className="absolute right-2 top-2 h-2 w-2 rounded-full bg-error-500 ring-2 ring-white dark:ring-gray-800" />
-        </button>
+        <NotificationsMenu />
         <span className="hidden h-8 w-px bg-gray-200 sm:block dark:bg-gray-700" aria-hidden />
         <span className="hidden items-center gap-2 sm:flex">
           <span className="grid h-8 w-8 place-items-center rounded-full bg-brand-50 text-brand-600 dark:bg-brand-900 dark:text-brand-200">

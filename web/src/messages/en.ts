@@ -80,6 +80,8 @@ export const en: Dictionary = {
     assistantBusy: "Too many requests - please wait a moment and retry.",
     selectSlotHint: "Choose a time slot to book",
     notifications: "Notifications",
+    markNotificationsRead: "Mark read",
+    noNotifications: "No notifications yet.",
     supportTitle: "Need help?",
     supportText: "Our support team is here around the clock.",
     supportCta: "Contact support",
