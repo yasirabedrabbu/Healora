@@ -4,7 +4,7 @@ export type NotificationInput = {
   userId: string;
   title: string;
   body: string;
-  type: "appointment" | "record" | "refill" | "emergency" | "system";
+  type: "appointment" | "record" | "refill" | "emergency" | "system" | "lab" | "pharmacy" | "ambulance" | "queue";
 };
 
 /**

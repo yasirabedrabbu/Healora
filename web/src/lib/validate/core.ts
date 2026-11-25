@@ -41,6 +41,25 @@ export const appointmentSchema = z.object({
   mode: z.enum(["video", "audio", "chat", "chamber"]),
 });
 
+const timeSchema = z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/, "সময় HH:MM ফরম্যাটে দিন");
+export const scheduleItemSchema = z.object({
+  weekday: z.number().int().min(0).max(6),
+  startAt: timeSchema,
+  endAt: timeSchema,
+  mode: z.enum(["video", "audio", "chat", "chamber"]),
+}).refine((item) => item.startAt < item.endAt, {
+  message: "শেষ সময় শুরু সময়ের পরে হতে হবে",
+  path: ["endAt"],
+});
+
+export const scheduleSchema = z.object({
+  slots: z.array(scheduleItemSchema).max(50),
+});
+
+export const appointmentCancelSchema = z.object({
+  reason: z.string().trim().max(300).optional(),
+});
+
 export const prescriptionItemSchema = z.object({
   medicineId: z.string().min(1),
   dose: z.string().min(1).max(60),
@@ -59,6 +78,13 @@ export const bloodRequestSchema = z.object({
   hospitalId: z.string().optional(),
   urgency: z.enum(["routine", "urgent", "critical"]),
   note: z.string().max(500).optional(),
+});
+
+export const bloodDonorSchema = z.object({
+  bloodGroup: z.enum(["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"]),
+  areaLat: z.number().min(-90).max(90),
+  areaLng: z.number().min(-180).max(180),
+  lastDonatedAt: z.string().datetime().nullable().optional(),
 });
 
 export const aiChatSchema = z.object({

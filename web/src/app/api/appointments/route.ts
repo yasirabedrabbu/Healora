@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { requireSession } from "@/lib/auth";
+import { requireRole, requireSession } from "@/lib/auth";
 import { appointmentSchema, parseOrThrow } from "@/lib/validate";
 import { handleRoute, ok, fail } from "@/lib/security";
 import { rateLimit, limitKey } from "@/lib/rate-limit";
@@ -30,22 +30,31 @@ export async function GET() {
 /** POST /api/appointments - book a verified doctor slot. */
 export async function POST(req: Request) {
   return handleRoute(async () => {
-    const session = await requireSession();
+    const session = await requireRole("PATIENT");
     const rl = rateLimit(`book:${limitKey(req, session.userId)}`, 20, 60 * 60 * 1000);
     if (!rl.ok) return fail("অনেক বেশি বুকিং চেষ্টা", 429);
 
     const data = parseOrThrow(appointmentSchema, await req.json());
+    const slot = new Date(data.slot);
+    if (slot <= new Date()) return fail("অতীতের সময় বুক করা যায় না", 400);
     const doctor = await db.doctor.findFirst({
       where: { id: data.doctorId, verifiedStatus: "APPROVED" },
     });
     if (!doctor) return fail("ভেরিফায়েড ডাক্তার নয়", 403);
+
+    const schedules = await db.schedule.findMany({
+      where: { doctorId: doctor.id, weekday: slot.getUTCDay(), mode: data.mode },
+    });
+    if (!schedules.some((item) => isWithinSchedule(slot, item.startAt, item.endAt))) {
+      return fail("এই সময়ের স্লট পাওয়া যাচ্ছে না", 409);
+    }
 
     const appointment = await db.$transaction(async (tx) => {
       const booked = await tx.appointment.create({
         data: {
           patientId: session.userId,
           doctorId: doctor.id,
-          slot: new Date(data.slot),
+          slot,
           mode: data.mode,
           status: "BOOKED",
         },
@@ -63,4 +72,9 @@ export async function POST(req: Request) {
 
     return ok({ ok: true, appointmentId: appointment.id }, { status: 201 });
   });
+}
+
+function isWithinSchedule(slot: Date, startAt: string, endAt: string) {
+  const time = `${String(slot.getUTCHours()).padStart(2, "0")}:${String(slot.getUTCMinutes()).padStart(2, "0")}`;
+  return time >= startAt && time < endAt;
 }

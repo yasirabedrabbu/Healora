@@ -20,19 +20,31 @@ model User {
   area      String?
   createdAt DateTime @default(now())
 
-  doctor           Doctor?
-  patientRecords   MedicalRecord[]
-  recordSharesGiven RecordShare[]
-  accessLogs       AccessLog[]
-  appointments     Appointment[]       @relation("PatientAppointments")
-  prescriptionsIssued   Prescription[] @relation("IssuedPrescriptions")
-  prescriptionsReceived Prescription[] @relation("ReceivedPrescriptions")
-  bloodDonor       BloodDonor?
-  bloodRequests    BloodRequest[]
-  reportsMade      Report[]
-  aiSessions       AiSession[]
-  settings         UserSettings?
-  notifications    Notification[]
+  doctor              Doctor?
+  patientRecords      MedicalRecord[]
+  recordSharesGiven   RecordShare[]
+  accessLogs          AccessLog[]
+  appointments        Appointment[]        @relation("PatientAppointments")
+  prescriptionsIssued Prescription[]       @relation("IssuedPrescriptions")
+  prescriptionsReceived Prescription[]     @relation("ReceivedPrescriptions")
+  bloodDonor          BloodDonor?
+  bloodRequests       BloodRequest[]
+  reportsMade         Report[]
+  aiSessions          AiSession[]
+  settings            UserSettings?
+  notifications       Notification[]
+  familyMembers       FamilyMember[]       @relation("FamilyPatient")
+  linkedFamilyMember  FamilyMember?        @relation("FamilyLinkedUser")
+  labBookings         LabBooking[]
+  pharmacyOrders      PharmacyOrder[]
+  ambulanceBookings   AmbulanceBooking[]
+  queueTickets        QueueTicket[]        @relation("PatientQueueTickets")
+  consultationMessages ConsultationMessage[]
+  refillRequests      RefillRequest[]
+  pushTokens          PushToken[]
+  ownedHospital       Hospital?            @relation("HospitalOwner")
+  ownedLab            Lab?                 @relation("LabOwner")
+  ownedPharmacy       Pharmacy?            @relation("PharmacyOwner")
 }
 
 enum Role {
@@ -60,9 +72,10 @@ model Doctor {
   nextSlot       String?
   verifiedAt     DateTime?
 
-  documents   DoctorDocument[]
-  appointments Appointment[]   @relation("DoctorAppointments")
-  schedules   Schedule[]
+  documents      DoctorDocument[]
+  appointments   Appointment[]   @relation("DoctorAppointments")
+  schedules      Schedule[]
+  queueTickets   QueueTicket[]
 }
 
 enum VerifiedStatus {
@@ -89,8 +102,12 @@ model Hospital {
   lng            Decimal        @db.Decimal(9, 6)
   licenseNo      String         @unique
   verifiedStatus VerifiedStatus @default(PENDING)
+  ownerId        String?        @unique
+  owner          User?          @relation("HospitalOwner", fields: [ownerId], references: [id])
 
-  beds HospitalBed[]
+  beds         HospitalBed[]
+  ambulances   Ambulance[]
+  queueTickets QueueTicket[]
 }
 
 model HospitalBed {
@@ -108,19 +125,31 @@ model HospitalBed {
 model Lab {
   id             String         @id @default(cuid())
   name           String
+  address        String?
   lat            Decimal        @db.Decimal(9, 6)
   lng            Decimal        @db.Decimal(9, 6)
   licenseNo      String         @unique
   verifiedStatus VerifiedStatus @default(PENDING)
+  ownerId        String?        @unique
+  owner          User?          @relation("LabOwner", fields: [ownerId], references: [id])
+
+  tests    LabTest[]
+  bookings LabBooking[]
 }
 
 model Pharmacy {
   id             String         @id @default(cuid())
   name           String
+  address        String?
   lat            Decimal        @db.Decimal(9, 6)
   lng            Decimal        @db.Decimal(9, 6)
   dgdaNo         String         @unique
   verifiedStatus VerifiedStatus @default(PENDING)
+  ownerId        String?        @unique
+  owner          User?          @relation("PharmacyOwner", fields: [ownerId], references: [id])
+
+  orders          PharmacyOrder[]
+  refillRequests  RefillRequest[]
 }
 
 // ── Appointments & consultations ─────────────────────────────────
@@ -139,6 +168,8 @@ model Appointment {
   consultation Consultation?
   payment      Payment?
   review       Review?
+
+  @@unique([doctorId, slot])
 }
 
 enum AppointmentStatus {
@@ -155,6 +186,7 @@ model Consultation {
   startedAt     DateTime?
   endedAt       DateTime?
   notes         String?     @db.Text
+  messages      ConsultationMessage[]
 }
 
 // ── Prescriptions ─────────────────────────────────────────────────
@@ -171,7 +203,9 @@ model Prescription {
   status         PrescriptionStatus @default(ACTIVE)
   createdAt      DateTime @default(now())
 
-  items PrescriptionItem[]
+  items          PrescriptionItem[]
+  pharmacyOrder  PharmacyOrder?
+  refillRequests RefillRequest[]
 }
 
 enum PrescriptionStatus {
@@ -330,6 +364,8 @@ model Schedule {
   startAt  String // "10:00"
   endAt    String
   mode     String
+
+  @@index([doctorId, weekday])
 }
 
 // ── OTP codes (hashed, short-lived, single-use) ───────────────────
@@ -371,4 +407,271 @@ model Notification {
   createdAt DateTime @default(now())
 
   @@index([userId, createdAt])
+}
+
+// ── Family profiles ─────────────────────────────────────────────────
+model FamilyMember {
+  id             String   @id @default(cuid())
+  patientId      String
+  patient        User     @relation("FamilyPatient", fields: [patientId], references: [id], onDelete: Cascade)
+  name           String
+  bloodGroup     String?
+  dateOfBirth    DateTime?
+  relationship   String   // spouse | child | parent | other
+  hasOwnLogin    Boolean  @default(false)
+  linkedUserId   String?  @unique
+  linkedUser     User?    @relation("FamilyLinkedUser", fields: [linkedUserId], references: [id])
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([patientId])
+}
+
+// ── Lab tests & bookings ────────────────────────────────────────────
+model LabTest {
+  id          String   @id @default(cuid())
+  labId       String
+  lab         Lab      @relation(fields: [labId], references: [id])
+  name        String
+  description String?  @db.Text
+  price       Int
+  duration    String   // e.g., "15 min"
+  requiresFasting Boolean @default(false)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([labId])
+}
+
+model LabBooking {
+  id             String         @id @default(cuid())
+  patientId      String
+  patient        User           @relation(fields: [patientId], references: [id])
+  labId          String
+  lab            Lab            @relation(fields: [labId], references: [id])
+  testIds        String[]
+  slot           DateTime
+  status         LabBookingStatus @default(BOOKED)
+  homeCollection Boolean        @default(false)
+  address        String?
+  lat            Decimal?       @db.Decimal(9, 6)
+  lng            Decimal?       @db.Decimal(9, 6)
+  totalPrice     Int
+  paymentId      String?        @unique
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  report         LabReport?
+
+  @@index([patientId])
+  @@index([labId])
+}
+
+enum LabBookingStatus {
+  BOOKED
+  SAMPLE_COLLECTED
+  PROCESSING
+  COMPLETED
+  CANCELLED
+}
+
+model LabReport {
+  id            String   @id @default(cuid())
+  bookingId     String   @unique
+  booking       LabBooking @relation(fields: [bookingId], references: [id])
+  fileUrl       String
+  aiSummary     String?  @db.Text
+  uploadedBy    String
+  uploadedAt    DateTime @default(now())
+}
+
+// ── Pharmacy orders & dispense ──────────────────────────────────────
+model PharmacyOrder {
+  id             String             @id @default(cuid())
+  prescriptionId String             @unique
+  prescription   Prescription       @relation(fields: [prescriptionId], references: [id])
+  pharmacyId     String
+  pharmacy       Pharmacy           @relation(fields: [pharmacyId], references: [id])
+  patientId      String
+  patient        User               @relation(fields: [patientId], references: [id])
+  status         PharmacyOrderStatus @default(RECEIVED)
+  notes          String?            @db.Text
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+  dispenseLogs   PharmacyDispenseLog[]
+
+  @@index([pharmacyId])
+  @@index([patientId])
+}
+
+enum PharmacyOrderStatus {
+  RECEIVED
+  VERIFIED
+  PREPARING
+  READY_FOR_PICKUP
+  DISPENSED
+  CANCELLED
+}
+
+model PharmacyDispenseLog {
+  id           String   @id @default(cuid())
+  orderId      String
+  order        PharmacyOrder @relation(fields: [orderId], references: [id])
+  itemId       String
+  quantity     Int
+  dispensedBy  String
+  dispensedAt  DateTime @default(now())
+}
+
+// ── Ambulance ───────────────────────────────────────────────────────
+model Ambulance {
+  id             String         @id @default(cuid())
+  hospitalId     String
+  hospital       Hospital       @relation(fields: [hospitalId], references: [id])
+  vehicleNumber  String         @unique
+  type           String         // BLS | ALS | ICU
+  status         AmbulanceStatus @default(AVAILABLE)
+  currentLat     Decimal?       @db.Decimal(9, 6)
+  currentLng     Decimal?       @db.Decimal(9, 6)
+  driverName     String?
+  driverPhone    String?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  bookings       AmbulanceBooking[]
+
+  @@index([hospitalId])
+}
+
+enum AmbulanceStatus {
+  AVAILABLE
+  ON_DUTY
+  MAINTENANCE
+  OFFLINE
+}
+
+model AmbulanceBooking {
+  id            String               @id @default(cuid())
+  patientId     String
+  patient       User                 @relation(fields: [patientId], references: [id])
+  ambulanceId   String?
+  ambulance     Ambulance?           @relation(fields: [ambulanceId], references: [id])
+  pickupLat     Decimal              @db.Decimal(9, 6)
+  pickupLng     Decimal              @db.Decimal(9, 6)
+  dropoffLat    Decimal              @db.Decimal(9, 6)
+  dropoffLng    Decimal              @db.Decimal(9, 6)
+  pickupAddress String
+  dropoffAddress String
+  urgency       String               // routine | urgent | critical
+  status        AmbulanceBookingStatus @default(REQUESTED)
+  assignedAt    DateTime?
+  pickedUpAt    DateTime?
+  completedAt   DateTime?
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
+
+  @@index([patientId])
+  @@index([ambulanceId])
+}
+
+enum AmbulanceBookingStatus {
+  REQUESTED
+  ASSIGNED
+  EN_ROUTE_PICKUP
+  PICKED_UP
+  EN_ROUTE_DROPOFF
+  COMPLETED
+  CANCELLED
+}
+
+// ── Hospital queue (realtime) ───────────────────────────────────────
+model QueueTicket {
+  id            String        @id @default(cuid())
+  hospitalId    String
+  hospital      Hospital      @relation(fields: [hospitalId], references: [id])
+  patientId     String
+  patient       User          @relation("PatientQueueTickets", fields: [patientId], references: [id])
+  doctorId      String?
+  doctor        Doctor?       @relation(fields: [doctorId], references: [id])
+  serialNumber  Int
+  status        QueueStatus   @default(WAITING)
+  calledAt      DateTime?
+  completedAt   DateTime?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@unique([hospitalId, serialNumber])
+  @@index([hospitalId, status])
+}
+
+enum QueueStatus {
+  WAITING
+  CALLED
+  IN_PROGRESS
+  COMPLETED
+  NO_SHOW
+  CANCELLED
+}
+
+// ── Consultation messages (chat during consultation) ────────────────
+model ConsultationMessage {
+  id             String   @id @default(cuid())
+  consultationId String
+  consultation   Consultation @relation(fields: [consultationId], references: [id])
+  senderId       String
+  sender         User     @relation(fields: [senderId], references: [id])
+  content        String   @db.Text
+  type           String   @default("text") // text | image | file | system
+  createdAt      DateTime @default(now())
+
+  @@index([consultationId])
+}
+
+// ── Prescription refill requests ────────────────────────────────────
+model RefillRequest {
+  id             String           @id @default(cuid())
+  prescriptionId String
+  prescription   Prescription     @relation(fields: [prescriptionId], references: [id])
+  patientId      String
+  patient        User             @relation(fields: [patientId], references: [id])
+  pharmacyId     String?
+  pharmacy       Pharmacy?        @relation(fields: [pharmacyId], references: [id])
+  status         RefillStatus     @default(PENDING)
+  notes          String?          @db.Text
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  @@index([patientId])
+  @@index([prescriptionId])
+}
+
+enum RefillStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  FULFILLED
+}
+
+// ── Push notification tokens (FCM/APNs) ─────────────────────────────
+model PushToken {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token     String   @unique
+  platform  String   // ios | android | web
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+// ── Contact messages ────────────────────────────────────────────────
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String
+  message   String   @db.Text
+  status    String   @default("new")
+  createdAt DateTime @default(now())
 }

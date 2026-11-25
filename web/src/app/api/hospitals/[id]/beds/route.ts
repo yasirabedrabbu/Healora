@@ -3,6 +3,7 @@ import { requireRole } from "@/lib/auth";
 import { z } from "zod";
 import { parseOrThrow } from "@/lib/validate";
 import { handleRoute, ok, fail } from "@/lib/security";
+import { ownedHospitalId } from "@/lib/facility";
 
 export const instant = false;
 
@@ -37,8 +38,12 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   return handleRoute(async () => {
-    await requireRole("HOSPITAL", "ADMIN");
+    const session = await requireRole("HOSPITAL", "ADMIN");
     const { id } = await params;
+    if (session.role === "HOSPITAL") {
+      const hospitalId = await ownedHospitalId(session.userId);
+      if (!hospitalId || hospitalId !== id) return fail("অনুমতি নেই", 403);
+    }
     const data = parseOrThrow(bedsSchema, await req.json());
 
     if (data.beds.some((b) => b.available > b.total)) {

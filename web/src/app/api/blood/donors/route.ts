@@ -1,4 +1,6 @@
 import { db } from "@/lib/db";
+import { requireSession } from "@/lib/auth";
+import { bloodDonorSchema, parseOrThrow } from "@/lib/validate";
 import { handleRoute, ok, fail } from "@/lib/security";
 
 export const instant = false;
@@ -29,5 +31,45 @@ export async function GET(req: Request) {
         contactHidden: true,
       })),
     });
+  });
+}
+
+/**
+ * POST /api/blood/donors - enroll or update the caller's donor card.
+ * The account is already OTP-verified, so the donor is marked verified;
+ * admin review can still suspend a donor later.
+ */
+export async function POST(req: Request) {
+  return handleRoute(async () => {
+    const session = await requireSession();
+    const data = parseOrThrow(bloodDonorSchema, await req.json());
+
+    const donor = await db.bloodDonor.upsert({
+      where: { userId: session.userId },
+      create: {
+        userId: session.userId,
+        bloodGroup: data.bloodGroup,
+        areaLat: String(data.areaLat),
+        areaLng: String(data.areaLng),
+        lastDonatedAt: data.lastDonatedAt ? new Date(data.lastDonatedAt) : null,
+        verified: true,
+      },
+      update: {
+        bloodGroup: data.bloodGroup,
+        areaLat: String(data.areaLat),
+        areaLng: String(data.areaLng),
+        ...(data.lastDonatedAt !== undefined
+          ? { lastDonatedAt: data.lastDonatedAt ? new Date(data.lastDonatedAt) : null }
+          : {}),
+      },
+      select: { id: true, bloodGroup: true, verified: true, lastDonatedAt: true },
+    });
+
+    await db.user.update({
+      where: { id: session.userId },
+      data: { bloodGroup: data.bloodGroup },
+    });
+
+    return ok({ donor }, { status: 201 });
   });
 }

@@ -1,10 +1,10 @@
 import path from "node:path";
 
 /**
- * Prisma 7 config: connection URLs live here, not in the schema file.
+ * Prisma config: connection URLs live here, not in the schema file.
  * Loaded by the CLI (generate/migrate) and can be re-used by runtime tooling.
  *
- * Neon best practice (per neon-postgres skill):
+ * Neon best practice:
  * - Runtime app traffic uses the POOLED url (DATABASE_URL, PgBouncer, -pooler host).
  * - Migrations need SESSION-level state → use the DIRECT url
  *   (DATABASE_URL_UNPOOLED, no -pooler) or Prisma Migrate breaks with

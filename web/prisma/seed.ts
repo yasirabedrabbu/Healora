@@ -71,6 +71,70 @@ async function main() {
     update: {},
   });
 
+  const hospitalOwner = await db.user.upsert({
+    where: { phone: "01744444444" },
+    create: { phone: "01744444444", name: "হাসপাতাল অ্যাডমিন", role: "HOSPITAL" },
+    update: { role: "HOSPITAL" },
+  });
+  await db.hospital.update({
+    where: { licenseNo: "DH-12345" },
+    data: { ownerId: hospitalOwner.id },
+  });
+
+  await db.ambulance.upsert({
+    where: { vehicleNumber: "DM-11-1234" },
+    create: {
+      hospitalId: hospital.id, vehicleNumber: "DM-11-1234", type: "BLS",
+      driverName: "করিম মিয়া", driverPhone: "01755555555",
+      currentLat: 23.7806, currentLng: 90.4193,
+    },
+    update: {},
+  });
+
+  const labOwner = await db.user.upsert({
+    where: { phone: "01766666666" },
+    create: { phone: "01766666666", name: "ল্যাব অ্যাডমিন", role: "LAB" },
+    update: { role: "LAB" },
+  });
+  const lab = await db.lab.upsert({
+    where: { licenseNo: "LAB-001" },
+    create: {
+      name: "হিলোরা ডায়াগনস্টিক", address: "ধানমন্ডি, ঢাকা",
+      lat: 23.7461, lng: 90.3742, licenseNo: "LAB-001",
+      verifiedStatus: "APPROVED", ownerId: labOwner.id,
+    },
+    update: { ownerId: labOwner.id },
+  });
+  for (const test of [
+    { id: "test-cbc", name: "CBC (রক্তের সাধারণ পরীক্ষা)", price: 400, duration: "15 min" },
+    { id: "test-sugar", name: "রক্তের সুগার (ফাস্টিং)", price: 200, duration: "10 min" },
+    { id: "test-lipid", name: "লিপিড প্রোফাইল", price: 900, duration: "20 min" },
+  ]) {
+    await db.labTest.upsert({
+      where: { id: test.id },
+      create: {
+        id: test.id, labId: lab.id, name: test.name, price: test.price,
+        duration: test.duration, requiresFasting: test.id === "test-sugar",
+      },
+      update: { labId: lab.id },
+    });
+  }
+
+  const pharmacyOwner = await db.user.upsert({
+    where: { phone: "01777777777" },
+    create: { phone: "01777777777", name: "ফার্মেসি অ্যাডমিন", role: "PHARMACY" },
+    update: { role: "PHARMACY" },
+  });
+  await db.pharmacy.upsert({
+    where: { dgdaNo: "DGDA-001" },
+    create: {
+      name: "হিলোরা ফার্মেসি", address: "মিরপুর রোড, ঢাকা",
+      lat: 23.7806, lng: 90.4193, dgdaNo: "DGDA-001",
+      verifiedStatus: "APPROVED", ownerId: pharmacyOwner.id,
+    },
+    update: { ownerId: pharmacyOwner.id },
+  });
+
   const medicines = await Promise.all(
     [
       ["নাপা এক্সট্রা", "Paracetamol + Caffeine", "500mg+65mg", "tablet"],

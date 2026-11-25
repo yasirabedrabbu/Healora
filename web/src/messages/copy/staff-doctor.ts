@@ -21,7 +21,7 @@ type DoctorDashboardCopy = {
   emptyText: string;
   firstVisit: string;
   followUp: string;
-  modes: Record<"video" | "audio" | "chamber", string>;
+  modes: Record<"video" | "audio" | "chat" | "chamber", string>;
 };
 
 type DoctorPatientsCopy = {
@@ -57,7 +57,7 @@ const bn: StaffDoctorCopy = {
     emptyText: "নতুন বুকিং এলে এখানে দেখা যাবে।",
     firstVisit: "প্রথম ভিজিট",
     followUp: "ফলো-আপ",
-    modes: { video: "ভিডিও", audio: "অডিও", chamber: "চেম্বার" },
+    modes: { video: "ভিডিও", audio: "অডিও", chat: "চ্যাট", chamber: "চেম্বার" },
   },
   doctorPatients: {
     title: "রোগীর তালিকা",
@@ -88,7 +88,7 @@ const en: StaffDoctorCopy = {
     emptyText: "New bookings will appear here.",
     firstVisit: "First visit",
     followUp: "Follow-up",
-    modes: { video: "Video", audio: "Audio", chamber: "Chamber" },
+    modes: { video: "Video", audio: "Audio", chat: "Chat", chamber: "Chamber" },
   },
   doctorPatients: {
     title: "Patient list",

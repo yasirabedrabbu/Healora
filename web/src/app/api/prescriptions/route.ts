@@ -1,12 +1,37 @@
 import { createHmac, randomBytes } from "node:crypto";
 import { db } from "@/lib/db";
-import { requireRole } from "@/lib/auth";
+import { requireRole, requireSession } from "@/lib/auth";
 import { prescriptionSchema, parseOrThrow } from "@/lib/validate";
 import { handleRoute, ok, fail } from "@/lib/security";
 
 export const instant = false;
 
 const hashSecret = process.env.AUTH_SECRET ?? "dev-only-secret-change-me";
+
+/** GET /api/prescriptions - caller's prescriptions (role-scoped). */
+export async function GET() {
+  return handleRoute(async () => {
+    const session = await requireSession();
+    if (session.role === "ADMIN") return fail("মেডিকেল কনটেন্টে অ্যাডমিনের অ্যাক্সেস নেই", 403);
+
+    const where =
+      session.role === "DOCTOR"
+        ? { doctorId: session.userId }
+        : { patientId: session.userId };
+
+    const prescriptions = await db.prescription.findMany({
+      where,
+      include: {
+        items: { include: { medicine: true } },
+        doctor: { select: { name: true, doctor: { select: { specialty: true } } } },
+        patient: { select: { name: true } },
+      },
+      orderBy: { createdAt: "desc" },
+      take: 100,
+    });
+    return ok({ prescriptions });
+  });
+}
 
 /**
  * POST /api/prescriptions - doctors only (Handoff §9/§10).

@@ -35,9 +35,9 @@ type DoctorScheduleCopy = {
   deleteSlot: string;
   delete: string;
   addSlot: string;
-  newSlot: { day: number; start: string; end: string; mode: "video" | "audio" | "chamber" };
+  newSlot: { weekday: number; startAt: string; endAt: string; mode: "video" | "audio" | "chat" | "chamber" };
   toastSaved: string;
-  modes: Record<"video" | "audio" | "chamber", string>;
+  modes: Record<"video" | "audio" | "chat" | "chamber", string>;
   footnote: string;
 };
 
@@ -95,9 +95,9 @@ const bn: StaffClinicalCopy = {
     deleteSlot: "স্লট মুছুন",
     delete: "মুছুন",
     addSlot: "নতুন স্লট",
-    newSlot: { day: 4, start: "10:00", end: "12:00", mode: "video" },
+    newSlot: { weekday: 4, startAt: "10:00", endAt: "12:00", mode: "video" },
     toastSaved: "শিডিউল সেভ হয়েছে · রোগীরা এখন এই স্লটে বুক করতে পারবে।",
-    modes: { video: "ভিডিও", audio: "অডিও", chamber: "চেম্বার" },
+    modes: { video: "ভিডিও", audio: "অডিও", chat: "চ্যাট", chamber: "চেম্বার" },
     footnote: "BMDC টেলিমেডিসিন গাইডলাইন অনুযায়ী টেলিফোনে যে ওষুধ দেওয়া যাবে না, সেই সীমা সিস্টেম মেনে চলে (§9)।",
   },
   doctorEarnings: {
@@ -149,9 +149,9 @@ const en: StaffClinicalCopy = {
     deleteSlot: "Delete slot",
     delete: "Delete",
     addSlot: "New slot",
-    newSlot: { day: 4, start: "10:00", end: "12:00", mode: "video" },
+    newSlot: { weekday: 4, startAt: "10:00", endAt: "12:00", mode: "video" },
     toastSaved: "Schedule saved · patients can now book these slots.",
-    modes: { video: "Video", audio: "Audio", chamber: "Chamber" },
+    modes: { video: "Video", audio: "Audio", chat: "Chat", chamber: "Chamber" },
     footnote: "The system enforces the BMDC telemedicine guideline (§9) limit on medicines that cannot be prescribed by phone.",
   },
   doctorEarnings: {
