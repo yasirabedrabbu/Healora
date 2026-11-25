@@ -24,6 +24,9 @@
 .DS_Store
 *.pem
 
+# encrypted upload vault (local driver)
+/.uploads/
+
 # debug
 npm-debug.log*
 yarn-debug.log*

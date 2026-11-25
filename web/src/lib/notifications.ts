@@ -5,6 +5,7 @@ export type NotificationInput = {
   title: string;
   body: string;
   type: "appointment" | "record" | "refill" | "emergency" | "system" | "lab" | "pharmacy" | "ambulance" | "queue";
+  dedupeKey?: string;
 };
 
 /**
