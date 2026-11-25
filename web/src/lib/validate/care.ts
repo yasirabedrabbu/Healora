@@ -11,11 +11,18 @@ export const bloodGroupSchema = z.enum([
 const latSchema = z.number().min(-90).max(90);
 const lngSchema = z.number().min(-180).max(180);
 
+/** Accepts a date-only input or an ISO timestamp; must parse to a real date. */
+const dateSchema = z
+  .string()
+  .min(4)
+  .max(40)
+  .refine((value) => !Number.isNaN(Date.parse(value)), "সঠিক তারিখ দিন");
+
 /* ── Family profiles ─────────────────────────────────────────────── */
 export const familyMemberSchema = z.object({
   name: z.string().trim().min(2).max(80),
   bloodGroup: bloodGroupSchema.nullable().optional(),
-  dateOfBirth: z.string().datetime().nullable().optional(),
+  dateOfBirth: dateSchema.nullable().optional(),
   relationship: z.enum(["spouse", "child", "parent", "other"]),
   hasOwnLogin: z.boolean().default(false),
   linkedUserId: z.string().min(1).nullable().optional(),

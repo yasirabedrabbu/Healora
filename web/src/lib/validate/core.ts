@@ -84,7 +84,13 @@ export const bloodDonorSchema = z.object({
   bloodGroup: z.enum(["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"]),
   areaLat: z.number().min(-90).max(90),
   areaLng: z.number().min(-180).max(180),
-  lastDonatedAt: z.string().datetime().nullable().optional(),
+  lastDonatedAt: z
+    .string()
+    .min(4)
+    .max(40)
+    .refine((value) => !Number.isNaN(Date.parse(value)), "সঠিক তারিখ দিন")
+    .nullable()
+    .optional(),
 });
 
 export const aiChatSchema = z.object({
