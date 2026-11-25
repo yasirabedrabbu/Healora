@@ -1,5 +1,5 @@
 import { createCipheriv, createDecipheriv, randomBytes, randomUUID, scryptSync } from "node:crypto";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile as readFileFromDisk, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { authSecret } from "@/lib/env";
 
@@ -91,7 +91,7 @@ export async function readFile(key: string): Promise<{
 
   let raw: string;
   try {
-    raw = await readFile(path.join(vaultDir(), `${key}.json`), "utf8");
+    raw = await readFileFromDisk(path.join(vaultDir(), `${key}.json`), "utf8");
   } catch {
     throw httpError("ফাইল পাওয়া যায়নি", 404);
   }
