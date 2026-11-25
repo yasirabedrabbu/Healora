@@ -26,6 +26,10 @@ export async function PATCH(
     }
     await db.$transaction([
       db.appointment.update({ where: { id }, data: { status: "CANCELLED" } }),
+      db.payment.updateMany({
+        where: { appointmentId: id, status: "HOLD" },
+        data: { status: "REFUNDED" },
+      }),
       db.notification.create({
         data: {
           userId: appointment.patientId,

@@ -49,6 +49,12 @@ export async function POST(req: Request) {
       return fail("এই সময়ের স্লট পাওয়া যাচ্ছে না", 409);
     }
 
+    const conflict = await db.appointment.findFirst({
+      where: { doctorId: doctor.id, slot, status: "BOOKED" },
+      select: { id: true },
+    });
+    if (conflict) return fail("এই স্লট আগেই বুক করা হয়েছে", 409);
+
     const appointment = await db.$transaction(async (tx) => {
       const booked = await tx.appointment.create({
         data: {

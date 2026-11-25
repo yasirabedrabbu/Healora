@@ -169,7 +169,7 @@ model Appointment {
   payment      Payment?
   review       Review?
 
-  @@unique([doctorId, slot])
+  @@index([doctorId, slot])
 }
 
 enum AppointmentStatus {
