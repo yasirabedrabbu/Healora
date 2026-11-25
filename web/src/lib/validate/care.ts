@@ -142,6 +142,24 @@ export const refillStatusSchema = z.object({
   status: z.enum(["APPROVED", "REJECTED", "FULFILLED"]),
 });
 
+/* ── Reviews & reports ───────────────────────────────────────────── */
+export const reviewSchema = z.object({
+  appointmentId: z.string().min(1),
+  rating: z.number().int().min(1).max(5),
+  text: z.string().trim().max(600).optional(),
+});
+
+export const reportSchema = z.object({
+  targetType: z.enum(["doctor", "pharmacy", "user"]),
+  targetId: z.string().min(1),
+  reason: z.string().trim().min(10).max(1000),
+});
+
+export const reportDecisionSchema = z.object({
+  reportId: z.string().min(1),
+  status: z.enum(["reviewed", "dismissed"]),
+});
+
 /* ── Facility self-registration ──────────────────────────────────── */
 export const facilityRegisterSchema = z.object({
   kind: z.enum(["HOSPITAL", "LAB", "PHARMACY"]),
