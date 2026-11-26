@@ -275,6 +275,7 @@ model Payment {
   appointment   Appointment @relation(fields: [appointmentId], references: [id])
   amount        Int
   gateway       String // bkash | nagad | card
+  gatewayRef    String?
   status        PaymentStatus @default(HOLD)
   releasedAt    DateTime?
 }

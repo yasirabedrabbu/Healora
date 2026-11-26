@@ -7,6 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "db:generate": "node node_modules/@prisma/prisma7/build/prisma7.js generate",
+    "db:deploy": "node node_modules/@prisma/prisma7/build/prisma7.js migrate deploy",
+    "db:seed": "tsx prisma/seed.ts",
     "postinstall": "node node_modules/@prisma/prisma7/build/prisma7.js generate"
   },
   "dependencies": {

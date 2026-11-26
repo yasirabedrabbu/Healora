@@ -1,4 +1,5 @@
 import { db } from "@/lib/db";
+import { pushToUser } from "@/lib/push";
 
 export type NotificationInput = {
   userId: string;
@@ -10,9 +11,13 @@ export type NotificationInput = {
 
 /**
  * Internal notification writer. Domain services call this after a successful
- * transaction; channel delivery remains opt-in until an SMS/email provider is
- * configured, while the in-app copy is always persisted.
+ * transaction; channel delivery is opt-in (FCM when configured), while the
+ * in-app copy is always persisted.
  */
 export async function createNotification(input: NotificationInput) {
-  return db.notification.create({ data: input });
+  const notification = await db.notification.create({ data: input });
+  void pushToUser(input.userId, input.title, input.body, { type: input.type }).catch(
+    () => undefined
+  );
+  return notification;
 }

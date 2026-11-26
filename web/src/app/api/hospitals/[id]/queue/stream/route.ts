@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { handleRoute, ok } from "@/lib/security";
+import { handleRoute } from "@/lib/security";
 import { ownedHospitalId } from "@/lib/facility";
 import { getSession } from "@/lib/auth";
 
